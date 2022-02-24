@@ -10,24 +10,8 @@ let idStep = 1;
 
  if (isLoading) return "Loading"
 
- else
+ else return data
 
- return ( 
- 
- <div>
-  <h2>liste des markers</h2>
-  <ul>
- 
-   {data.response.map(marker => (
- 
-     <li key={marker.id}>{marker.title} : {marker.latitude},{marker.longitude}</li>
- 
-   ))}
- 
- </ul>
- 
- 
- </div>)
 
 
   

@@ -10,12 +10,10 @@ let idUser = 1;
  const { isLoading, data } = useQuery(idUser+'trips', listAPI.GetTrips)
 
  
- if (isLoading) return "loading ..."
+ if (isLoading) return "loading..."
 
  else
-
-console.log("trips");
-console.log(data);
+ 
  return (
 
    <div>
@@ -24,7 +22,7 @@ console.log(data);
 
        {data.response.map(trip => (
 
-         <li key={trip.id}>{trip.tripName} : <MarkerList/>
+         <li key={trip.id}>{trip.tripName}
         </li>
 
        ))}
