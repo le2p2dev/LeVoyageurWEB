@@ -1,0 +1,19 @@
+.logoDiv{
+
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 380px;
+    height: 150px;
+    
+
+
+}
+
+#imgLogo{
+
+    width: 380px;
+    height: 150px;
+}
