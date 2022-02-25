@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import './Map.css'
 import MarkerList from './components/MarkerList';
 import listAPI from './listApi';
+import greenPin from './assets/green_pin.png'
+
 
 const Map = () => {
 
@@ -73,6 +75,7 @@ const Map = () => {
   const showMarker = (ev) => {
     setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
 
+
   }
 
   const renderMarkers = (map,maps) => {
@@ -127,16 +130,28 @@ const Map = () => {
             yesIWantToUseGoogleMapApiInternals={true}
             onGoogleApiLoaded={(map, maps)=> renderMarkers(map,maps) }
             onClick={ev => {showMarker(ev)} }>
-
-            <Marker position={{ lat: lat, lng: lng }} />
+            
+            {/* green pins from onclick */}
             {
-              pinList.map((e) => {
-                return(<Marker position={{ lat: e.lat, lng: e.long }} />);
+              pinList.map((e,i) => {
+                return(<Marker 
+                  key = {i} 
+                  position={{ lat: e.lat, lng: e.long }}  
+                  icon = {greenPin}
+                  />);
               })
             }
 
-            {/* {isLoading? console.log("is loading"): console.log("markerList=",markerList)} */}
-
+            {/* red pins from db */}
+            {isLoading? console.log("is loading"): 
+              markerList.response.map((e,i) => {
+                  return(<Marker 
+                    key = {i} 
+                    position={{ lat: e.latitude, lng: e.longitude }} />)
+                } 
+              )
+            }
+          
           </GoogleMap>   
       </LoadScript>
 
