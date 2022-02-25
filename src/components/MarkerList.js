@@ -4,20 +4,12 @@ import { useQuery} from 'react-query';
 
 export default function MarkerList() {
 
-let idStep = 1;
+  let idStep = 1;
 
- const { isLoading, data } = useQuery(idStep+'markers', listAPI.GetMarkers)
+  const { isLoading, data } = useQuery(idStep+'markers', listAPI.GetMarkers)
 
- if (isLoading) return "Loading"
-
- else return data
-
-
-
-  
-
-
- 
+  if (isLoading) return "Loading"
+  else return (data); 
 
 }
 

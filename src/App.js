@@ -26,16 +26,11 @@ function App(){
 
   <QueryClientProvider client={queryClient}>
 
-     <div style={{ display: 'flex' }}>
-
-
-
       <LogoHeader/>
       <Map/>
       <TripList/>
 
 
-</div>
 
 </QueryClientProvider>
    
