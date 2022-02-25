@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript,Marker } from '@react-google-maps/api';
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import './Map.css'
+import MarkerList from './components/MarkerList';
+import listAPI from './listApi';
+
 const Map = () => {
 
   const queryClient = new QueryClient()
@@ -9,6 +12,9 @@ const Map = () => {
   const [lat,setLat] = useState(41.3851);
   const [lng,setLng] = useState(2.1734);
 
+  let idStep = 1;
+  const { isLoading, data:markerList} = useQuery(idStep+'markers', listAPI.GetMarkers)
+ 
   
   const mapStyles = {        
     height: "80vh",
@@ -23,7 +29,6 @@ const Map = () => {
  
 
   const [searchLocation,setSearchLocation] = useState("");
-  const [newLocation, setNewLocation] = useState("");
 
   const handleSearchLocationChange = event => {
 		setSearchLocation(event.target.value)
@@ -37,40 +42,43 @@ const Map = () => {
   const fetchCoords = (input) => {
 
     const userInputLocation = input.queryKey[1];
-    console.log("userInput", userInputLocation);
+   
     const url = urlPreFix+userInputLocation+".json?"+urlSettings+mapBoxToken;
-    console.log(url);
+    
 
     return (fetch(url, {
     method: 'GET',
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log("inside", data);
-      //console.log(data.features[0].center);
       return (data);
     })
     .catch((error) => {
-        //console.log("failed: ", error)
         return(error);
     }))
   }
 
 
-  const { isLoading, isError, error, data, refetch } = useQuery(["fetchCoords", searchLocation], fetchCoords, {
+  const { isLoadingX, isError, error, data, refetch } = useQuery(["fetchCoords", searchLocation], fetchCoords, {
       refetchOnWindowFocus:false,
       enabled:false,
       onSuccess: (data) => {
-        console.log("onSuccess",data);
+
         setLat(data.features[0].center[1]);
         setLng(data.features[0].center[0]);
       }
   });
 
+  const [pinList,setPinList] = useState([]);
+  const showMarker = (ev) => {
+    setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
+
+  }
+
   const renderMarkers = (map,maps) => {
 
     let marker = new maps.Marker({
-      position:{lat:lat,lng:lng},
+      position:{lat:lat,lng:lng}, 
       map,
       title:"name"
     });
@@ -81,21 +89,15 @@ const Map = () => {
     
   }
 
+
+  console.log(pinList);
   const handleLocationSearch = () => {
 
-    console.log(searchLocation);
     refetch();
-    //console.log("Promise=",promise);
-    //const data = promise.then((data) => {console.log(data)});
-    
-    
-
   }
 
-  isLoading ? console.log("not finished loading") :  console.log(data);
-  
-  return (
 
+  return (
     <div id = "mapFile">
       <div className = "searchBar">
         <input 
@@ -124,17 +126,24 @@ const Map = () => {
             center={defaultCenter}
             yesIWantToUseGoogleMapApiInternals={true}
             onGoogleApiLoaded={(map, maps)=> renderMarkers(map,maps) }
-            onClick={ev => {
-              console.log("latitide = ", ev.latLng.lat());
-              console.log("longitude = ", ev.latLng.lng());
-            }}>
+            onClick={ev => {showMarker(ev)} }>
+
             <Marker position={{ lat: lat, lng: lng }} />
-            <Marker position={{ lat: lat, lng: lng }} />
+            {
+              pinList.map((e) => {
+                return(<Marker position={{ lat: e.lat, lng: e.long }} />);
+              })
+            }
+
+            {/* {isLoading? console.log("is loading"): console.log("markerList=",markerList)} */}
+
           </GoogleMap>   
       </LoadScript>
+
+      {console.log("pinList=",pinList)};
         <div id ="test">
           <div className="lst">
-            <input type="checkbox"/>
+            <input type="checkbox"/>  
             <label>Hotels</label>
           </div>
           <div className="lst">

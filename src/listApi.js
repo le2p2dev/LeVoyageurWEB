@@ -29,7 +29,7 @@ const listAPI = {
         const urlSuffix = '';
 
 		return fetch(urlPrefix+urlSuffix, {
-            method: "GET",
+            method: "POST",
             headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
             body: JSON.stringify({"idTrip" : data.idTrip})
         })
@@ -37,35 +37,18 @@ const listAPI = {
 	
 	},
     //Listes des marker
-    GetMarkers: () => {
+    GetMarkers: (data) => {
 
         const urlSuffix = '/marker/all';
 
 		return fetch(urlPrefix+urlSuffix, {
             method: "GET",
-            
+            //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+            //body: JSON.stringify({"idTrip" : data.idTrip})
         })
         .then((res) => res.json())
 	
-	},
-
-    CreateMarker :(data) =>{
-
-        const urlSuffix = '/marker/create';
-        return fetch(urlPrefix+urlSuffix, {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "pinNumber" : data.pinNumber,
-                "Title" : data.title,
-                "Description" : data.description,
-                "Latitude" :data.latitude,
-                "Longitude" : data.longitude})
-        })
-        .then((res) => res.json())
-            
-
-    }
+	}
 
 };
 
