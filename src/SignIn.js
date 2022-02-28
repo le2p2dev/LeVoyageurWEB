@@ -1,22 +1,7 @@
-import React, {useState } from 'react';
+import React, { useState } from "react";
 
+const Signin = () => {
+  return <h1>Connect</h1>;
+};
 
-
-export default SignIn = () =>{
-
-
-
-    return(
-
-        <h3> Connect </h3>
-        
-
-
-
-
-
-    );
-
-
-
-}
+export default Signin;
