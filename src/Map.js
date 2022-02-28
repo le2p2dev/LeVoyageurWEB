@@ -166,7 +166,6 @@ const Map = () => {
             {/* red pins from db */}
             {isLoading? console.log("is loading"): 
               markerList.response.map((e,i) => {
-                console.log(markerList);
                   return(<Marker 
                     key = {i} 
                     position={{ lat: e.latitude, lng: e.longitude }}
