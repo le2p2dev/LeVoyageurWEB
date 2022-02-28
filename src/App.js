@@ -16,9 +16,7 @@ const Main = () => {
   const { id } = useParams();
   console.log(id);
 
-  const { isLoading, data } = useQuery(id + "trip", () => {
-    listAPI.GetTrip(id);
-  });
+  const { isLoading, data } = useQuery(id + "trip", listAPI.GetTrip(id));
 
   const handleLngChange = (event) => {
     setLng(event.target.value);
