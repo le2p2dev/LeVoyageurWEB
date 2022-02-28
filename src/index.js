@@ -25,9 +25,10 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<Home />} />
           <Route exact path="/signin" element={<SignIn />} />
-          <Route path="/hello" element={<Home />} />
+          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/trip/:id" element={<App />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
