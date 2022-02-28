@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript,Marker } from '@react-google-maps/api';
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import './Map.css'
 import MarkerList from './components/MarkerList';
 import listAPI from './listApi';
@@ -10,7 +10,7 @@ import greenPin from './assets/green_pin.png'
 
 const Map = () => {
 
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient();
 
   const [searchLocation,setSearchLocation] = useState("");
   const [lat,setLat] = useState(41.3851);
@@ -21,6 +21,11 @@ const Map = () => {
 
 
   const { isLoading, data:markerList} = useQuery('markers', listAPI.GetMarkers);
+
+  const addMarker = useMutation(listAPI.CreateMarker, {
+    onSuccess: () => queryClient.invalidateQueries('markers')
+  
+});
 
   const mapStyles = {        
     height: "80vh",
@@ -61,7 +66,7 @@ const Map = () => {
       }))
   }
 
-  //use querry function for getting cords of place
+  //use query function for getting cords of place
   const { isLoadingX, isError, error, data, refetch } = useQuery(["fetchCoords", searchLocation], fetchCoords, {
       refetchOnWindowFocus:false,
       enabled:false,
@@ -74,7 +79,13 @@ const Map = () => {
 
   //add to marker array new markes
   const showMarker = (ev) => {
-    setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
+    //setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
+    addMarker.mutate({
+      "pinNumber" : 1,
+      "title" : "test",
+      "description" : "from web app",
+      "latitude" : ev.latLng.lat(),
+      "longitude" : ev.latLng.lng()})
 
   }
 
