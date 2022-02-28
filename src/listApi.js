@@ -1,6 +1,7 @@
 const urlPrefix = "http://mc.outronic.fr:3630/api";
 
 const listAPI = {
+
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
     const urlSuffix = "/trip/all";
@@ -61,6 +62,22 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
+ 
+    CreateTrip :(data) =>{
+
+        const urlSuffix = '/trip/create';
+        return fetch(urlPrefix+urlSuffix, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "tripName" : data.tripName,
+                "description" : data.description
+                })
+        })
+        .then((res) => res.json())
+
+    }
+
 };
 
 export default listAPI;
