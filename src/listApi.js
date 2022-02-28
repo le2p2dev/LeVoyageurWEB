@@ -37,7 +37,7 @@ const listAPI = {
 	
 	},
     //Listes des marker
-    GetMarkers: (data) => {
+    GetMarkers: () => {
 
         const urlSuffix = '/marker/all';
 
@@ -47,9 +47,41 @@ const listAPI = {
             //body: JSON.stringify({"idTrip" : data.idTrip})
         })
         .then((res) => res.json())
-       //.then((res)=>console.log("res=",res))
 	
-	}
+	},
+
+    CreateMarker :(data) =>{
+
+        const urlSuffix = '/marker/create';
+        
+        return fetch(urlPrefix+urlSuffix, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "pinNumber" : data.pinNumber,
+                "Title" : data.title,
+                "Description" : data.description,
+                "Latitude" :data.latitude,
+                "Longitude" : data.longitude})
+        })
+        .then((res) => res.json())
+            
+
+    },
+    CreateTrip :(data) =>{
+
+        const urlSuffix = '/trip/create';
+        return fetch(urlPrefix+urlSuffix, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "tripName" : data.tripName,
+                "description" : data.description
+                })
+        })
+        .then((res) => res.json())
+
+    }
 
 };
 
