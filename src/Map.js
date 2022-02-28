@@ -7,17 +7,21 @@ import listAPI from './listApi';
 import greenPin from './assets/green_pin.png'
 
 
+
 const Map = () => {
 
   const queryClient = new QueryClient()
 
+  const [searchLocation,setSearchLocation] = useState("");
   const [lat,setLat] = useState(41.3851);
   const [lng,setLng] = useState(2.1734);
+  const [listPOI,setListPOI] = useState(["Hotels","Restaurants","Museums","Bars","Landmarks"]);
+  const [pinList,setPinList] = useState([]);
 
-  let idStep = 1;
-  const { isLoading, data:markerList} = useQuery(idStep+'markers', listAPI.GetMarkers)
- 
-  
+
+
+  const { isLoading, data:markerList} = useQuery('markers', listAPI.GetMarkers);
+
   const mapStyles = {        
     height: "80vh",
     width: "99%"};
@@ -25,21 +29,18 @@ const Map = () => {
   const defaultCenter = {
     lat: lat, lng: lng
   }
-
-  var list = ["Hotels","Restaurants","Museums","Bars","Famous Landmarks"]
-
  
-
-  const [searchLocation,setSearchLocation] = useState("");
-
-  const handleSearchLocationChange = event => {
-		setSearchLocation(event.target.value)
-  };
-  
-
   const mapBoxToken = "&access_token=pk.eyJ1IjoiNTczZiIsImEiOiJja3l5Z2JoMWQwcnlsMnJzM2pxN29md2RnIn0.YnpLDRmULNCqnV2XLcmgCQ";
   const urlPreFix = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
   const urlSettings = "limit=1&types=place";
+
+/**
+ * @fn fetchCords
+ * @brief Function that based on user input, does an api request to map box to get coords of the entered place. 
+ * @param input => a string 
+ * @returns data fetched from mapbox
+ * @todo check user input 
+ */
 
   const fetchCoords = (input) => {
 
@@ -49,18 +50,18 @@ const Map = () => {
     
 
     return (fetch(url, {
-    method: 'GET',
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      return (data);
-    })
-    .catch((error) => {
-        return(error);
-    }))
+      method: 'GET',
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        return (data);
+      })
+      .catch((error) => {
+          return(error);
+      }))
   }
 
-
+  //use querry function for getting cords of place
   const { isLoadingX, isError, error, data, refetch } = useQuery(["fetchCoords", searchLocation], fetchCoords, {
       refetchOnWindowFocus:false,
       enabled:false,
@@ -71,13 +72,24 @@ const Map = () => {
       }
   });
 
-  const [pinList,setPinList] = useState([]);
+  //add to marker array new markes
   const showMarker = (ev) => {
     setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
 
-
   }
 
+  //gets input value from search bar
+  const handleSearchLocationChange = event => {
+		setSearchLocation(event.target.value)
+  };
+
+  //on click function. calls fetchcoord refetch
+  const handleLocationSearch = () => {
+    refetch();
+  }
+
+
+  //google maps api funcion to place a marker
   const renderMarkers = (map,maps) => {
 
     let marker = new maps.Marker({
@@ -93,11 +105,7 @@ const Map = () => {
   }
 
 
-  console.log(pinList);
-  const handleLocationSearch = () => {
-
-    refetch();
-  }
+ 
 
 
   return (
@@ -129,7 +137,8 @@ const Map = () => {
             center={defaultCenter}
             yesIWantToUseGoogleMapApiInternals={true}
             onGoogleApiLoaded={(map, maps)=> renderMarkers(map,maps) }
-            onClick={ev => {showMarker(ev)} }>
+            onClick={ev => {showMarker(ev)}}
+            options={{ styles: [{ elementType: "labels.text", featureType: "poi", stylers: [{ visibility: "off", }], }]}}>
             
             {/* green pins from onclick */}
             {
@@ -138,6 +147,7 @@ const Map = () => {
                   key = {i} 
                   position={{ lat: e.lat, lng: e.long }}  
                   icon = {greenPin}
+                  draggable={true}
                   />);
               })
             }
@@ -145,9 +155,11 @@ const Map = () => {
             {/* red pins from db */}
             {isLoading? console.log("is loading"): 
               markerList.response.map((e,i) => {
+                console.log(markerList);
                   return(<Marker 
                     key = {i} 
-                    position={{ lat: e.latitude, lng: e.longitude }} />)
+                    position={{ lat: e.latitude, lng: e.longitude }}
+                     />)
                 } 
               )
             }
@@ -156,30 +168,21 @@ const Map = () => {
       </LoadScript>
 
       {console.log("pinList=",pinList)};
+
         <div id ="test">
-          <div className="lst">
-            <input type="checkbox"/>  
-            <label>Hotels</label>
-          </div>
-          <div className="lst">
-            <input type="checkbox"/>
-            <label>Restaurants</label>
-          </div>
-          <div className="lst">
-            <input type="checkbox"/>
-            <label>Bars</label>
-          </div>
-          <div className="lst">
-            <input type="checkbox"/>  
-            <label>Museums</label>
-          </div>
-          <div className="lst">
-            <input type="checkbox"/>
-            <label>Landmarks</label>    
-          </div>
+            {listPOI.map(
+              (e,i) => {
+                return(
+                  <div key={i} className='lst'> 
+                    <input type = "checkbox"/>
+                    <label> {e} </label>
+                  </div>
+                )
+              }
+            )
+            }
         </div>
       </div>
-     
     </div>
   )
 }
