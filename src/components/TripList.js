@@ -32,12 +32,14 @@ const handleTripNameChange = event => {
  else
 
  return (
-
+  <>
    <div>
       <h1>Mes voyages</h1>
      <ul>
 
        {data.response.map(trip => (
+  
+       
 
          <li key={trip.id}>{
              <a href={"/trip/" + trip.id}>
@@ -77,6 +79,8 @@ const handleTripNameChange = event => {
       </div>
 
    </div>
+
+  </>
 
  )
 
