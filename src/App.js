@@ -16,7 +16,13 @@ const Main = () => {
   const { id } = useParams();
   console.log(id);
 
-  const { isLoading, data } = useQuery(id + "trip", listAPI.GetTrip(id));
+  const { isLoading, data } = useQuery(id + "trip", () =>
+    fetch(`http://mc.outronic.fr:3630/api/trip/find?id=${id}`).then((res) =>
+      res.json()
+    )
+  );
+
+  if (isLoading) return "Loading..";
 
   const handleLngChange = (event) => {
     setLng(event.target.value);
@@ -28,7 +34,11 @@ const Main = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {isLoading ? "Loading.." : "done"}
+      {data.response.map((trip) => (
+        <>
+          <h1>{trip.tripName}</h1>
+        </>
+      ))}
       <LogoHeader />
       <Map />
       <TripList />
