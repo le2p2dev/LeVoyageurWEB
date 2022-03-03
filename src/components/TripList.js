@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import listAPI from "../listApi";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function TripList() {
   let idUser = 1;
@@ -11,6 +12,8 @@ export default function TripList() {
   const { isLoading, data } = useQuery(idUser + "trips", listAPI.GetTrips);
 
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const addTrip = useMutation(listAPI.CreateTrip, {
     onSuccess: () => queryClient.invalidateQueries(idUser + "trips"),
@@ -33,7 +36,11 @@ export default function TripList() {
           <ul>
             {data.response.map((trip) => (
               <li key={trip.id}>
-                <a href={"/trip/" + trip.id}>
+                <a
+                  onClick={() => {
+                    navigate("/trip/" + trip.id);
+                  }}
+                >
                   {trip.tripName} | {trip.description}
                 </a>
               </li>
