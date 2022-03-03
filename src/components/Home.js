@@ -4,7 +4,7 @@ import TripList from "./TripList";
 const Home = () => {
   return (
     <>
-      <h1>Welcome chez le voyageur</h1>
+      <h1>Welcome chez le voyageur First sprint</h1>
       <a href="/signin"> Connect </a>
       <TripList />
       <h2>Create a new trip</h2>
