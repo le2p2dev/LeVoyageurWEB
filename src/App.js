@@ -1,55 +1,65 @@
 import React, { useState } from "react";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+
+import mapboxgl from "mapbox-gl";
+
 import Map from "./Map";
 
+import TripInfo from "./components/TripInfo.js";
+
 import LogoHeader from "./LogoHeader";
+
 import TripList from "./components/TripList";
+
 import { QueryClientProvider, QueryClient, useQuery } from "react-query";
+
 import MarkerList from "./components/MarkerList";
+
 import listAPI from "./listApi";
-import { useParams } from "react-router-dom";
+
+import { BrowserRouter, useParams } from "react-router-dom";
+
+import BaseApp from "./components/BaseApp";
+
+//import router
+
+import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
+
+import { ReactQueryDevtools } from "react-query/devtools";
+
+//import components*
+
+import Home from "./components/Home";
+
+import SignIn from "./SignIn";
 
 const Main = () => {
-  const [lng, setLng] = useState();
-  const [lat, setLat] = useState();
-
-  const { id } = useParams();
-  console.log(id);
-
-  const { isLoading, data } = useQuery(id + "trip", () =>
-    fetch(`http://mc.outronic.fr:3630/api/trip/find?id=${id}`).then((res) =>
-      res.json()
-    )
-  );
-
-  if (isLoading) return "Loading..";
-
-  const handleLngChange = (event) => {
-    setLng(event.target.value);
-  };
-  const handleLatChange = (event) => {
-    setLat(event.target.value);
-  };
-  const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      {data.response.map((trip) => (
-        <>
-          <h1>{trip.tripName}</h1>
-        </>
-      ))}
-      <LogoHeader />
-      <Map />
-      <TripList />
-    </QueryClientProvider>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route exact path="/signin" element={<SignIn />} />
+
+        <Route path="*" element={<Navigate to="/" />} />
+
+        <Route path="/trip/:id" element={<BaseApp />} />
+      </Routes>
+    </>
   );
 };
 
-const App = () => (
-  <>
-    <Main style={{ margin: 0 }} />
-  </>
-);
+const App = () => {
+  const queryClient = new QueryClient();
+
+  return (
+    <HashRouter>
+      <QueryClientProvider client={queryClient}>
+        <Main />
+
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </HashRouter>
+  );
+};
 
 export default App;
