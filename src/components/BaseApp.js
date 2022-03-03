@@ -40,9 +40,7 @@ const BaseApp = () => {
   return (
     <>
       <LogoHeader />
-
       <Map idTrip={id} />
-
       {data.response.map((trip) => (
         <>
           <TripInfo name={trip.tripName} desc={trip.description} id={trip.id} />
