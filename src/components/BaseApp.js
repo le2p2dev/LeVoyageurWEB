@@ -42,9 +42,7 @@ const BaseApp = () => {
   return (
     <>
       <LogoHeader />
-
       <Map />
-
       {data.response.map((trip) => (
         <>
           <TripInfo name={trip.tripName} desc={trip.description} id={trip.id} />
