@@ -12,7 +12,6 @@ import TripList from "./components/TripList";
 
 import { QueryClientProvider, QueryClient, useQuery } from "react-query";
 
-import MarkerList from "./components/MarkerList";
 
 import listAPI from "./listApi";
 
