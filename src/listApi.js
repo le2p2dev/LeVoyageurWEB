@@ -6,7 +6,6 @@ const listAPI = {
   GetTrips: () => {
     const urlSuffix = "/trip/all";
 
-    console.log(urlPrefix + urlSuffix);
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -15,14 +14,29 @@ const listAPI = {
     }).then((res) => res.json());
   },
   //Voyage pour un id donné
-  GetTrip: async (id) => {
-    const urlSuffix = "/trip/find?id=" + id;
-    console.log(urlPrefix + urlSuffix);
+  GetTrip: (id) => {
+    const urlSuffix = `/trip/find?id=${id}`;
 
-    const res = await fetch(urlPrefix + urlSuffix, {
+    return fetch(urlPrefix + urlSuffix, {
       method: "GET",
-    });
-    return await res.json();
+      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+      //body: JSON.stringify({'search' : data.email})
+    }).then((res) => res.json());
+  },
+ 
+  CreateTrip :(data) =>{
+
+      const urlSuffix = '/trip/create';
+      return fetch(urlPrefix+urlSuffix, {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json'},
+          body: JSON.stringify({
+              tripName : data.tripName,
+              description : data.description
+              })
+      })
+      .then((res) => res.json())
+
   },
   //Listes des étapes d'un voyage
   GetSteps: (data) => {
@@ -47,36 +61,35 @@ const listAPI = {
       //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
+   //Listes des marker d'un voyage
+   GetMarkersFromTrip: (id) => {
+    const urlSuffix = `/marker/findbytrip?id=${id}`;
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+      //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
 
   CreateMarker: (data) => {
     const urlSuffix = "/marker/create";
+    console.log(data)
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         pinNumber: data.pinNumber,
-        Title: data.title,
-        Description: data.description,
-        Latitude: data.latitude,
-        Longitude: data.longitude,
+        title: data.title,
+        description: data.description,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        tripId: data.idTrip
       }),
     }).then((res) => res.json());
-  },
- 
-    CreateTrip :(data) =>{
+  }
 
-        const urlSuffix = '/trip/create';
-        return fetch(urlPrefix+urlSuffix, {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "tripName" : data.tripName,
-                "description" : data.description
-                })
-        })
-        .then((res) => res.json())
 
-    }
 
 };
 
