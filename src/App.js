@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import Map from "./Map";
 import TripInfo from "./components/TripInfo.js";
@@ -6,6 +7,10 @@ import LogoHeader from "./LogoHeader";
 import TripList from "./components/TripList";
 import { QueryClientProvider, QueryClient, useQuery } from "react-query";
 
+
+
+import listAPI from "./listApi";
+import { BrowserRouter, useParams } from "react-router-dom";
 import BaseApp from "./components/BaseApp";
 //import router
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";

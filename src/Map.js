@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript,Marker } from '@react-google-maps/api';
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import './Map.css'
-import MarkerList from './components/MarkerList';
 import listAPI from './listApi';
 import greenPin from './assets/green_pin.png'
 
 
 
-const Map = () => {
+const Map = (idTrip) => {
 
   const queryClient = useQueryClient();
 
@@ -20,10 +19,10 @@ const Map = () => {
 
 
 
-  const { isLoading, data:markerList} = useQuery('markers', listAPI.GetMarkers);
+  const { isLoading, data:markerList} = useQuery(idTrip.idTrip+'markers', ()=> listAPI.GetMarkersFromTrip(idTrip.idTrip));
 
   const addMarker = useMutation(listAPI.CreateMarker, {
-    onSuccess: () => queryClient.invalidateQueries('markers')
+    onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip+'markers')
   
 });
 
@@ -85,7 +84,9 @@ const Map = () => {
       "title" : "test",
       "description" : "from web app",
       "latitude" : ev.latLng.lat(),
-      "longitude" : ev.latLng.lng()})
+      "longitude" : ev.latLng.lng(),
+      "idTrip" : idTrip.idTrip
+    })
 
   }
 
@@ -164,8 +165,8 @@ const Map = () => {
             }
 
             {/* red pins from db */}
-            {isLoading? console.log("is loading"): 
-              markerList.response.map((e,i) => {
+            {isLoading? null: 
+              markerList?.response.map((e,i) => {
                   return(<Marker 
                     key = {i} 
                     position={{ lat: e.latitude, lng: e.longitude }}

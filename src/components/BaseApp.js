@@ -13,6 +13,7 @@ import { BrowserRouter, useParams } from "react-router-dom";
 //import files*
 
 import TripInfo from "./TripInfo";
+import listAPI from "../listApi";
 
 const BaseApp = () => {
   const [lng, setLng] = useState();
@@ -23,10 +24,7 @@ const BaseApp = () => {
 
   console.log(id);
 
-  const { isLoading, data } = useQuery(id + "trip", () =>
-    fetch(`http://mc.outronic.fr:3630/api/trip/find?id=${id}`).then((res) =>
-      res.json()
-    )
+  const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id)
   );
 
   if (isLoading) return "Loading..";
@@ -42,7 +40,7 @@ const BaseApp = () => {
   return (
     <>
       <LogoHeader />
-      <Map />
+      <Map idTrip={id} />
       {data.response.map((trip) => (
         <>
           <TripInfo name={trip.tripName} desc={trip.description} id={trip.id} />
