@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TripList from "./TripList";
+import TripList from "./trip/TripList";
 
 const Home = () => {
   return (

@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from "react";
-
-import TripList from "./TripList";
-
-import LogoHeader from "../LogoHeader";
-
-import Map from "../Map";
-
-import { QueryClientProvider, QueryClient, useQuery } from "react-query";
-
-import { BrowserRouter, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 
 //import files*
 
-import TripInfo from "./TripInfo";
-import listAPI from "../listApi";
+import TripInfo from "./trip/TripInfo";
+import listAPI from "../api/listApi";
+import TripList from "./trip/TripList";
+import LogoHeader from "./LogoHeader";
+import Map from "./map/Map";
 
 const BaseApp = () => {
   const [lng, setLng] = useState();
@@ -24,8 +19,7 @@ const BaseApp = () => {
 
   console.log(id);
 
-  const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id)
-  );
+  const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id));
 
   if (isLoading) return "Loading..";
 

@@ -1,17 +1,7 @@
-import React, { useState } from "react";
-
+import React from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import Map from "./Map";
-import TripInfo from "./components/TripInfo.js";
-import LogoHeader from "./LogoHeader";
-import TripList from "./components/TripList";
-import { QueryClientProvider, QueryClient, useQuery } from "react-query";
+import { QueryClientProvider, QueryClient } from "react-query";
 
-
-
-import listAPI from "./listApi";
-import { BrowserRouter, useParams } from "react-router-dom";
-import BaseApp from "./components/BaseApp";
 //import router
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -19,8 +9,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 //import components*
 
 import Home from "./components/Home";
-
-import SignIn from "./SignIn";
+import BaseApp from "./components/BaseApp";
+import SignIn from "./components/SignIn";
 
 const Main = () => {
   return (
@@ -44,8 +34,7 @@ const App = () => {
   return (
     <HashRouter>
       <QueryClientProvider client={queryClient}>
-        <Main />
-
+        <Main style={{ margin: 0 }} />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </HashRouter>
