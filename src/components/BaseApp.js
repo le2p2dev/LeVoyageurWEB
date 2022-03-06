@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
@@ -11,10 +11,6 @@ import LogoHeader from "./LogoHeader";
 import Map from "./map/Map";
 
 const BaseApp = () => {
-  const [lng, setLng] = useState();
-
-  const [lat, setLat] = useState();
-
   const { id } = useParams();
 
   console.log(id);
@@ -22,14 +18,6 @@ const BaseApp = () => {
   const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id));
 
   if (isLoading) return "Loading..";
-
-  const handleLngChange = (event) => {
-    setLng(event.target.value);
-  };
-
-  const handleLatChange = (event) => {
-    setLat(event.target.value);
-  };
 
   return (
     <>

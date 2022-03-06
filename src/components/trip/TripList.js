@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import listAPI from "../../api/listApi";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+
+//mui
+import { Box } from "@mui/system";
+import { Grid } from "@mui/material";
+
+//modules
+import CardTrip from "./CardTrip";
 
 export default function TripList() {
   let idUser = 1;
@@ -12,8 +18,6 @@ export default function TripList() {
   const { isLoading, data } = useQuery(idUser + "trips", listAPI.GetTrips);
 
   const queryClient = useQueryClient();
-
-  const navigate = useNavigate();
 
   const addTrip = useMutation(listAPI.CreateTrip, {
     onSuccess: () => queryClient.invalidateQueries(idUser + "trips"),
@@ -35,15 +39,14 @@ export default function TripList() {
           <h1>Mes voyages</h1>
           <ul>
             {data.response.map((trip) => (
-              <li key={trip.id}>
-                <a
-                  onClick={() => {
-                    navigate("/trip/" + trip.id);
-                  }}
-                >
-                  {trip.tripName} | {trip.description}
-                </a>
-              </li>
+              <Grid container>
+                <Grid item xs={6}>
+                  <CardTrip
+                    name={trip.tripName}
+                    description={trip.description}
+                  />
+                </Grid>
+              </Grid>
             ))}
           </ul>
           <div>

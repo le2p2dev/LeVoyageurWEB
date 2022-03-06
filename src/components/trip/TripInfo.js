@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import TripList from "./TripList";
+import React from "react";
 
 const TripInfo = ({ id, nom, desc }) => {
   return (

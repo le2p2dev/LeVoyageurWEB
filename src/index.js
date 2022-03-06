@@ -1,23 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
-import { QueryClient } from "react-query";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import App from "./App";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0, // 5000
-    },
-  },
-});
-
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App style={{ margin: 0 }} />
   </React.StrictMode>,
 
   document.getElementById("root")

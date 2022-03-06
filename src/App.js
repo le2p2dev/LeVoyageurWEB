@@ -1,5 +1,5 @@
 import React from "react";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+
 import { QueryClientProvider, QueryClient } from "react-query";
 
 //import router
@@ -11,18 +11,22 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Home from "./components/Home";
 import BaseApp from "./components/BaseApp";
 import SignIn from "./components/SignIn";
+import MenuBar from "./components/MenuBar";
+import DiscoverVoyageur from "./components/DiscoverVoyageur";
+import TripList from "./components/trip/TripList";
 
 const Main = () => {
   return (
     <>
+      <MenuBar />
       <Routes>
         <Route path="/" element={<Home />} />
 
         <Route exact path="/signin" element={<SignIn />} />
-
+        <Route exact path="/about" element={<DiscoverVoyageur />} />
         <Route path="*" element={<Navigate to="/" />} />
-
         <Route path="/trip/:id" element={<BaseApp />} />
+        <Route path="/trip/list" element={<TripList />} />
       </Routes>
     </>
   );
@@ -34,7 +38,7 @@ const App = () => {
   return (
     <HashRouter>
       <QueryClientProvider client={queryClient}>
-        <Main style={{ margin: 0 }} />
+        <Main />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </HashRouter>

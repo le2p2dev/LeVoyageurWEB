@@ -1,0 +1,41 @@
+{ 
+    "Users": [
+    {
+        "username": "Yassin",
+        "password": "Yassin"
+    },{
+        "username": "Pierre",
+        "password": "Pierre"
+    },{
+        "username": "Mathieu",
+        "password": "Mathieu"
+    },{
+        "username": "Stef",
+        "password": "Stef"
+    },{
+        "username": "Valentin",
+        "password": "Valentin"
+    }
+],
+    "Trips": [
+        {
+            "title": "Voyage à Malaga",
+            "description":"Voyage à Malaga, avec ses points d'intérêts.",
+            "imageUrl": "",
+            "startDate":"",
+            "id_user": 0
+        },{
+            "title": "Roadtrip au États-unis",
+            "description":"roadtrip au états unis organisé pour mon anniversaire",
+            "imageUrl": "",
+            "startDate":"",
+            "id_user": 0
+        },{
+            "title": "Voyage en Grèce ",
+            "description":"Plusieurs étapes, notamment Santorin et Athène",
+            "imageUrl": "",
+            "startDate":"",
+            "id_user": 1
+        }
+    ]
+}
