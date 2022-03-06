@@ -1,0 +1,66 @@
+
+
+#mapWrapper{
+    
+    position: relative;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top:2%;
+}
+
+.inputBox{
+    width:30%;
+    height: 50px;
+}
+
+
+
+.searchBar{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: -4%;
+
+}
+
+.map-container {
+
+    height: 800px;
+}
+
+.buttonClass{
+
+    width:10%;
+    height: 56px;
+    margin-left: 5px;
+
+}
+
+#test{
+
+    height: 150px;
+    width: 200px;
+    position:absolute;
+    left:85.5%;
+    top:70.5%;
+    color :black;
+    opacity: 0.5;
+
+    padding-top: 35px;   
+    padding-bottom: 15px; 
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    font-size: 1.5em;
+
+    overflow: auto;
+    max-height: 200px;
+ 
+}
+
+

@@ -1,17 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import Map from "./Map";
-import TripInfo from "./components/TripInfo.js";
-import LogoHeader from "./LogoHeader";
-import TripList from "./components/TripList";
-import { QueryClientProvider, QueryClient, useQuery } from "react-query";
+import { QueryClientProvider, QueryClient } from "react-query";
 
-
-
-import listAPI from "./listApi";
-import { BrowserRouter, useParams } from "react-router-dom";
-import BaseApp from "./components/BaseApp";
 //import router
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -19,20 +9,24 @@ import { ReactQueryDevtools } from "react-query/devtools";
 //import components*
 
 import Home from "./components/Home";
-
-import SignIn from "./SignIn";
+import BaseApp from "./components/BaseApp";
+import SignIn from "./components/SignIn";
+import MenuBar from "./components/MenuBar";
+import DiscoverVoyageur from "./components/DiscoverVoyageur";
+import TripList from "./components/trip/TripList";
 
 const Main = () => {
   return (
     <>
+      <MenuBar />
       <Routes>
         <Route path="/" element={<Home />} />
 
         <Route exact path="/signin" element={<SignIn />} />
-
+        <Route exact path="/about" element={<DiscoverVoyageur />} />
         <Route path="*" element={<Navigate to="/" />} />
-
         <Route path="/trip/:id" element={<BaseApp />} />
+        <Route path="/trip/list" element={<TripList />} />
       </Routes>
     </>
   );
@@ -45,7 +39,6 @@ const App = () => {
     <HashRouter>
       <QueryClientProvider client={queryClient}>
         <Main />
-
         <ReactQueryDevtools />
       </QueryClientProvider>
     </HashRouter>

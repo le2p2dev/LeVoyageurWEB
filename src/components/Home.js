@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
-import TripList from "./TripList";
+import React from "react";
+
+//import file
+import VoyageurLogged from "./VoyageurLogged";
+import Signin from "./SignIn";
 
 const Home = () => {
-  return (
+  const isLogged = localStorage.getItem("isLogged");
+
+  return isLogged ? (
     <>
-      <h1>Welcome chez le voyageur First sprint</h1>
-      <a href="/signin"> Connect </a>
-      <TripList />
-      <h2>Create a new trip</h2>
+      <VoyageurLogged />
+    </>
+  ) : (
+    <>
+      <Signin />
     </>
   );
 };
