@@ -4,24 +4,21 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 
 //mui
 import { Box } from "@mui/system";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import TextField from "@mui/material/TextField";
 
 //modules
 import CardTrip from "./CardTrip";
 
-export default function TripList() {
+export const CreateTrip = () => {
   let idUser = 1;
-
+  const queryClient = useQueryClient();
   const [tripName, setTripName] = useState();
   const [description, setDescription] = useState();
-
-  const { isLoading, data } = useQuery(idUser + "trips", listAPI.GetTrips);
-
-  const queryClient = useQueryClient();
-
-  const addTrip = useMutation(listAPI.CreateTrip, {
-    onSuccess: () => queryClient.invalidateQueries(idUser + "trips"),
-  });
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
@@ -31,6 +28,68 @@ export default function TripList() {
     setTripName(event.target.value);
   };
 
+  const addTrip = useMutation(listAPI.CreateTrip, {
+    onSuccess: () => queryClient.invalidateQueries(idUser + "trips"),
+  });
+
+  const [creating, setCreating] = useState(false);
+
+  return creating ? (
+    <>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardMedia
+          component="img"
+          height="140"
+          image={require("../../assets/dune.png")}
+          alt="dune"
+        />
+        <CardContent>
+          <TextField
+            id="standard-basic"
+            label="Trip Name"
+            variant="standard"
+            onChange={handleTripNameChange}
+          />
+
+          <TextField
+            id="standard-basic"
+            label="Description"
+            variant="standard"
+            onChange={handleDescriptionChange}
+          />
+        </CardContent>
+        <CardActions>
+          <Button
+            onClick={() =>
+              addTrip.mutate({
+                tripName: tripName,
+                description: description,
+              })
+            }
+          >
+            Create a new trip
+          </Button>
+          <Button onClick={() => setCreating(false)}> Cancel</Button>
+        </CardActions>
+      </Card>
+    </>
+  ) : (
+    <>
+      <Button
+        onClick={() => {
+          setCreating(true);
+        }}
+      >
+        Create Trip
+      </Button>
+    </>
+  );
+};
+
+export default function TripList() {
+  let idUser = 1;
+  const { isLoading, data } = useQuery(idUser + "trips", listAPI.GetTrips);
+
   if (isLoading) return "loading ...";
   else
     return (
@@ -39,7 +98,7 @@ export default function TripList() {
           <h1>Mes voyages</h1>
           <Grid container spacing={2} sx={{ paddingLeft: "5%" }}>
             {data.response.map((trip, i, arr) => {
-              if (arr.length - 1 == i) {
+              if (arr.length - 1 === i) {
                 return (
                   <>
                     <Grid item>
@@ -50,32 +109,7 @@ export default function TripList() {
                       />
                     </Grid>
                     <Grid item>
-                      <h1> Création d'un voyage</h1>
-                      <input
-                        type="text"
-                        placeholder="Trip name"
-                        onChange={handleTripNameChange}
-                        value={tripName}
-                      />
-
-                      <input
-                        type="text"
-                        placeholder="description"
-                        onChange={handleDescriptionChange}
-                        value={description}
-                      />
-
-                      <button
-                        type="submit"
-                        onClick={() =>
-                          addTrip.mutate({
-                            tripName: tripName,
-                            description: description,
-                          })
-                        }
-                      >
-                        Create a new trip
-                      </button>
+                      <CreateTrip />
                     </Grid>
                   </>
                 );
