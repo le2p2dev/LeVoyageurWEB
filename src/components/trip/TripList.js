@@ -37,45 +37,62 @@ export default function TripList() {
       <>
         <div>
           <h1>Mes voyages</h1>
-          <ul>
-            {data.response.map((trip) => (
-              <Grid container>
-                <Grid item xs={6}>
+          <Grid container spacing={2} sx={{ paddingLeft: "5%" }}>
+            {data.response.map((trip, i, arr) => {
+              if (arr.length - 1 == i) {
+                return (
+                  <>
+                    <Grid item>
+                      <CardTrip
+                        id={trip.id}
+                        name={trip.tripName}
+                        description={trip.description}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <h1> Création d'un voyage</h1>
+                      <input
+                        type="text"
+                        placeholder="Trip name"
+                        onChange={handleTripNameChange}
+                        value={tripName}
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="description"
+                        onChange={handleDescriptionChange}
+                        value={description}
+                      />
+
+                      <button
+                        type="submit"
+                        onClick={() =>
+                          addTrip.mutate({
+                            tripName: tripName,
+                            description: description,
+                          })
+                        }
+                      >
+                        Create a new trip
+                      </button>
+                    </Grid>
+                  </>
+                );
+              }
+              return (
+                <Grid item>
                   <CardTrip
+                    id={trip.id}
                     name={trip.tripName}
                     description={trip.description}
                   />
                 </Grid>
-              </Grid>
-            ))}
-          </ul>
-          <div>
-            <input
-              type="text"
-              placeholder="Trip name"
-              onChange={handleTripNameChange}
-              value={tripName}
-            />
+              );
+            })}
+          </Grid>
 
-            <input
-              type="text"
-              placeholder="description"
-              onChange={handleDescriptionChange}
-              value={description}
-            />
-
-            <button
-              type="submit"
-              onClick={() =>
-                addTrip.mutate({
-                  tripName: tripName,
-                  description: description,
-                })
-              }
-            >
-              Create a new trip
-            </button>
-          </div>
+          <div></div>
         </div>
       </>
     );
