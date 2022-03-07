@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 //mui import
 import Card from "@mui/material/Card";
@@ -8,7 +9,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const CardTrip = ({ tripName, description }) => {
+const CardTrip = ({ id, name, description }) => {
+  const navigate = useNavigate();
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -19,15 +22,16 @@ const CardTrip = ({ tripName, description }) => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {tripName}
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small" onClick={() => navigate("/trip/" + id)}>
+          Edit
+        </Button>
       </CardActions>
     </Card>
   );
