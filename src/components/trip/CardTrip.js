@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //mui import
@@ -12,8 +12,15 @@ import Typography from "@mui/material/Typography";
 const CardTrip = ({ id, name, description }) => {
   const navigate = useNavigate();
 
+  const [shadow, setShadow] = useState("white");
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{ maxWidth: 345, backgroundColor: shadow }}
+      onClick={() => navigate("/trip/" + id)}
+      onMouseOver={() => setShadow("red")}
+      onMouseOut={() => setShadow("white")}
+    >
       <CardMedia
         component="img"
         height="140"
