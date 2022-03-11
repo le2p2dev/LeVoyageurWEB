@@ -46,7 +46,7 @@ export const CreateTrip = () => {
         <CardContent>
           <TextField
             id="standard-basic"
-            label="Trip Name"
+            label="title"
             variant="standard"
             onChange={handleTripNameChange}
           />
@@ -104,7 +104,7 @@ export default function TripList() {
                     <Grid item>
                       <CardTrip
                         id={trip.id}
-                        name={trip.tripName}
+                        name={trip.title}
                         description={trip.description}
                       />
                     </Grid>
