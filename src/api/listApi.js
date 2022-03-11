@@ -94,6 +94,17 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
+  Register: (username, password) => {
+    const urlSuffix = "register";
+    return fetch("http://54.36.191.192:3630/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    }).then((res) => res.json());
+  },
 };
 
 export default listAPI;
