@@ -15,6 +15,7 @@ import MenuBar from "./components/MenuBar";
 import DiscoverVoyageur from "./components/DiscoverVoyageur";
 import TripList from "./components/trip/TripList";
 import { CssBaseline } from "@mui/material";
+import CreateAccount from "./components/CreateAccount";
 
 const Main = () => {
   return (
@@ -28,6 +29,7 @@ const Main = () => {
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/trip/:id" element={<BaseApp />} />
         <Route path="/trip/list" element={<TripList />} />
+        <Route path="/account/create" element={<CreateAccount />} />
       </Routes>
     </>
   );
