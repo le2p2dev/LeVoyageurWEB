@@ -5,6 +5,7 @@ import "./Map.css";
 import listAPI from "../../api/listApi";
 import greenPin from "../../assets/green_pin.png";
 
+
 const Map = (idTrip) => {
   const queryClient = useQueryClient();
 
@@ -114,14 +115,15 @@ const Map = (idTrip) => {
       map,
       title: "name",
     });
-
-    console.log("marker=", marker);
-
     return marker;
   };
 
+
+ 
+  
+
   return (
-    <div id="mapFile">
+    <div id="mapFile">  
       <div className="searchBar">
         <input
           className="inputBox"
@@ -164,7 +166,7 @@ const Map = (idTrip) => {
             }}
           >
             {/* green pins from onclick */}
-            {pinList.map((e, i) => {
+            {/* {pinList.map((e, i) => {
               return (
                 <Marker
                   key={i}
@@ -173,22 +175,24 @@ const Map = (idTrip) => {
                   draggable={true}
                 />
               );
-            })}
+            })} */}
 
             {/* red pins from db */}
             {isLoading
               ? null
               : markerList?.response.map((e, i) => {
+                {console.log("lat,lng =",e.latitude,e.longitude )}
                   return (
                     <Marker
                       key={i}
                       position={{ lat: e.latitude, lng: e.longitude }}
-                    />
+                      draggable={true}
+                      onDrag = {((ev) => console.log("drag=",ev.latLng.lat(),ev.latLng.lng())) }
+                      />
                   );
                 })}
           </GoogleMap>
         </LoadScript>
-        {console.log("pinList=", pinList)};
         <div id="test">
           {listPOI.map((e, i) => {
             return (
