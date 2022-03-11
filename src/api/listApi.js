@@ -1,9 +1,9 @@
-const urlPrefix = "http://54.36.191.192:3630/api";
+const urlPrefix = "http://54.36.191.192:3630/";
 
 const listAPI = {
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
-    const urlSuffix = "/trip/all";
+    const urlSuffix = "api/trip/";
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -13,7 +13,7 @@ const listAPI = {
   },
   //Voyage pour un id donné
   GetTrip: (id) => {
-    const urlSuffix = `/trip/find?id=${id}`;
+    const urlSuffix = `api/trip/${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -23,7 +23,7 @@ const listAPI = {
   },
 
   CreateTrip: (data) => {
-    const urlSuffix = "/trip/create";
+    const urlSuffix = "api/trip/";
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
