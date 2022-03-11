@@ -1,9 +1,12 @@
 import React from "react";
 
-const TripInfo = ({ id, nom, desc }) => {
+const TripInfo = ({ id, name, desc }) => {
   return (
     <>
-      <h1> {nom}</h1>
+      <h1>
+        {" "}
+        {name}| {desc}
+      </h1>
     </>
   );
 };

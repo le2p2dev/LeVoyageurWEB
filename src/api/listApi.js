@@ -1,11 +1,9 @@
-const urlPrefix = "http://mc.outronic.fr:3630/api";
+const urlPrefix = "http://54.36.191.192:3630/api";
 
 const listAPI = {
-
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
     const urlSuffix = "/trip/all";
-
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -23,20 +21,17 @@ const listAPI = {
       //body: JSON.stringify({'search' : data.email})
     }).then((res) => res.json());
   },
- 
-  CreateTrip :(data) =>{
 
-      const urlSuffix = '/trip/create';
-      return fetch(urlPrefix+urlSuffix, {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json'},
-          body: JSON.stringify({
-              tripName : data.tripName,
-              description : data.description
-              })
-      })
-      .then((res) => res.json())
-
+  CreateTrip: (data) => {
+    const urlSuffix = "/trip/create";
+    return fetch(urlPrefix + urlSuffix, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: data.tripName,
+        description: data.description,
+      }),
+    }).then((res) => res.json());
   },
   //Listes des étapes d'un voyage
   GetSteps: (data) => {
@@ -61,8 +56,8 @@ const listAPI = {
       //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
-   //Listes des marker d'un voyage
-   GetMarkersFromTrip: (id) => {
+  //Listes des marker d'un voyage
+  GetMarkersFromTrip: (id) => {
     const urlSuffix = `/marker/findbytrip?id=${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
@@ -74,7 +69,7 @@ const listAPI = {
 
   CreateMarker: (data) => {
     const urlSuffix = "/marker/create";
-    console.log(data)
+    console.log(data);
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -84,13 +79,21 @@ const listAPI = {
         description: data.description,
         latitude: data.latitude,
         longitude: data.longitude,
-        tripId: data.idTrip
+        tripId: data.idTrip,
       }),
     }).then((res) => res.json());
-  }
-
-
-
+  },
+  Login: (username, password) => {
+    const urlSuffix = "/login";
+    return fetch("http://54.36.191.192:3630/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    }).then((res) => res.json());
+  },
 };
 
 export default listAPI;

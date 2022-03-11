@@ -14,14 +14,15 @@ import SignIn from "./components/SignIn";
 import MenuBar from "./components/MenuBar";
 import DiscoverVoyageur from "./components/DiscoverVoyageur";
 import TripList from "./components/trip/TripList";
+import { CssBaseline } from "@mui/material";
 
 const Main = () => {
   return (
     <>
+      <CssBaseline />
       <MenuBar />
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/about" element={<DiscoverVoyageur />} />
         <Route path="*" element={<Navigate to="/" />} />
