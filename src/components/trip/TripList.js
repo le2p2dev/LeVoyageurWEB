@@ -100,19 +100,19 @@ export default function TripList() {
             {data?.response.map((trip, i, arr) => {
               if (arr.length - 1 === i) {
                 return (
-                  <>
-                    <Grid item>
+                  <div key = {i}>
+                    <Grid  item>
                       <CardTrip
                         id={trip.id}
                         name={trip.title}
                         description={trip.description}
                       />
                     </Grid>
-                  </>
+                  </div>
                 );
               }
               return (
-                <Grid item>
+                <Grid key={i} item >
                   <CardTrip
                     id={trip.id}
                     name={trip.tripName}

@@ -16,12 +16,14 @@ import DiscoverVoyageur from "./components/DiscoverVoyageur";
 import TripList from "./components/trip/TripList";
 import { CssBaseline } from "@mui/material";
 import CreateAccount from "./components/CreateAccount";
+import PoiModal from "./components/map/PoiModal";
 
 const Main = () => {
   return (
     <>
       <CssBaseline />
       <MenuBar />
+      <PoiModal/>    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route exact path="/signin" element={<SignIn />} />

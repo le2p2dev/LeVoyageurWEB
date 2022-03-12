@@ -89,12 +89,11 @@ const Map = (idTrip) => {
   const showMarker = (ev) => {
     //setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
     addMarker.mutate({
-      pinNumber: 1,
       title: "test",
       description: "from web app",
       latitude: ev.latLng.lat(),
       longitude: ev.latLng.lng(),
-      idTrip: idTrip.idTrip,
+      tripId: idTrip.idTrip,
     });
   };
 

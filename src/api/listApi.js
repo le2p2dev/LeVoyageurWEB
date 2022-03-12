@@ -3,7 +3,7 @@ const urlPrefix = "http://54.36.191.192:3630/";
 const listAPI = {
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
-    const urlSuffix = "api/trip/";
+    const urlSuffix = "api/poi/";
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -48,7 +48,7 @@ const listAPI = {
   },
   //Listes des marker
   GetMarkers: (data) => {
-    const urlSuffix = "/marker/all";
+    const urlSuffix = "api/poi";
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -58,7 +58,7 @@ const listAPI = {
   },
   //Listes des marker d'un voyage
   GetMarkersFromTrip: (id) => {
-    const urlSuffix = `/marker/findbytrip?id=${id}`;
+    const urlSuffix = `api/poi/trip?id=${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -68,17 +68,16 @@ const listAPI = {
   },
 
   CreateMarker: (data) => {
-    const urlSuffix = "/marker/create";
+    const urlSuffix = "api/poi";
     console.log(data);
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        pinNumber: data.pinNumber,
         title: data.title,
         description: data.description,
-        latitude: data.latitude,
         longitude: data.longitude,
+        latitude: data.latitude,
         tripId: data.idTrip,
       }),
     }).then((res) => res.json());
