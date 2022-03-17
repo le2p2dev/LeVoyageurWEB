@@ -35,7 +35,7 @@ const PoiModal = () => {
     const handleCategory = (event) => {
         setCategory(event.target.value);
     };
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => {
       setOpen(true);
     };
@@ -43,6 +43,7 @@ const PoiModal = () => {
       setOpen(false);
     };
     return(
+
         <div id = "PoiModalBox">
             
             <div id = "PoiInputs"> 
@@ -103,7 +104,6 @@ const PoiModal = () => {
                 </Modal>
             </div>
         </div>
-
     );
 }
 
