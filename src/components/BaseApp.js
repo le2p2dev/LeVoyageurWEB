@@ -13,7 +13,7 @@ import Map from "./map/Map";
 const BaseApp = () => {
   const { id } = useParams();
 
-  console.log(id);
+
 
   const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id));
 

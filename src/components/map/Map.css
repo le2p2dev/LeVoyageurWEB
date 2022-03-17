@@ -63,4 +63,13 @@
  
 }
 
+.modal{
 
+    width : 400px;
+    height: 1000px;
+    background-color: red;
+    position: absolute;
+    right: 0px;
+    margin-left: 1520px;
+    padding: 10px;
+}

@@ -1,4 +1,4 @@
-const urlPrefix = "http://54.36.191.192:3630/";
+const urlPrefix = "http://54.36.191.192:3630/api/";
 
 const listAPI = {
   //Listes des voyages pour un utilisateurs
@@ -13,7 +13,7 @@ const listAPI = {
   },
   //Voyage pour un id donné
   GetTrip: (id) => {
-    const urlSuffix = `api/trip/${id}`;
+    const urlSuffix = `trip/${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -23,7 +23,7 @@ const listAPI = {
   },
 
   CreateTrip: (data) => {
-    const urlSuffix = "api/trip/";
+    const urlSuffix = "trip/";
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,8 +34,8 @@ const listAPI = {
     }).then((res) => res.json());
   },
   //Listes des étapes d'un voyage
-  GetSteps: (data) => {
-    const urlSuffix = "";
+  GetStepsFromTrip: (data) => {
+    const urlSuffix = "step/trip/?tripId=${id}";
 
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
@@ -66,6 +66,9 @@ const listAPI = {
       //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
+  //Listes des POI d'une étape
+  GetStepsFromTrip: (id) => {
+    const urlSuffix = `poi/step/?stepId=${id}`;
 
   CreateMarker: (data) => {
     const urlSuffix = "api/poi";
@@ -79,11 +82,14 @@ const listAPI = {
         longitude: data.longitude,
         latitude: data.latitude,
         tripId: data.idTrip,
+        stepId: data.stepId
+
       }),
     }).then((res) => res.json());
+
   },
   Login: (username, password) => {
-    const urlSuffix = "/login";
+    const urlSuffix = "login";
     return fetch("http://54.36.191.192:3630/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
