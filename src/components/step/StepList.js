@@ -36,7 +36,7 @@ const StepList = (idTrip) => {
     return(
         <div>
             <div>
-                
+                Hello
             </div>
 
 

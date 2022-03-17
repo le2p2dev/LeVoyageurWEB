@@ -32,7 +32,7 @@ const Map = (idTrip) => {
       console.log("handleopen");
     };
     const handleClose = () => {
-      setOpen(false);
+      setIsPOIModalOpen(false);
     };
 
   const addPOI = useMutation(listAPI.CreatePOI, {
