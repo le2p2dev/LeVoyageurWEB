@@ -3,7 +3,8 @@ import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
 import listAPI from "../../api/listApi";
-import greenPin from "../../assets/green_pin.png";
+import PoiModal from "./PoiModal";
+import { Modal } from "@mui/material";
 
 
 const Map = (idTrip) => {
@@ -19,15 +20,23 @@ const Map = (idTrip) => {
     "Bars",
     "Landmarks",
   ]);
-  const [pinList, setPinList] = useState([]);
 
-  const { isLoading, data: markerList } = useQuery(
-    idTrip.idTrip + "markers",
-    () => listAPI.GetMarkersFromTrip(idTrip.idTrip)
+  const { isLoading, data: POIList } = useQuery(
+    idTrip.idTrip + "POIs",
+    () => listAPI.GetPOIs(idTrip.idTrip)
   );
 
-  const addMarker = useMutation(listAPI.CreateMarker, {
-    onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "markers"),
+  const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
+    const handleOpen = () => {
+      setIsPOIModalOpen(true);
+      console.log("handleopen");
+    };
+    const handleClose = () => {
+      setIsPOIModalOpen(false);
+    };
+
+  const addPOI = useMutation(listAPI.CreatePOI, {
+    onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs"),
   });
 
   const mapStyles = {
@@ -72,7 +81,7 @@ const Map = (idTrip) => {
   };
 
   //use query function for getting cords of place
-  const { isLoadingX, isError, error, data, refetch } = useQuery(
+  const { isLoading : isLoadingCoord, isError, error, data, refetch } = useQuery(
     ["fetchCoords", searchLocation],
     fetchCoords,
     {
@@ -86,10 +95,9 @@ const Map = (idTrip) => {
   );
 
   //add to marker array new markes
-  const showMarker = (ev) => {
+  const showPOI = (ev) => {
     //setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
-    addMarker.mutate({
-      pinNumber: 1,
+    addPOI.mutate({
       title: "test",
       description: "from web app",
       latitude: ev.latLng.lat(),
@@ -109,7 +117,7 @@ const Map = (idTrip) => {
   };
 
   //google maps api funcion to place a marker
-  const renderMarkers = (map, maps) => {
+  const renderPOIs = (map, maps) => {
     let marker = new maps.Marker({
       position: { lat: lat, lng: lng },
       map,
@@ -146,14 +154,15 @@ const Map = (idTrip) => {
 
       <div id="mapWrapper">
         <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
+          
           <GoogleMap
             mapContainerStyle={mapStyles}
             zoom={13}
             center={defaultCenter}
             yesIWantToUseGoogleMapApiInternals={true}
-            onGoogleApiLoaded={(map, maps) => renderMarkers(map, maps)}
+            onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
             onClick={(ev) => {
-              showMarker(ev);
+              showPOI(ev);
             }}
             options={{
               styles: [
@@ -180,18 +189,21 @@ const Map = (idTrip) => {
             {/* red pins from db */}
             {isLoading
               ? null
-              : markerList?.response.map((e, i) => {
-                {console.log("lat,lng =",e.latitude,e.longitude )}
+              : POIList?.response.map((e, i) => {
+                
                   return (
                     <Marker
                       key={i}
                       position={{ lat: e.latitude, lng: e.longitude }}
                       draggable={true}
-                      onDrag = {((ev) => console.log("drag=",ev.latLng.lat(),ev.latLng.lng())) }
+                      onDrag = {(ev => console.log("drag=",ev.latLng.lat(),ev.latLng.lng()))}
+                      onClick= {handleOpen} 
                       />
                   );
                 })}
+                  {isPOIModalOpen ? <PoiModal/> : null}  
           </GoogleMap>
+          
         </LoadScript>
         <div id="test">
           {listPOI.map((e, i) => {
