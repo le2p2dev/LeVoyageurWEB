@@ -101,7 +101,7 @@ export default function TripList() {
               if (arr.length - 1 === i) {
                 return (
                   <div key = {i}>
-                    <Grid item>
+                    <Grid  item>
                       <CardTrip
                         id={trip.id}
                         name={trip.title}
@@ -112,7 +112,7 @@ export default function TripList() {
                 );
               }
               return (
-                <Grid key = {i} item>
+                <Grid key={i} item >
                   <CardTrip
                     id={trip.id}
                     name={trip.tripName}

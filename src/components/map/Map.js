@@ -26,11 +26,13 @@ const Map = (idTrip) => {
     () => listAPI.GetPOIs(idTrip.idTrip)
   );
 
+  const [selectedPOI,setSelectedPOI] = useState(0);
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
-    const handleOpen = () => {
+    const handleOpen = (idPOI) => {
       setIsPOIModalOpen(true);
-      console.log("handleopen");
+      setSelectedPOI(idPOI);
     };
+
     const handleClose = () => {
       setIsPOIModalOpen(false);
     };
@@ -102,7 +104,7 @@ const Map = (idTrip) => {
       description: "from web app",
       latitude: ev.latLng.lat(),
       longitude: ev.latLng.lng(),
-      idTrip: idTrip.idTrip,
+      tripId: idTrip.idTrip,
     });
   };
 
@@ -126,9 +128,19 @@ const Map = (idTrip) => {
     return marker;
   };
 
+  const updatePOI = useMutation(listAPI.UpdatePOI, {
+    onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs")
+  });
 
- 
-  
+  const updatePOIOnClick = (id,lat,lng) => {
+
+      updatePOI.mutate({
+          id:id,
+          latitude: lat,
+          longitude: lng,
+      });
+  }
+
 
   return (
     <div id="mapFile">  
@@ -153,59 +165,59 @@ const Map = (idTrip) => {
       </div>
 
       <div id="mapWrapper">
-        <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
-          
-          <GoogleMap
-            mapContainerStyle={mapStyles}
-            zoom={13}
-            center={defaultCenter}
-            yesIWantToUseGoogleMapApiInternals={true}
-            onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
-            onClick={(ev) => {
-              showPOI(ev);
-            }}
-            options={{
-              styles: [
-                {
-                  elementType: "labels.text",
-                  featureType: "poi",
-                  stylers: [{ visibility: "off" }],
-                },
-              ],
-            }}
-          >
-            {/* green pins from onclick */}
-            {/* {pinList.map((e, i) => {
-              return (
-                <Marker
-                  key={i}
-                  position={{ lat: e.lat, lng: e.long }}
-                  icon={greenPin}
-                  draggable={true}
-                />
-              );
-            })} */}
+        <div id = "loadScriptWrapper">
 
-            {/* red pins from db */}
-            {isLoading
-              ? null
-              : POIList?.response.map((e, i) => {
-                
-                  return (
-                    <Marker
-                      key={i}
-                      position={{ lat: e.latitude, lng: e.longitude }}
-                      draggable={true}
-                      onDrag = {(ev => console.log("drag=",ev.latLng.lat(),ev.latLng.lng()))}
-                      onClick= {handleOpen} 
-                      />
-                  );
-                })}
-                  {isPOIModalOpen ? <PoiModal/> : null}  
-          </GoogleMap>
-          
-        </LoadScript>
-        <div id="test">
+          <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
+            <GoogleMap
+              mapContainerStyle={mapStyles}
+              zoom={13}
+              center={defaultCenter}
+              yesIWantToUseGoogleMapApiInternals={true}
+              onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
+              onClick={(ev) => {
+                showPOI(ev);
+              }}
+              options={{
+                styles: [
+                  {
+                    elementType: "labels.text",
+                    featureType: "poi",
+                    stylers: [{ visibility: "off" }],
+                  },
+                ],
+              }}
+            >
+              {/* green pins from onclick */}
+              {/* {pinList.map((e, i) => {
+                return (
+                  <Marker
+                    key={i}
+                    position={{ lat: e.lat, lng: e.long }}
+                    icon={greenPin}
+                    draggable={true}
+                  />
+                );
+              })} */}
+
+              {/* red pins from db */}
+              {isLoading
+                ? null
+                : POIList?.response.map((e,i) => {
+                  
+                    return (
+                      <Marker
+                        key={i}
+                        position={{ lat: e.latitude, lng: e.longitude }}
+                        draggable={true}
+                        onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng())}
+                        onClick= {() => handleOpen(e.id)} 
+                        />
+                    );
+                  })}
+            </GoogleMap>
+          </LoadScript>
+        </div>
+        {/* <div id="test">
           {listPOI.map((e, i) => {
             return (
               <div key={i} className="lst">
@@ -214,7 +226,9 @@ const Map = (idTrip) => {
               </div>
             );
           })}
-        </div>
+        </div> */}
+        {isPOIModalOpen ? <PoiModal idPOI = {selectedPOI} idTrip = {idTrip} closePOI = {handleClose}/> : null}  
+
       </div>
     </div>
   );
