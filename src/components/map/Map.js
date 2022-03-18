@@ -23,14 +23,14 @@ const Map = (idTrip) => {
 
   const { isLoading, data: POIList } = useQuery(
     idTrip.idTrip + "POIs",
-    () => listAPI.GetPOIs(idTrip.idTrip)
+    () => listAPI.GetPOIsFromTrip(idTrip.idTrip)
   );
 
   const [selectedPOI,setSelectedPOI] = useState(0);
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
-    const handleOpen = (idPOI) => {
+    const handleOpen = (POI) => {
       setIsPOIModalOpen(true);
-      setSelectedPOI(idPOI);
+      setSelectedPOI(POI);
     };
 
     const handleClose = () => {
@@ -38,6 +38,7 @@ const Map = (idTrip) => {
     };
 
   const addPOI = useMutation(listAPI.CreatePOI, {
+    
     onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs"),
   });
 
@@ -169,6 +170,7 @@ const Map = (idTrip) => {
 
           <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
             <GoogleMap
+              clickableIcons={false}
               mapContainerStyle={mapStyles}
               zoom={13}
               center={defaultCenter}
@@ -210,7 +212,7 @@ const Map = (idTrip) => {
                         position={{ lat: e.latitude, lng: e.longitude }}
                         draggable={true}
                         onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng())}
-                        onClick= {() => handleOpen(e.id)} 
+                        onClick= {() => handleOpen(e)} 
                         />
                     );
                   })}
@@ -227,7 +229,7 @@ const Map = (idTrip) => {
             );
           })}
         </div> */}
-        {isPOIModalOpen ? <PoiModal idPOI = {selectedPOI} idTrip = {idTrip} closePOI = {handleClose}/> : null}  
+        {isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip.idTrip} closePOI = {handleClose}/> : null}  
 
       </div>
     </div>
