@@ -5,18 +5,33 @@ import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import DeleteModal from "./DeleteModal";
 import Modal from '@mui/material/Modal';
-import {useMutation} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import listAPI from "../../api/listApi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
+
 import "./PoiModal.css";
 
-const PoiModal = (props) => {
+const PoiModal = ({id,title,description,closePOI,idTrip}) => {
 
-
-    const [poiTitle, setPoiTitle] = useState("");
+    
+    console.log(idTrip)
+    const queryClient = useQueryClient();
+    
+    const [poiTitle, setPoiTitle] = useState(title ? title : "test");
     const [poiDescription,setPoiDescription] = useState("");
+    const [idPOI,setIdPOI] = useState(id);
+
+    if (id!=idPOI){
+        setIdPOI(id)
+        setPoiTitle(title ? title : "")
+        setPoiDescription(description ? description : "")
+    }
+
+
+    console.log(poiTitle);
+
 
     const handlePoiTitleChange = (event) => {
         setPoiTitle(event.target.value);
@@ -26,6 +41,9 @@ const PoiModal = (props) => {
         setPoiDescription(event.target.value);
     };
 
+   
+    
+    
 
     const categories = [
         {   
@@ -61,23 +79,29 @@ const PoiModal = (props) => {
 
 
     const updatePOI = useMutation(listAPI.UpdatePOI, {
+        onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs")
 
     });
 
     const updatePOIOnClick = () => {
 
         updatePOI.mutate({
-            id:props.idPOI,
+            id: id,
             title: poiTitle,
             description: poiDescription,
         });
+        
     }
+    
+    
 
-    console.log(poiTitle,poiDescription);
-    return(
-
+    
+    return (
+        
+  
+        
         <div id = "PoiModalBox">
-            <IconButton id = "closeIcon" onClick = {props.closePOI} aria-label="delete"> <CloseIcon /> </IconButton>
+            <IconButton id = "closeIcon" onClick = {closePOI} aria-label="delete"> <CloseIcon /> </IconButton>
             <div id = "PoiInputs"> 
                 <TextField 
                     required

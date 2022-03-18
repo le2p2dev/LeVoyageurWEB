@@ -46,6 +46,16 @@ const listAPI = {
       body: JSON.stringify({ idTrip: data.idTrip }),
     }).then((res) => res.json());
   },
+  //Info d'un POI
+  GetPOI: (id) => {
+    const urlSuffix = `poi/${id}`;
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+      //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
   //Listes des marker
   GetPOIs: () => {
     const urlSuffix = "poi/";
@@ -58,7 +68,7 @@ const listAPI = {
   },
   //Listes des marker d'un voyage
   GetPOIsFromTrip: (id) => {
-    const urlSuffix = `poi/trip/?tripId=${id}`;
+    const urlSuffix = `poi/trip/${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -78,18 +88,17 @@ const listAPI = {
   },
 
   CreatePOI: (data) => {
-    console.log(data.idTrip)
     const urlSuffix = "poi";
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title: "top", // à changer
+        //title: data.title,
         //description: data.description,
         latitude: data.latitude,
         longitude: data.longitude,
         //poiType: data.poiType,
-        tripId: data.idTrip,
+        tripId: data.tripId,
 
 
       }),

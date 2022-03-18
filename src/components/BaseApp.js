@@ -24,9 +24,9 @@ const BaseApp = () => {
       <LogoHeader />
 
       <TripInfo
-        name={data.response[0].title}
-        desc={data.response[0].description}
-        id={data.response[0].id}
+        name={data.response[0]?.title}
+        desc={data.response[0]?.description}
+        id={data.response[0]?.id}
       />
 
       <Map idTrip={id} />
