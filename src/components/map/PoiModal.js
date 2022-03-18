@@ -2,14 +2,30 @@ import React, {useState } from "react";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-// import DeleteIcon from '@mui/material/DeleteIcon';
 import Input from '@mui/material/Input';
 import DeleteModal from "./DeleteModal";
 import Modal from '@mui/material/Modal';
+import {useMutation} from "react-query";
+import listAPI from "../../api/listApi";
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import "./PoiModal.css";
 
-const PoiModal = () => {
+const PoiModal = (props) => {
+
+
+    const [poiTitle, setPoiTitle] = useState("");
+    const [poiDescription,setPoiDescription] = useState("");
+
+    const handlePoiTitleChange = (event) => {
+        setPoiTitle(event.target.value);
+    };
+
+    const handlepoiDescriptionChange = (event) => {
+        setPoiDescription(event.target.value);
+    };
+
 
     const categories = [
         {   
@@ -42,10 +58,26 @@ const PoiModal = () => {
     const handleClose = () => {
       setOpen(false);
     };
+
+
+    const updatePOI = useMutation(listAPI.UpdatePOI, {
+
+    });
+
+    const updatePOIOnClick = () => {
+
+        updatePOI.mutate({
+            id:props.idPOI,
+            title: poiTitle,
+            description: poiDescription,
+        });
+    }
+
+    console.log(poiTitle,poiDescription);
     return(
 
         <div id = "PoiModalBox">
-            
+            <IconButton id = "closeIcon" onClick = {props.closePOI} aria-label="delete"> <CloseIcon /> </IconButton>
             <div id = "PoiInputs"> 
                 <TextField 
                     required
@@ -53,7 +85,9 @@ const PoiModal = () => {
                     margin = "dense"
                     id="outlined-basic" 
                     label="POI Title" 
-                    variant="outlined" />
+                    variant="outlined"
+                    value={poiTitle} 
+                    onChange={handlePoiTitleChange} />
                 <TextField
                     className = "PoiInput"
                     margin = "dense"
@@ -62,7 +96,8 @@ const PoiModal = () => {
                     placeholder="Placeholder"
                     multiline
                     rows={5}
-                />
+                    value={poiDescription}
+                    onChange={handlepoiDescriptionChange}/>
                 <TextField
                     className = "PoiInput"
                     margin = "dense"
@@ -86,7 +121,7 @@ const PoiModal = () => {
 
             <div className = "BtnBox">
                 <Button onClick={handleOpen} variant="contained">Delete POI</Button>
-                <Button variant="contained">Save POI</Button>
+                <Button onClick={updatePOIOnClick}variant="contained">Save POI</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}

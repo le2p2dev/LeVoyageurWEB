@@ -3,7 +3,7 @@ const urlPrefix = "http://54.36.191.192:3630/api/";
 const listAPI = {
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
-    const urlSuffix = "api/poi/";
+    const urlSuffix = "trip/";
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -47,8 +47,8 @@ const listAPI = {
     }).then((res) => res.json());
   },
   //Listes des marker
-  GetMarkers: (data) => {
-    const urlSuffix = "api/poi";
+  GetPOIs: () => {
+    const urlSuffix = "poi/";
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -57,8 +57,8 @@ const listAPI = {
     }).then((res) => res.json());
   },
   //Listes des marker d'un voyage
-  GetMarkersFromTrip: (id) => {
-    const urlSuffix = `api/poi/trip?id=${id}`;
+  GetPOIsFromTrip: (id) => {
+    const urlSuffix = `poi/trip/?tripId=${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -70,17 +70,43 @@ const listAPI = {
   GetStepsFromTrip: (id) => {
     const urlSuffix = `poi/step/?stepId=${id}`;
 
-  CreateMarker: (data) => {
-    const urlSuffix = "api/poi";
-    console.log(data);
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+      //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
+
+  CreatePOI: (data) => {
+    console.log(data.idTrip)
+    const urlSuffix = "poi";
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        title: "top", // à changer
+        //description: data.description,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        //poiType: data.poiType,
+        tripId: data.idTrip,
+
+
+      }),
+    }).then((res) => res.json());
+  },
+  UpdatePOI: (data) => {
+    const urlSuffix = "poi";
+    return fetch(urlPrefix + urlSuffix, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id:data.id,
         title: data.title,
         description: data.description,
-        longitude: data.longitude,
         latitude: data.latitude,
+        longitude: data.longitude,
+        poiType: data.poiType,
         tripId: data.idTrip,
         stepId: data.stepId
 

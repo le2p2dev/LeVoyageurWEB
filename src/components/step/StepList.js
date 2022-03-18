@@ -6,47 +6,21 @@ import { Button } from "@mui/material";
 
 const StepList = (idTrip) => {
 
-    // const deleteStep = (id) =>{
-    //     listAPI.DeleteStep(id)
-    // }
-
-   
-
-    // const {isLoading, data : steps} = useQuery(idTrip + "Steps",listAPI.GetSteps(idTrip));
-
-    // isLoading ? "Loading ..." : 
-    //     {
-    //         steps.response.map(step =>{
-    //             <div>{step.title + step.description}
-    //             <Button
-    //                 onClick={() => {deleteStep(step.id);}}
-    //             >
-    //                 Supprimer l'étape
-    //             </Button>      
-    //             </div>
-    //         })
-
-        
     
-        
-    // }
-
-
-
     return(
+
         <div>
             <div>
-                Hello
+                <h1> Trip Title </h1>
             </div>
 
-
-
-
+            <div> 
+                <h2> Step Title </h2>
+            </div>
         </div>
 
-
-
     );
+
 
 }
 
