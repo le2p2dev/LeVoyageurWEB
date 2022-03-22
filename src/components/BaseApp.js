@@ -9,6 +9,7 @@ import listAPI from "../api/listApi";
 import TripList from "./trip/TripList";
 import LogoHeader from "./LogoHeader";
 import Map from "./map/Map";
+import StepList from "./step/StepList"
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -28,6 +29,8 @@ const BaseApp = () => {
         desc={data.response[0]?.description}
         id={data.response[0]?.id}
       />
+            <StepList idTrip={id} titleTrip={data.response[0]?.title} />
+
 
       <Map idTrip={id} />
     </>

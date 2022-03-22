@@ -4,9 +4,9 @@ import { useQuery } from "react-query";
 
 
 
-const StepCard = (id,title,description,duration,lat,lng) => {
+const POIsByStep = (id) => {
 
-    const {isLoading, data : POIs} = useQuery(id+"StepPOIs", () => listAPI.GetPOIsFromStep(id));
+    const {isLoading, data : POIs} = useQuery(id.id+"StepPOIs", () => listAPI.GetPOIsFromStep(id.id));
 
     if (isLoading) return "Loading ..."
 
@@ -14,12 +14,10 @@ const StepCard = (id,title,description,duration,lat,lng) => {
 
     return( 
       <>
-            {title} : {duration} 
-           {description}
-
+           
            <ul>
            {POIs.response.map(POI => {
-               <li key={POI.id}>{POI.title}</li>
+              return <li key={POI.id}>{POI.title}</li>
            })}
            </ul>
 
@@ -30,4 +28,4 @@ const StepCard = (id,title,description,duration,lat,lng) => {
     
 }
 
-export default StepCard;
+export default POIsByStep;
