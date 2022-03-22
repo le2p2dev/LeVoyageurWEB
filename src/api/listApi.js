@@ -78,7 +78,7 @@ const listAPI = {
   },
   //Listes des POI d'une étape
   GetStepsFromTrip: (id) => {
-    const urlSuffix = `poi/step/?stepId=${id}`;
+    const urlSuffix = `step/trip/${id}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",

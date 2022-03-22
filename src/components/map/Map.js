@@ -5,6 +5,7 @@ import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
 import { Modal } from "@mui/material";
+import StepList from "../step/StepList";
 
 
 const Map = (idTrip) => {
@@ -144,7 +145,8 @@ const Map = (idTrip) => {
 
 
   return (
-    <div id="mapFile">  
+    <div id="mapFile"> 
+    <StepList idTrip = {idTrip.idTrip}></StepList> 
       <div className="searchBar">
         <input
           className="inputBox"

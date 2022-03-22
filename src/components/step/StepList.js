@@ -1,25 +1,35 @@
 import React from "react";
 import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
-import { Button } from "@mui/material";
+import { Button, Card } from "@mui/material";
+import StepCard from "./StepCard";
 
 
-const StepList = (idTrip) => {
+const StepList = (idTrip, titleTrip) => {
+
+        const {isLoading, data : steps} = useQuery(idTrip.idTrip+"steplist", () => listAPI.GetStepsFromTrip(idTrip.idTrip))
+    
+        if (isLoading) return "Loading ..."
+
+        else  return <ul>
+
+            StepList :
+       
+        {steps.response.map(step => { 
+
+           
+             return <li key={step.id}>{step.title}</li>
+
+            }
+              ) 
+}
+        </ul>
+
+   
+
+       
 
     
-    return(
-
-        <div>
-            <div>
-                <h1> Trip Title </h1>
-            </div>
-
-            <div> 
-                <h2> Step Title </h2>
-            </div>
-        </div>
-
-    );
 
 
 }
