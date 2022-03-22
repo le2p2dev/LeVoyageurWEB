@@ -1,6 +1,7 @@
 const urlPrefix = "http://54.36.191.192:3630/api/";
 
 const listAPI = {
+
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
     const urlSuffix = "trip/";
@@ -144,6 +145,7 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
+
 };
 
 export default listAPI;

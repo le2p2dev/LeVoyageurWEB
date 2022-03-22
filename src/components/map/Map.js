@@ -1,241 +1,239 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
-import { Modal } from "@mui/material";
-import StepList from "../step/StepList";
 
+import MapBox from "../../api/MapBox"
 
 const Map = (idTrip) => {
-  const queryClient = useQueryClient();
 
-  const [searchLocation, setSearchLocation] = useState("");
-  const [lat, setLat] = useState(41.3851);
-  const [lng, setLng] = useState(2.1734);
-  const [listPOI, setListPOI] = useState([
-    "Hotels",
-    "Restaurants",
-    "Museums",
-    "Bars",
-    "Landmarks",
-  ]);
+	//#region Get browser geolocalisation
+	// if ("geolocation" in navigator) { 
+	//   navigator.geolocation.getCurrentPosition(position => { 
+	//       console.log("location=",position.coords.latitude, position.coords.longitude); 
+	// }); 
+	// } else { console.log("nope location") }
+	//#endregion
 
-  const { isLoading, data: POIList } = useQuery(
-    idTrip.idTrip + "POIs",
-    () => listAPI.GetPOIsFromTrip(idTrip.idTrip)
-  );
+	//#region Google Maps style and initial location
 
-  const [selectedPOI,setSelectedPOI] = useState(0);
-  const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
-    const handleOpen = (POI) => {
-      setIsPOIModalOpen(true);
-      setSelectedPOI(POI);
-    };
+	const [lat, setLat] = useState(41.3851);
+	const [lng, setLng] = useState(2.1734);
 
-    const handleClose = () => {
-      setIsPOIModalOpen(false);
-    };
+	const mapStyles = {	
+		height: "80vh",
+		width: "99%",
+	};
 
-  const addPOI = useMutation(listAPI.CreatePOI, {
-    
-    onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs"),
-  });
+	const defaultCenter = {
+		lat: lat,
+		lng: lng,
+	};
 
-  const mapStyles = {
-    height: "80vh",
-    width: "99%",
-  };
+	//#endregion
 
-  const defaultCenter = {
-    lat: lat,
-    lng: lng,
-  };
+	//#region Google Maps Functions
 
-  const mapBoxToken =
-    "&access_token=pk.eyJ1IjoiNTczZiIsImEiOiJja3l5Z2JoMWQwcnlsMnJzM2pxN29md2RnIn0.YnpLDRmULNCqnV2XLcmgCQ";
-  const urlPreFix = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
-  const urlSettings = "limit=1&types=place";
+	//google maps api function to show and place a marker/POI
+	const renderPOIs = (map, maps) => {
+		let marker = new maps.Marker({
+		position: { lat: lat, lng: lng },
+		map,
+		title: "name",
+		});
+		return marker;
+	};
 
-  /**
-   * @fn fetchCords
-   * @brief Function that based on user input, does an api request to map box to get coords of the entered place.
-   * @param input => a string
-   * @returns data fetched from mapbox
-   * @todo check user input
-   */
+	//#endregion
 
-  const fetchCoords = (input) => {
-    const userInputLocation = input.queryKey[1];
+	//#region useState Variables
 
-    const url =
-      urlPreFix + userInputLocation + ".json?" + urlSettings + mapBoxToken;
+	const [searchLocation, setSearchLocation] = useState("");
+	const [POICategory, setPOICategory] = useState([
+		"Hotels",
+		"Restaurants",
+		"Museums",
+		"Bars",
+		"Landmarks",
+	]);
+	const [POIList,setPOIList] = useState([]);
+	const [selectedPOI,setSelectedPOI] = useState(0);
+	const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
 
-    return fetch(url, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        return error;
-      });
-  };
+	//#endregion
 
-  //use query function for getting cords of place
-  const { isLoading : isLoadingCoord, isError, error, data, refetch } = useQuery(
-    ["fetchCoords", searchLocation],
-    fetchCoords,
-    {
-      refetchOnWindowFocus: false,
-      enabled: false,
-      onSuccess: (data) => {
-        setLat(data.features[0].center[1]);
-        setLng(data.features[0].center[0]);
-      },
-    }
-  );
+	//#region Handler Functions
+  	//gets input value from search bar
+	const handleSearchLocationChange = (event) => {
+		setSearchLocation(event.target.value);
+	};
 
-  //add to marker array new markes
-  const showPOI = (ev) => {
-    //setPinList(oldArray => [...oldArray, {lat:ev.latLng.lat(),long:ev.latLng.lng(),set:false}]);
-    addPOI.mutate({
-      title: "test",
-      description: "from web app",
-      latitude: ev.latLng.lat(),
-      longitude: ev.latLng.lng(),
-      tripId: idTrip.idTrip,
-    });
-  };
+	//on click function. calls fetchcoord refetch
+	const handleLocationSearch = () => {
+		refetch();
+	};
 
-  //gets input value from search bar
-  const handleSearchLocationChange = (event) => {
-    setSearchLocation(event.target.value);
-  };
+	//open modal POI
+	const handleOpen = (POI) => {
+		setIsPOIModalOpen(true);
+		setSelectedPOI(POI);
+	};
 
-  //on click function. calls fetchcoord refetch
-  const handleLocationSearch = () => {
-    refetch();
-  };
+	//close modal POI
+	const handleClose = () => {
+		setIsPOIModalOpen(false);
+	};
 
-  //google maps api funcion to place a marker
-  const renderPOIs = (map, maps) => {
-    let marker = new maps.Marker({
-      position: { lat: lat, lng: lng },
-      map,
-      title: "name",
-    });
-    return marker;
-  };
+	//#endregion
 
-  const updatePOI = useMutation(listAPI.UpdatePOI, {
-    onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs")
-  });
+	//#region useQuerries
 
-  const updatePOIOnClick = (id,lat,lng) => {
+	const queryClient = useQueryClient();
 
-      updatePOI.mutate({
-          id:id,
-          latitude: lat,
-          longitude: lng,
-      });
-  }
+	//useQuerry to get pois from trip
+	const { isLoading, data: POIListOriginal } = useQuery(
+		idTrip.idTrip + "POIs",
+		() => listAPI.GetPOIsFromTrip(idTrip.idTrip),
+		{onSuccess: (data)=> {setPOIList(data.response)}}
+	);
 
+	//use query function for getting cords of place
+	const { data, refetch } = useQuery(
+		["fetchCoords", searchLocation],
+		MapBox.fetchCoords,
+		{
+			refetchOnWindowFocus: false,
+			enabled: false,
+			onSuccess: (data) => {
+				setLat(data.features[0].center[1]);
+				setLng(data.features[0].center[0]);
+			},
+		}
+	);
 
-  return (
-    <div id="mapFile"> 
-    <StepList idTrip = {idTrip.idTrip}></StepList> 
-      <div className="searchBar">
-        <input
-          className="inputBox"
-          type="text"
-          name="lng"
-          placeholder="Search Location"
-          onChange={handleSearchLocationChange}
-          value={searchLocation}
-        />
+	//#endregion
 
-        <button
-          className="buttonClass"
-          id="seatchBtnMap"
-          type="submit"
-          onClick={() => handleLocationSearch()}
-        >
-          Search Location
-        </button>
-      </div>
+	//#region useMutations
 
-      <div id="mapWrapper">
-        <div id = "loadScriptWrapper">
+	//create poi in a trip
+	const addPOI = useMutation(listAPI.CreatePOI, {
+		onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs"),
+	});
 
-          <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
-            <GoogleMap
-              clickableIcons={false}
-              mapContainerStyle={mapStyles}
-              zoom={13}
-              center={defaultCenter}
-              yesIWantToUseGoogleMapApiInternals={true}
-              onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
-              onClick={(ev) => {
-                showPOI(ev);
-              }}
-              options={{
-                styles: [
-                  {
-                    elementType: "labels.text",
-                    featureType: "poi",
-                    stylers: [{ visibility: "off" }],
-                  },
-                ],
-              }}
-            >
-              {/* green pins from onclick */}
-              {/* {pinList.map((e, i) => {
-                return (
-                  <Marker
-                    key={i}
-                    position={{ lat: e.lat, lng: e.long }}
-                    icon={greenPin}
-                    draggable={true}
-                  />
-                );
-              })} */}
+	//update POI coords
+	const updatePOI = useMutation(listAPI.UpdatePOI, {
+		onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs")
+	});
 
-              {/* red pins from db */}
-              {isLoading
-                ? null
-                : POIList?.response.map((e,i) => {
-                  
-                    return (
-                      <Marker
-                        key={i}
-                        position={{ lat: e.latitude, lng: e.longitude }}
-                        draggable={true}
-                        onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng())}
-                        onClick= {() => handleOpen(e)} 
-                        />
-                    );
-                  })}
-            </GoogleMap>
-          </LoadScript>
-        </div>
-        {/* <div id="test">
-          {listPOI.map((e, i) => {
-            return (
-              <div key={i} className="lst">
-                <input type="checkbox" />
-                <label> {e} </label>
-              </div>
-            );
-          })}
-        </div> */}
-        {isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip.idTrip} closePOI = {handleClose}/> : null}  
+	//#endregion
+	
+	//#region Other Functions
 
-      </div>
-    </div>
-  );
+	//add to POI from map onclick
+	const showPOI = (ev) => {
+		addPOI.mutate({
+		title: "test",
+		description: "from web app",
+		latitude: ev.latLng.lat(),
+		longitude: ev.latLng.lng(),
+		tripId: idTrip.idTrip,
+		});
+	};
+
+	//update coords of poi
+	const updatePOIOnClick = (id,lat,lng,i) => {
+
+		//change poi location so that there is no glitch on drag drop
+		let copy = [... POIList];
+		let copyItem = {...copy[i]};
+		copyItem.latitude = lat;
+		copyItem.longitude = lng;
+
+		copy[i] = copyItem;
+		setPOIList(copy);
+
+		//update backend
+		updatePOI.mutate({
+			id:id,
+			latitude: lat,
+			longitude: lng,
+		});
+	}
+
+	//#endregion
+
+	return (
+		<div id="mapFile">  
+
+			<div className="searchBar">
+				<input
+				className="inputBox"
+				type="text"
+				name="lng"
+				placeholder="Search Location"
+				onChange={handleSearchLocationChange}
+				value={searchLocation}
+				/>
+
+				<button
+				className="buttonClass"
+				id="seatchBtnMap"
+				type="submit"
+				onClick={() => handleLocationSearch()}
+				>
+				Search Location
+				</button>
+			</div>
+
+			<div id="mapWrapper">
+				<div id = "loadScriptWrapper">
+					<LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
+						<GoogleMap
+							clickableIcons={false}
+							mapContainerStyle={mapStyles}
+							zoom={13}
+							center={defaultCenter}
+							yesIWantToUseGoogleMapApiInternals={true}
+							onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
+							onClick={(ev) => {
+								showPOI(ev);
+							}}
+							options={{
+								styles: [
+								{
+									elementType: "labels.text",
+									featureType: "poi",
+									stylers: [{ visibility: "off" }],
+								},
+								],
+							}}
+						>
+						
+						//shows markers on map from DB
+						{isLoading? null : 
+							POIList?.map((e,i) => {
+								return (
+								<Marker
+									key={i}
+									position={{ lat: e.latitude, lng: e.longitude }}
+									draggable={true}
+									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
+									onClick= {() => handleOpen(e)} 
+									onMouseOver = { () => console.log("on mouseover = ",e.title)}
+									/>
+								);
+							})
+						}
+						</GoogleMap>
+					</LoadScript>
+				</div>
+				
+				{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip.idTrip} closePOI = {handleClose}/> : null}  
+			</div>
+		</div>
+	);
 };
 
 export default Map;
