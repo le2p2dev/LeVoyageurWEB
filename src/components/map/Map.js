@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
+
 import MapBox from "../../api/MapBox"
 
 const Map = (idTrip) => {

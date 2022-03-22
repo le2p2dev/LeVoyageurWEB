@@ -16,7 +16,6 @@ import DiscoverVoyageur from "./components/DiscoverVoyageur";
 import TripList from "./components/trip/TripList";
 import { CssBaseline } from "@mui/material";
 import CreateAccount from "./components/CreateAccount";
-import StepList from "./components/step/StepList";
 
 const Main = () => {
   return (

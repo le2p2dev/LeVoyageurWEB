@@ -1,6 +1,7 @@
 import React, {useState } from "react";
 import listAPI from "../../api/listApi";
-import { Button } from "@mui/material";
+import { Button, Card } from "@mui/material";
+import StepCard from "./StepCard";
 import "./StepList.css"
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,15 +11,12 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { useQuery, useQueryClient } from "react-query";
 
 
-const StepList = (idTrip) => {
 
-    const queryClient = useQueryClient();
-    const { isLoading, data: POIList } = useQuery(
-        idTrip.idTrip + "POIs",
-        () => listAPI.GetPOIs(idTrip.idTrip)
-       
-    );
-    console.log(POIList)
+const StepList = (idTrip, titleTrip) => {
+
+
+        const {isLoading, data : steps} = useQuery(idTrip.idTrip+"steplist", () => listAPI.GetStepsFromTrip(idTrip.idTrip))
+
 
 
     const setTitleorID = (id,title) => {
@@ -83,8 +81,17 @@ const StepList = (idTrip) => {
     const [modifyStepTitle,setModifyStepTitle] = useState(false);
     const [modifyStepDescription,setModifyStepDescription] = useState(false);
 
+
     
-    return(
+        if (isLoading) return "Loading ..."
+
+
+        else  return <ul>
+
+            StepList :
+       
+        {steps.response.map(step => { 
+           return <li key={step.id}>{step.title}</li>
 
         <div id = "stepListBox">
             <IconButton id = "closeIconStep" aria-label="delete"> <CloseIcon /> </IconButton>
@@ -168,7 +175,20 @@ const StepList = (idTrip) => {
 
         </div>
 
-    );
+
+           
+            
+
+            }
+              ) 
+}
+        </ul>
+
+   
+
+       
+
+    
 
 
 }
