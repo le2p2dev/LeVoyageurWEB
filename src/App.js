@@ -23,7 +23,6 @@ const Main = () => {
     <>
       <CssBaseline />
       <MenuBar />
-      <StepList/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route exact path="/signin" element={<SignIn />} />
