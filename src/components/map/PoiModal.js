@@ -16,7 +16,6 @@ import "./PoiModal.css";
 const PoiModal = ({id,title,description,closePOI,idTrip}) => {
 
     
-    console.log(idTrip)
     const queryClient = useQueryClient();
     
     const [poiTitle, setPoiTitle] = useState(title ? title : "test");
@@ -30,7 +29,6 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
     }
 
 
-    console.log(poiTitle);
 
 
     const handlePoiTitleChange = (event) => {
@@ -154,8 +152,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
                         <div className = "deleteModal">
                             <DeleteModal 
                                 yesBtnFunction =  {() =>
-                                    {console.log("TODO modify marker");
-                                    handleClose();}}
+                                    handleClose(closePOI)}
                                 noBtnFunction = {handleClose} 
                                 type = "marker"
                             />
