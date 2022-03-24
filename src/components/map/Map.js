@@ -5,6 +5,7 @@ import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
 import MapBox from "../../api/MapBox"
+import NavigationMap from "./NavigationMap";
 
 const Map = (idTrip) => {
 
@@ -230,6 +231,7 @@ const Map = (idTrip) => {
 				</div>
 				
 				{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip.idTrip} closePOI = {handleClose}/> : null}  
+				<NavigationMap></NavigationMap>
 			</div>
 		</div>
 	);
