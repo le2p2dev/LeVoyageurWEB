@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 import "./PoiModal.css";
+import { DeleteSweepOutlined } from "@mui/icons-material";
 
 const PoiModal = ({id,title,description,closePOI,idTrip}) => {
 
@@ -39,7 +40,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
         setPoiDescription(event.target.value);
     };
 
-   
+  
     
     
 
@@ -81,8 +82,15 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
 
     });
 
-    const updatePOIOnClick = () => {
+    const deletePoi = useMutation(listAPI.DeletePOI, {
+        onSuccess: () =>  {
+            queryClient.invalidateQueries(idTrip+ "POIs")
+            
+         }  
+      });
 
+    const updatePOIOnClick = () => {
+        
         updatePOI.mutate({
             id: id,
             title: poiTitle,
@@ -151,8 +159,12 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
                     aria-describedby="parent-modal-description">
                         <div className = "deleteModal">
                             <DeleteModal 
-                                yesBtnFunction =  {() =>
-                                    handleClose(closePOI)}
+                                yesBtnFunction =  {() => {
+                                    deletePoi.mutate(id)
+                                    handleClose()
+                                }
+                                }
+                                    
                                 noBtnFunction = {handleClose} 
                                 type = "marker"
                             />

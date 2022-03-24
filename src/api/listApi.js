@@ -113,6 +113,46 @@ const listAPI = {
     }).then((res) => res.json());
 
   },
+  DeletePOI: (id) => {
+    const urlSuffix = "poi";
+    return fetch(urlPrefix + urlSuffix, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id:id,
+      }),
+    }).then((res) => res.json());
+
+  },
+  UpdateStep: (data) => {
+    const urlSuffix = "step";
+    return fetch(urlPrefix + urlSuffix, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id:data.id,
+        title: data.title,
+        description: data.description,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        duration: data.duration,
+        
+
+      }),
+    }).then((res) => res.json());
+
+  },
+  DeleteStep: (id) => {
+    const urlSuffix = "step";
+    return fetch(urlPrefix + urlSuffix, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id:id,
+      }),
+    }).then((res) => res.json());
+
+  },
   //list des steps d'un voyage
   GetStepsFromTrip: (id) => {
     const urlSuffix = `step/trip/${id}`;
