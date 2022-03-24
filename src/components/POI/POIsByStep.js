@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { Button } from "@mui/material";
 import { useQuery, useQueryClient,useMutation} from "react-query";
+import { DeleteSweepOutlined } from "@mui/icons-material";
 
 const POIsByStep = (idStep) => {
 
@@ -67,6 +68,13 @@ const POIsByStep = (idStep) => {
 
           
          });
+
+         const deletePoi = useMutation(listAPI.DeletePOI, {
+            onSuccess: () =>  {
+                queryClient.invalidateQueries(idStep.idStep+ "StepPOIs")
+                
+             }  
+          });
 
          const handleSave = (id,titleAtm,descriptionAtm) => {
             if(modifyPoiTitle && !modifyPoiDescription)
@@ -146,6 +154,14 @@ const POIsByStep = (idStep) => {
             }
           >
            Save
+          </Button>
+          <Button
+            onClick={() =>
+                deletePoi.mutate(poi.id)
+              
+            }
+          >
+           Delete
           </Button>
             </div>
                 

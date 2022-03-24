@@ -92,7 +92,7 @@ const Map = (idTrip) => {
 
 	const queryClient = useQueryClient();
 
-	//useQuerry to get pois from trip
+	//useQuery to get pois from trip
 	const { isLoading, data: POIListOriginal } = useQuery(
 		idTrip.idTrip + "POIs",
 		() => listAPI.GetPOIsFromTrip(idTrip.idTrip),
