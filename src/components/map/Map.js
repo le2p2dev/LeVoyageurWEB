@@ -7,13 +7,17 @@ import PoiModal from "./PoiModal";
 
 import MapBox from "../../api/MapBox"
 
-const Map = (idTrip) => {
+import greenPin from '../../assets/green_pin.png'
+
+
+const Map = ({idTrip,mode}) => {
+
 
 	//#region Get browser geolocalisation
-	// if ("geolocation" in navigator) { 
-	//   navigator.geolocation.getCurrentPosition(position => { 
-	//       console.log("location=",position.coords.latitude, position.coords.longitude); 
-	// }); 
+	// if ("geolocation" in navigator) {
+	//   navigator.geolocation.getCurrentPosition(position => {
+	//       console.log("location=",position.coords.latitude, position.coords.longitude);
+	// });
 	// } else { console.log("nope location") }
 	//#endregion
 
@@ -22,7 +26,7 @@ const Map = (idTrip) => {
 	const [lat, setLat] = useState(41.3851);
 	const [lng, setLng] = useState(2.1734);
 
-	const mapStyles = {	
+	const mapStyles = {
 		height: "80vh",
 		width: "99%",
 	};
@@ -59,6 +63,7 @@ const Map = (idTrip) => {
 		"Landmarks",
 	]);
 	const [POIList,setPOIList] = useState([]);
+	const [stepList,setStepList] = useState([]);
 	const [selectedPOI,setSelectedPOI] = useState(0);
 	const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
 
@@ -86,6 +91,7 @@ const Map = (idTrip) => {
 		setIsPOIModalOpen(false);
 	};
 
+
 	//#endregion
 
 	//#region useQuerries
@@ -94,13 +100,14 @@ const Map = (idTrip) => {
 
 	//useQuery to get pois from trip
 	const { isLoading, data: POIListOriginal } = useQuery(
-		idTrip.idTrip + "POIs",
-		() => listAPI.GetPOIsFromTrip(idTrip.idTrip),
+		idTrip + "POIs",
+		() => listAPI.GetPOIsFromTrip(idTrip),
 		{onSuccess: (data)=> {setPOIList(data.response)}}
 	);
 
 	//use query function for getting cords of place
 	const { data, refetch } = useQuery(
+
 		["fetchCoords", searchLocation],
 		MapBox.fetchCoords,
 		{
@@ -112,6 +119,14 @@ const Map = (idTrip) => {
 			},
 		}
 	);
+	
+	// Get steps from trip
+	const { isLoading : isLoadingSteps, data: StepList } = useQuery(
+		idTrip + "steps",
+		() => listAPI.GetStepsFromTrip(idTrip),
+		{onSuccess: (data)=> {setStepList(data.response)}}
+	);	
+
 
 	//#endregion
 
@@ -119,26 +134,31 @@ const Map = (idTrip) => {
 
 	//create poi in a trip
 	const addPOI = useMutation(listAPI.CreatePOI, {
-		onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs"),
+		onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs"),
 	});
 
 	//update POI coords
 	const updatePOI = useMutation(listAPI.UpdatePOI, {
-		onSuccess: () => queryClient.invalidateQueries(idTrip.idTrip + "POIs")
+		onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs")
+	});
+
+	//create step in a trip
+	const addStep = useMutation(listAPI.CreateStep, {
+		onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs"),
 	});
 
 	//#endregion
-	
+
 	//#region Other Functions
 
 	//add to POI from map onclick
 	const showPOI = (ev) => {
 		addPOI.mutate({
-		title: "test",
-		description: "from web app",
-		latitude: ev.latLng.lat(),
-		longitude: ev.latLng.lng(),
-		tripId: idTrip.idTrip,
+			title: "test",
+			description: "from web app",
+			latitude: ev.latLng.lat(),
+			longitude: ev.latLng.lng(),
+			tripId: idTrip,
 		});
 	};
 
@@ -162,10 +182,26 @@ const Map = (idTrip) => {
 		});
 	}
 
+	//add step from map onclick
+	const showStep = (ev) => {
+		console.log("showstep");
+		addStep.mutate({
+			title: "test",
+			description: "step from web app",
+			latitude: ev.latLng.lat(),
+			longitude: ev.latLng.lng(),
+			tripId: idTrip,
+		})
+
+	}
+	
+
+
+
 	//#endregion
 
 	return (
-		<div id="mapFile">  
+		<div id="mapFile">
 
 			<div className="searchBar">
 				<input
@@ -186,7 +222,6 @@ const Map = (idTrip) => {
 				Search Location
 				</button>
 			</div>
-
 			<div id="mapWrapper">
 				<div id = "loadScriptWrapper">
 					<LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
@@ -197,9 +232,7 @@ const Map = (idTrip) => {
 							center={defaultCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
 							onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
-							onClick={(ev) => {
-								showPOI(ev);
-							}}
+							onClick={(mode==1)? false : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
 							options={{
 								styles: [
 								{
@@ -210,27 +243,33 @@ const Map = (idTrip) => {
 								],
 							}}
 						>
-						
+
+						{isLoadingSteps? console.log("stepList loading"): console.log("stepList = ", stepList)}
+
 						//shows markers on map from DB
-						{isLoading? null : 
+						{isLoading? null :
 							POIList?.map((e,i) => {
 								return (
 								<Marker
 									key={i}
 									position={{ lat: e.latitude, lng: e.longitude }}
-									draggable={true}
+									draggable={(mode==1)?false:true}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-									onClick= {() => handleOpen(e)} 
-									onMouseOver = { () => console.log("on mouseover = ",e.title)}
+									onClick= {() => handleOpen(e)}
+									// onMouseOver = { () => console.log("on mouseover = ",e.title)}
+									// icon = {(mode==2)? greenPin : null}
 									/>
 								);
 							})
 						}
+
+
 						</GoogleMap>
 					</LoadScript>
 				</div>
-				
-				{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip.idTrip} closePOI = {handleClose}/> : null}  
+
+				{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClose}/> : null}
+
 			</div>
 		</div>
 	);

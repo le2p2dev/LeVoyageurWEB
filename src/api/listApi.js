@@ -2,6 +2,7 @@ const urlPrefix = "http://54.36.191.192:3630/api/";
 
 const listAPI = {
 
+
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
     const urlSuffix = "trip/";
@@ -153,6 +154,24 @@ const listAPI = {
     }).then((res) => res.json());
 
   },
+   CreateStep: (data) => {
+		const urlSuffix = "step";
+		return fetch(urlPrefix + urlSuffix, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			title: data.title,
+			//description: data.description,
+			latitude: data.latitude,
+			longitude: data.longitude,
+			//duration: data.duration,
+			tripId: data.tripId,
+
+
+		}),
+		}).then((res) => res.json());
+	},
+    
   //list des steps d'un voyage
   GetStepsFromTrip: (id) => {
     const urlSuffix = `step/trip/${id}`;
@@ -185,6 +204,7 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
+    
 
 };
 

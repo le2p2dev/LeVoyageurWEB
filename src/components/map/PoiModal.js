@@ -16,7 +16,7 @@ import { DeleteSweepOutlined } from "@mui/icons-material";
 
 const PoiModal = ({id,title,description,closePOI,idTrip}) => {
 
-    
+
     const queryClient = useQueryClient();
     
     const [poiTitle, setPoiTitle] = useState(title ? title : "test");
