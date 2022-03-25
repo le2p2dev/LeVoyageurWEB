@@ -15,8 +15,8 @@ const DiscoverVoyageur = () => {
 
   var interval = setTimeout(() => {
     let nameChoosen = name[number];
-    document.getElementById("title").innerHTML = "";
-    document.getElementById("title").innerHTML = `<h1> ${nameChoosen}   </h1>`;
+   // document.getElementById("title").innerHTML = "";
+    //document.getElementById("title").innerHTML = `<h1> ${nameChoosen}   </h1>`;
     if (number + 1 < name.length) {
       setNumber(number + 1);
     } else {

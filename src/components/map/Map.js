@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
+
 import MapBox from "../../api/MapBox"
 
 import greenPin from '../../assets/green_pin.png'
@@ -97,7 +98,7 @@ const Map = ({idTrip,mode}) => {
 
 	const queryClient = useQueryClient();
 
-	//useQuerry to get pois from trip
+	//useQuery to get pois from trip
 	const { isLoading, data: POIListOriginal } = useQuery(
 		idTrip + "POIs",
 		() => listAPI.GetPOIsFromTrip(idTrip),

@@ -16,6 +16,7 @@ import TripList from "./trip/TripList";
 import LogoHeader from "./LogoHeader";
 import Map from "./map/Map";
 import NavigationMap from "./map/NavigationMap";
+import StepList from "./step/StepList"
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -51,6 +52,11 @@ const BaseApp = () => {
 
       </BottomNavigation>
       <Map idTrip={id} mode = {value} />
+
+            <StepList idTrip={id} titleTrip={data.response[0]?.title} />
+
+
+      <Map idTrip={id} />
     </>
   );
 };
