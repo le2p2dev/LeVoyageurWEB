@@ -25,6 +25,13 @@ const StepList = (idTrip) => {
         }
       });
 
+      const deleteStep = useMutation(listAPI.DeleteStep, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(idTrip.idTrip + "steps")
+            handleClose()
+        }
+      });
+
     const [modifyStepTitle,setModifyStepTitle] = useState(false);
     const [modifyStepDescription,setModifyStepDescription] = useState(false);
 
@@ -141,9 +148,20 @@ const StepList = (idTrip) => {
              handleSave(step.id,step.title,step.description)
             }
           >
+              
            Save
           </Button>
+          
+          <Button
+            onClick={() =>
+                deleteStep.mutate(step.id)
+              
+            }
+          >
+           Delete
+          </Button>
             </div>
+            
                 
                 <POIsbyStep idStep= {step.id}/>
 

@@ -1,13 +1,14 @@
  #stepListBox{
 
-    width:500px;
-    height: 800px;
+    
+    max-height: 800px;
     border: 2px solid black;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    overflow:scroll;
 
 }
 
@@ -31,7 +32,6 @@
     flex-direction: column;
     
 
-    width:500px;
 }
 
 #selectPOIBox{
@@ -42,7 +42,6 @@
     flex-direction: column;
     
 
-    width:500px;
 
 }
 
