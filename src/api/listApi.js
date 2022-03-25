@@ -96,12 +96,11 @@ const listAPI = {
     }).then((res) => res.json());
   },
   UpdatePOI: (data) => {
-    const urlSuffix = "poi";
+    const urlSuffix = `poi/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id:data.id,
         title: data.title,
         description: data.description,
         latitude: data.latitude,
@@ -115,23 +114,20 @@ const listAPI = {
 
   },
   DeletePOI: (id) => {
-    const urlSuffix = "poi";
+    const urlSuffix = `poi/${id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id:id,
-      }),
     }).then((res) => res.json());
 
   },
   UpdateStep: (data) => {
-    const urlSuffix = "step";
+    const urlSuffix = `step/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id:data.id,
+        
         title: data.title,
         description: data.description,
         latitude: data.latitude,
@@ -144,13 +140,11 @@ const listAPI = {
 
   },
   DeleteStep: (id) => {
-    const urlSuffix = "step";
+    const urlSuffix = `step/${id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id:id,
-      }),
+     
     }).then((res) => res.json());
 
   },

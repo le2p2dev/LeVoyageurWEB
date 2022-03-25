@@ -51,12 +51,15 @@ const BaseApp = () => {
           <BottomNavigationAction value = "4" label="List View" icon={<FormatListBulletedIcon/>} />
 
       </BottomNavigation>
+      {value==4 ?       
+      <StepList idTrip={id} titleTrip={data.response[0]?.title} />
+      :
       <Map idTrip={id} mode = {value} />
+      }
+      
 
-            <StepList idTrip={id} titleTrip={data.response[0]?.title} />
 
 
-      <Map idTrip={id} />
     </>
   );
 };
