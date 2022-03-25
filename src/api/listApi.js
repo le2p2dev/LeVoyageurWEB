@@ -132,6 +132,25 @@ const listAPI = {
 
 	},
 
+	CreateStep: (data) => {
+		const urlSuffix = "step";
+		return fetch(urlPrefix + urlSuffix, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			title: data.title,
+			//description: data.description,
+			latitude: data.latitude,
+			longitude: data.longitude,
+			//duration: data.duration,
+			tripId: data.tripId,
+
+
+		}),
+		}).then((res) => res.json());
+	},
+	
+
 	Login: (username, password) => {
 		const urlSuffix = "login";
 		return fetch("http://54.36.191.192:3630/login", {
