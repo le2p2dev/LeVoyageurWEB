@@ -184,7 +184,7 @@ const Map = ({idTrip,mode}) => {
 
 	//add step from map onclick
 	const showStep = (ev) => {
-		console.log("showstep");
+		console.log("ev=",ev.latLng.lat());
 		addStep.mutate({
 			title: "test",
 			description: "step from web app",
@@ -244,8 +244,23 @@ const Map = ({idTrip,mode}) => {
 							}}
 						>
 
-						{isLoadingSteps? console.log("stepList loading"): console.log("stepList = ", stepList)}
-
+						{/* {isLoadingSteps? null : console.log("")
+							// stepList?.map((e,i) => {
+							// 	return(
+							// 		<Marker
+							// 		key={i}
+							// 		position={{ lat: e.latitude, lng: e.longitude }}
+							// 		draggable={(mode==1)?false:true}
+							// 		onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
+							// 		onClick= {() => handleOpen(e)}
+							// 		// onMouseOver = { () => console.log("on mouseover = ",e.title)}
+							// 		icon = {(mode==2)? greenPin : null}
+							// 		/>
+							// 	);	
+							// })
+							
+						} */}
+						
 						//shows markers on map from DB
 						{isLoading? null :
 							POIList?.map((e,i) => {

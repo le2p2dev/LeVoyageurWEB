@@ -149,6 +149,7 @@ const listAPI = {
 
   },
    CreateStep: (data) => {
+	   console.log("data in create step=",data.latitude);
 		const urlSuffix = "step";
 		return fetch(urlPrefix + urlSuffix, {
 		method: "POST",
