@@ -3,9 +3,6 @@
 #mapWrapper{
     
     position: relative;
-    display:flex;
-    justify-content: center;
-    align-items: center;
 
     margin-top:2%;
 }
@@ -22,8 +19,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     
-    margin-top: -4%;
 
 }
 
@@ -63,4 +60,22 @@
  
 }
 
+.modal{
 
+    width : 400px;
+    height: 1000px;
+    background-color: red;
+    position: absolute;
+    right: 0px;
+    margin-left: 1520px;
+    padding: 10px;
+}
+
+#loadScriptWrapper{
+
+    position:absolute;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}

@@ -1,0 +1,55 @@
+ #stepListBox{
+
+    
+    max-height: 800px;
+    border: 2px solid black;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow:scroll;
+
+}
+
+#tripTitleBox{
+
+    margin-top: 35px;
+}
+
+.inputStyle{
+
+    width:450px;
+    height:100px;
+
+}
+
+#stepInfoBox{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+
+}
+
+#selectPOIBox{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+
+
+}
+
+#titleTrip{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+ 
+
