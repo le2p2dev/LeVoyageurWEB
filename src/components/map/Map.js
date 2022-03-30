@@ -244,7 +244,6 @@ const Map = ({idTrip,mode}) => {
 							}}
 						>
 
-						{isLoadingSteps? console.log("stepList loading"): console.log("stepList = ", stepList)}
 
 						//shows markers on map from DB
 						{isLoading? null :

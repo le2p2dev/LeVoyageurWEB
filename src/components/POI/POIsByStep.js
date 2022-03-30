@@ -20,6 +20,7 @@ const POIsByStep = (idStep) => {
     
     const [id,setId] = useState(0);
 
+
     // useEffect(() => {
     //     handleClose();
 
@@ -97,6 +98,7 @@ const POIsByStep = (idStep) => {
                   })
         }
       
+     
 
         if (isLoading) return "Loading ..."
 
@@ -163,6 +165,7 @@ const POIsByStep = (idStep) => {
           >
            Delete
           </Button>
+      
             </div>
                 
                
