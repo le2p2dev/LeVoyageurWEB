@@ -30,13 +30,13 @@ const BaseApp = () => {
 
   return (
     <>
-      <LogoHeader />
 
-      <TripInfo
+
+      {/* <TripInfo
         name={data.response[0]?.title}
         desc={data.response[0]?.description}
         id={data.response[0]?.id}
-      />
+      /> */}
       <BottomNavigation
           showLabels
           value={value}
