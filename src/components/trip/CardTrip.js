@@ -12,14 +12,25 @@ import Typography from "@mui/material/Typography";
 const CardTrip = ({ id, name, description }) => {
   const navigate = useNavigate();
 
-  const [shadow, setShadow] = useState("white");
+  const [shadow, setShadow] = useState("black");
+  const [borderLine, setBorderLine] = useState("");
+
+
+  const changeOver = () => {
+    setShadow("#1876D1")
+    setBorderLine("2px solid #1876D1")
+  }
+  const changeOut = () => {
+    setShadow("black")
+    setBorderLine("")
+  }
 
   return (
     <Card
-      sx={{ maxWidth: 345, backgroundColor: shadow }}
+      sx={{ maxWidth: 345, color: shadow, border: borderLine }}
       onClick={() => navigate("/trip/" + id)}
-      onMouseOver={() => setShadow("red")}
-      onMouseOut={() => setShadow("white")}
+      onMouseOver={() => changeOver()}
+      onMouseOut={() => changeOut()}
     >
       <CardMedia
         component="img"
@@ -28,10 +39,10 @@ const CardTrip = ({ id, name, description }) => {
         alt="dune"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ color: shadow }} gutterBottom variant="h5" component="div">
           {name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ color: shadow }}  variant="body2" color="text.secondary">
           {description}
         </Typography>
       </CardContent>
