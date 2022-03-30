@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from "react";
 import listAPI from "../../api/listApi";
-import { Button, Card } from "@mui/material";
+import { Button, Select, Autocomplete, Box} from "@mui/material";
 import "./StepList.css"
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,6 +15,8 @@ import POIsbyStep from "../POI/POIsByStep"
 const StepList = (idTrip) => {
 
     const {isLoading, data : steps} = useQuery(idTrip.idTrip+ "steps", () => listAPI.GetStepsFromTrip(idTrip.idTrip))
+    const {isLoading : isLoadingAllPOIs, data : allPOIs} = useQuery(idTrip.idTrip+"POIs", () => listAPI.GetPOIsFromTrip(idTrip.idTrip));
+
 
     const queryClient = useQueryClient();
 
@@ -39,6 +41,9 @@ const StepList = (idTrip) => {
     const [description,setDescription] = useState("");
     
     const [id,setId] = useState(0);
+
+    const [idPoiToAdd,setIdPoiToAdd] = useState("");
+
 
     // useEffect(() => {
     //     handleClose();
@@ -92,8 +97,11 @@ const StepList = (idTrip) => {
                 id: id
               })
     }
+    const handleSelectPoi = (event) =>{
+        setIdPoiToAdd(event.target.value)
+    }
 
-        if (isLoading) return "Loading ..."
+        if (isLoading || isLoadingAllPOIs) return "Loading ..."
 
 
         else return <ul>
@@ -160,6 +168,30 @@ const StepList = (idTrip) => {
           >
            Delete
           </Button>
+          
+            { <Autocomplete
+                disablePortal
+                options={allPOIs.response}
+                getOptionLabel={(option) => option.title ? option.title : "Poi avec l'id :"+option.id}
+                sx={{ width: 300 }}
+                renderOption={(props, option) => (
+                    <Box component="li" {...props}>
+                     
+                       {option.title ? option.title : option.id} 
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                    onChange={handleSelectPoi}
+
+                      {...params}
+                      label="Add a poi to the step"
+                      inputProps={{
+                        ...params.inputProps,
+                      }}
+                      />
+                )}
+            /> }
             </div>
             
                 

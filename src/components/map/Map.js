@@ -247,23 +247,7 @@ const Map = ({idTrip,mode}) => {
 							}}
 						>
 
-						{isLoadingSteps? null : 
-							stepList?.map((e,i) => {
-								return(
-									<Marker
-										key={i}
-										position={{ lat: (e.latitude)? e.latitude: 0.0, lng: (e.longitude)? e.longitude:0.0 }}
-										draggable={(mode==3)?true:false}
-										//onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-										//onClick= {() => handleOpen(e)}
-										// onMouseOver = { () => console.log("on mouseover = ",e.title)}
-										icon = {greenPin}
-									/>
-								);	
-							})
-							
-						}
-						
+
 						//shows markers on map from DB
 						{isLoading? null :
 							POIList?.map((e,i) => {

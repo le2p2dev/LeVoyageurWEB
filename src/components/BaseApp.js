@@ -22,7 +22,7 @@ const BaseApp = () => {
   const { id } = useParams();
 
 
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("1");
 
   const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id));
 
