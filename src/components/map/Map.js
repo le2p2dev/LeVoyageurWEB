@@ -27,8 +27,8 @@ const Map = ({idTrip,mode}) => {
 	const [lng, setLng] = useState(2.1734);
 
 	const mapStyles = {
-		height: "80vh",
-		width: "99%",
+		height: "100%",
+		width: "100%",
 	};
 
 	const defaultCenter = {
@@ -67,6 +67,15 @@ const Map = ({idTrip,mode}) => {
 	const [selectedPOI,setSelectedPOI] = useState(0);
 	const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
 
+	const [poiTypes,setPoiTypes] = useState([{name:"Shopping",value:false, mapName:"poi.business.Shopping"},
+											{name:"Attractions",value:false,mapName:"poi.attraction"},	
+											{name:"All Businesses",value:false,mapName:"poi.business"},
+											{name:"Lodging",value:false,mapName:"poi.business.Lodging"},
+											{name:"Park",value:false,mapName:"poi.park"},
+											{name:"Place of worship",value:false,mapName:"poi.place_of_worship"},
+											{name:"Medical",value:false,mapName:"poi.medical"},
+											/*{name:"Restaurants and Bars",value:false,mapName:"poi.food_and_drink"}*/]);
+
 	//#endregion
 
 	//#region Handler Functions
@@ -82,6 +91,7 @@ const Map = ({idTrip,mode}) => {
 
 	//open modal POI
 	const handleOpen = (POI) => {
+		console.log("open")
 		setIsPOIModalOpen(true);
 		setSelectedPOI(POI);
 	};
@@ -90,6 +100,14 @@ const Map = ({idTrip,mode}) => {
 	const handleClose = () => {
 		setIsPOIModalOpen(false);
 	};
+
+	const handleCheckBoxPoi = (event,i) => {
+
+		let poiTypesCopy = [...poiTypes];
+		poiTypesCopy[i].value = (poiTypesCopy[i].value === true)?false : true;
+		setPoiTypes(poiTypesCopy);
+
+	}
 
 
 	//#endregion
@@ -184,7 +202,7 @@ const Map = ({idTrip,mode}) => {
 
 	//add step from map onclick
 	const showStep = (ev) => {
-		console.log("showstep");
+		console.log("ev=",ev.latLng.lat());
 		addStep.mutate({
 			title: "test",
 			description: "step from web app",
@@ -196,32 +214,13 @@ const Map = ({idTrip,mode}) => {
 	}
 	
 
-
-
 	//#endregion
+
 
 	return (
 		<div id="mapFile">
 
-			<div className="searchBar">
-				<input
-				className="inputBox"
-				type="text"
-				name="lng"
-				placeholder="Search Location"
-				onChange={handleSearchLocationChange}
-				value={searchLocation}
-				/>
 
-				<button
-				className="buttonClass"
-				id="seatchBtnMap"
-				type="submit"
-				onClick={() => handleLocationSearch()}
-				>
-				Search Location
-				</button>
-			</div>
 			<div id="mapWrapper">
 				<div id = "loadScriptWrapper">
 					<LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
@@ -234,13 +233,17 @@ const Map = ({idTrip,mode}) => {
 							onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
 							onClick={(mode==1)? false : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
 							options={{
-								styles: [
-								{
-									elementType: "labels.text",
-									featureType: "poi",
-									stylers: [{ visibility: "off" }],
-								},
-								],
+
+								styles:poiTypes.map((e) => {
+									return(
+										{
+											elementType:"labels.icon",
+											featureType:e.mapName,
+											stylers: [{ visibility: (e.value)? "on":"off"} ],
+										}
+									)
+								})
+
 							}}
 						>
 
@@ -252,11 +255,10 @@ const Map = ({idTrip,mode}) => {
 								<Marker
 									key={i}
 									position={{ lat: e.latitude, lng: e.longitude }}
-									draggable={(mode==1)?false:true}
+									draggable={(mode==2)?true:false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
 									onClick= {() => handleOpen(e)}
-									// onMouseOver = { () => console.log("on mouseover = ",e.title)}
-									// icon = {(mode==2)? greenPin : null}
+									
 									/>
 								);
 							})
@@ -266,9 +268,48 @@ const Map = ({idTrip,mode}) => {
 						</GoogleMap>
 					</LoadScript>
 				</div>
+				
+				<div id="mapOverlay" >
+					
+					<div className="searchBar">
+						<input
+							className="inputBox"
+							type="text"
+							name="lng"
+							placeholder="Search Location"
+							onChange={handleSearchLocationChange}
+							value={searchLocation}
+						/>
 
-				{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClose}/> : null}
+						<button
+							className="buttonClass"
+							id="seatchBtnMap"
+							type="submit"
+							onClick={() => handleLocationSearch()}
+						>
+						Search Location
+						</button>
+					</div>
 
+					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClose}/> : null}
+					
+					<div id = "poiTypes">
+
+						{
+							poiTypes.map(
+								(e,i) => {
+									return(
+										<div key={i}>
+											<input onChange = {(ev) => handleCheckBoxPoi(ev,i)} type="checkbox" name = {e.name} checked={e.value}/>
+											<label htmlFor = {e.name}> {e.name} </label>
+										</div>
+									)
+								}
+							)
+						}
+
+					</div>
+				</div>
 			</div>
 		</div>
 	);

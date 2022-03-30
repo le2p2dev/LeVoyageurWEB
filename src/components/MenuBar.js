@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import LogoHeader from "./LogoHeader";
+
 
 //mui import
 import {
@@ -37,7 +39,7 @@ const MenuBar = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar variant="dense">
-            <MenuItem onClick={() => navigate("/home")}>LeVoyageur</MenuItem>
+            <MenuItem onClick={() => navigate("/home")}> <LogoHeader/> </MenuItem>
             <IconButton
               size="large"
               edge="start"

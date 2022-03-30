@@ -5,10 +5,17 @@
     position: relative;
 
     margin-top:2%;
+    width:99vw;
+    height: 70vh;
+    left:0.2vw;
+
+    
+
+
 }
 
 .inputBox{
-    width:30%;
+    width:20%;
     height: 50px;
 }
 
@@ -16,11 +23,15 @@
 
 .searchBar{
 
+    position:relative;
+    top: 0vh;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    
+    pointer-events:auto;
+
+    left:65vh;
 
 }
 
@@ -32,7 +43,7 @@
 .buttonClass{
 
     width:10%;
-    height: 56px;
+    height: 50px;
     margin-left: 5px;
 
 }
@@ -78,4 +89,25 @@
     justify-content: center;
     align-items: center;
     width:100%;
+    height: 100%;
 }
+
+#mapOverlay{
+
+
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+}
+
+#poiTypes{
+
+    position: absolute;
+
+    right: 3vw;
+    bottom: 2vh;
+
+    pointer-events: auto;
+}   
