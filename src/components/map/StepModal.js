@@ -14,55 +14,32 @@ import CloseIcon from '@mui/icons-material/Close';
 import "./PoiModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
 
-const PoiModal = ({id,title,description,closePOI,idTrip}) => {
+const StepModal = ({id,title,description,closeStep,idTrip}) => {
 
 
     const queryClient = useQueryClient();
     
-    const [poiTitle, setPoiTitle] = useState(title ? title : "test");
-    const [poiDescription,setPoiDescription] = useState("");
-    const [idPOI,setIdPOI] = useState(id);
+    const [stepTitle, setStepTitle] = useState(title ? title : "test");
+    const [stepDescription,setStepDescription] = useState("");
+    const [idStep,setIdStep] = useState(id);
 
-    if (id!=idPOI){
-        setIdPOI(id)
-        setPoiTitle(title ? title : "")
-        setPoiDescription(description ? description : "")
+    if (id!=idStep){
+        setIdStep(id)
+        setStepTitle(title ? title : "")
+        setStepDescription(description ? description : "")
     }
 
 
-    const handlePoiTitleChange = (event) => {
-        setPoiTitle(event.target.value);
+    const handleStepTitleChange = (event) => {
+        setStepTitle(event.target.value);
     };
 
-    const handlepoiDescriptionChange = (event) => {
-        setPoiDescription(event.target.value);
+    const handleStepDescriptionChange = (event) => {
+        setStepDescription(event.target.value);
     };
 
   
-    const categories = [
-        {   
-            value:"Museum",
-            label: 'Museum',
-        },
-        {
-            value: "Hotel",
-            label: 'Hotel',
-        },
-        {
-            value:"Restaurant",
-            label: 'Restaurant',
-        },
-        {
-            value:"Monument",
-            label: 'Monument',
-        },
-    ];
-
-    const [category, setCategory] = useState('Hotel');
-
-    const handleCategory = (event) => {
-        setCategory(event.target.value);
-    };
+   
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
       setOpen(true);
@@ -72,24 +49,24 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
     };
 
 
-    const updatePOI = useMutation(listAPI.UpdatePOI, {
-        onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs")
+    const updateStep = useMutation(listAPI.UpdateStep, {
+        onSuccess: () => queryClient.invalidateQueries(idTrip + "Steps")
 
     });
 
-    const deletePoi = useMutation(listAPI.DeletePOI, {
+    const deleteStep = useMutation(listAPI.DeleteStep, {
         onSuccess: () =>  {
             queryClient.invalidateQueries(idTrip+ "POIs")
             
          }  
       });
 
-    const updatePOIOnClick = () => {
+    const updateStepOnClick = () => {
         
-        updatePOI.mutate({
+        updateStep.mutate({
             id: id,
-            title: poiTitle,
-            description: poiDescription,
+            title: stepTitle,
+            description: stepDescription,
         });
         
     }
@@ -102,41 +79,27 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
   
         
         <div id = "PoiModalBox">
-            <IconButton id = "closeIcon" onClick = {closePOI} aria-label="delete"> <CloseIcon /> </IconButton>
+            <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
             <div id = "PoiInputs"> 
                 <TextField 
                     required
                     className = "PoiInput"
                     margin = "dense"
                     id="outlined-basic" 
-                    label="POI Title" 
+                    label="Step Title" 
                     variant="outlined"
-                    value={poiTitle} 
-                    onChange={handlePoiTitleChange} />
+                    value={stepTitle} 
+                    onChange={handleStepTitleChange} />
                 <TextField
                     className = "PoiInput"
                     margin = "dense"
                     id="outlined-textarea"
-                    label="POI Description"
+                    label="Step Description"
                     placeholder="Placeholder"
                     multiline
                     rows={5}
-                    value={poiDescription}
-                    onChange={handlepoiDescriptionChange}/>
-                <TextField
-                    className = "PoiInput"
-                    margin = "dense"
-                    id="outlined-select-currency"
-                    select
-                    label="POI Category"
-                    value={category}
-                    onChange={handleCategory}>
-                    {categories.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                    value={stepDescription}
+                    onChange={handleStepDescriptionChange}/>
             </div>
 
                 <label htmlFor="contained-button-file">
@@ -145,8 +108,8 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
                 </label>
 
             <div className = "BtnBox">
-                <Button onClick={handleOpen} variant="contained">Delete POI</Button>
-                <Button onClick={updatePOIOnClick}variant="contained">Save POI</Button>
+                <Button onClick={handleOpen} variant="contained">Delete Step</Button>
+                <Button onClick={updateStepOnClick}variant="contained">Save Step</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -155,7 +118,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
                         <div className = "deleteModal">
                             <DeleteModal 
                                 yesBtnFunction =  {() => {
-                                    deletePoi.mutate(id)
+                                    deleteStep.mutate(id)
                                     handleClose()
                                 }
                                 }
@@ -170,4 +133,4 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
     );
 }
 
-export default PoiModal;
+export default StepModal;

@@ -4,6 +4,8 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
+import StepModal from "./StepModal";
+
 
 import MapBox from "../../api/MapBox"
 
@@ -285,7 +287,6 @@ const Map = ({idTrip,mode}) => {
 									draggable={(mode==2)?true:false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
 									onClick= {(mode==2)?() => handleOpenPOI(e):null}
-									
 									/>
 								);
 							})
@@ -319,7 +320,7 @@ const Map = ({idTrip,mode}) => {
 					</div>	
 
 					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClosePOI}/> : null}
-					{isStepModalOpen ? <PoiModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closePOI = {handleCloseStep}/> : null}
+					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closePOI = {handleCloseStep}/> : null}
 
 					<div id = "poiTypes">
 
