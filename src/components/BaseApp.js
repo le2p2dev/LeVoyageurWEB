@@ -57,11 +57,11 @@ const BaseApp = () => {
       :
       <Map idTrip={id} mode = {value} />
       }
-        {
-            /*
-              <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/>
-             */
-        }
+
+        {/*
+        <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/>
+        */}
+
 
       
 

@@ -19,7 +19,7 @@ const CardPoi = ({id,title,description}) => {
        <Card>
            <CardContent>
                <Typography>
-                   <TextField id="standard-basic"  InputProps={{ disableUnderline: true }} variant="standard" value={title}/>
+                   <TextField id="standard-basic"  InputProps={{ disableUnderline: true, style: {fontSize: 25,fontWeight: "bold"} }} variant="standard" value={title}/>
                </Typography>
                <Typography>
                    <TextField id="standard-basic"  InputProps={{ disableUnderline: true }} variant="standard" value={description}/>
