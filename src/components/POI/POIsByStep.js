@@ -3,7 +3,7 @@ import listAPI from "../../api/listApi";
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import EditIcon from '@mui/icons-material/Edit';
 import { Button } from "@mui/material";
 import { useQuery, useQueryClient,useMutation} from "react-query";
 import { DeleteSweepOutlined } from "@mui/icons-material";
@@ -111,8 +111,7 @@ const POIsByStep = (idStep) => {
            return <div key={poi.id}>
 
         <div id = "poiBox">
-            <IconButton id = "closeIconPoi" aria-label="delete" onClick={handleClose}> <CloseIcon /> </IconButton>
-
+            
             
 
             <div id="poiInfoBox"> 
@@ -128,7 +127,7 @@ const POIsByStep = (idStep) => {
                 : 
                     <div id = "titleTrip"> 
                         <h2> {poi.title}</h2>
-                        <IconButton id = "closeIconPoi" onClick = {() =>handleModifyTitle(poi.id)} aria-label="delete"> <AutoFixHighIcon /> </IconButton>
+                        <IconButton id = "closeIconPoi" onClick = {() =>handleModifyTitle(poi.id)} aria-label="delete"> <EditIcon /> </IconButton>
                     </div>
                 }
                 
@@ -145,7 +144,8 @@ const POIsByStep = (idStep) => {
                 : 
                     <div id = "titleTrip"> 
                         <p>{poi.description}</p>
-                        <IconButton id = "closeIconPoi" onClick = {() =>handleModifyDescription(poi.id)} aria-label="delete"> <AutoFixHighIcon /> </IconButton>
+                        
+                        <IconButton id = "closeIconPoi" onClick = {() =>handleModifyDescription(poi.id)} aria-label="delete"> <EditIcon /> </IconButton>
                     </div>
                 }
                 <Button
@@ -155,14 +155,13 @@ const POIsByStep = (idStep) => {
           >
            Save
           </Button>
-          <Button
+          
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button style={{color: "#E00"}}
             onClick={() =>
-                deletePoi.mutate(poi.id)
-              
-            }
-          >
-           Delete
+                deletePoi.mutate(poi.id)}>Delete
           </Button>
+
       
             </div>
                 
