@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
@@ -14,7 +14,13 @@ import greenPin from '../../assets/green_pin.png'
 
 const Map = ({idTrip,mode}) => {
 
+useEffect(()=>{
 
+	handleCloseStep()
+	handleClosePOI()
+
+},[mode])
+	
 	//#region Get browser geolocalisation
 	// if ("geolocation" in navigator) {
 	//   navigator.geolocation.getCurrentPosition(position => {
@@ -24,6 +30,8 @@ const Map = ({idTrip,mode}) => {
 	//#endregion
 
 	//#region Google Maps style and initial location
+
+	
 
 	const [lat, setLat] = useState(41.3851);
 	const [lng, setLng] = useState(2.1734);
@@ -166,7 +174,8 @@ const Map = ({idTrip,mode}) => {
 
 	//create poi in a trip
 	const addPOI = useMutation(listAPI.CreatePOI, {
-		onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs"),
+		onSuccess: () => {queryClient.invalidateQueries(idTrip + "POIs")
+	}
 	});
 
 	//update POI coords
@@ -176,7 +185,8 @@ const Map = ({idTrip,mode}) => {
 
 	//create step in a trip
 	const addStep = useMutation(listAPI.CreateStep, {
-		onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs"),
+		onSuccess: () => queryClient.invalidateQueries(idTrip + "steps")
+		
 	});
 
 	//#endregion
@@ -320,7 +330,7 @@ const Map = ({idTrip,mode}) => {
 					</div>	
 
 					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClosePOI}/> : null}
-					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closePOI = {handleCloseStep}/> : null}
+					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closeStep = {handleCloseStep}/> : null}
 
 					<div id = "poiTypes">
 

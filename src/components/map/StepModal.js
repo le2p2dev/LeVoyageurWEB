@@ -50,13 +50,14 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
 
 
     const updateStep = useMutation(listAPI.UpdateStep, {
-        onSuccess: () => queryClient.invalidateQueries(idTrip + "Steps")
+        onSuccess: () => queryClient.invalidateQueries(idTrip + "steps")
 
     });
 
     const deleteStep = useMutation(listAPI.DeleteStep, {
         onSuccess: () =>  {
-            queryClient.invalidateQueries(idTrip+ "POIs")
+            queryClient.invalidateQueries(idTrip+ "steps")
+            closeStep()
             
          }  
       });
@@ -104,7 +105,7 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
 
                 <label htmlFor="contained-button-file">
                     <Input accept="image/*" id="contained-button-file" multiple type="file"  style = { {display:'none'}}/>
-                    <Button variant="contained" component="span"> Upload Files </Button>
+                    {/* <Button variant="contained" component="span"> Upload Files </Button> */}
                 </label>
 
             <div className = "BtnBox">
