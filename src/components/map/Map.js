@@ -176,7 +176,7 @@ const Map = ({idTrip,mode}) => {
 
 	//create step in a trip
 	const addStep = useMutation(listAPI.CreateStep, {
-		onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs"),
+		onSuccess: () => queryClient.invalidateQueries(idTrip + "steps"),
 	});
 
 	//#endregion
