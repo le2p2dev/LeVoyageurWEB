@@ -114,11 +114,11 @@ const StepList = (idTrip) => {
            return <li key={step.id}>
 
         <div id = "stepListBox">
-            <IconButton id = "closeIconStep" aria-label="delete" onClick={handleClose}> <CloseIcon /> </IconButton>
 
             
 
             <div id="stepInfoBox"> 
+
                 {(modifyStepTitle && id == step.id)?
                     <TextField 
                     className = "inputStyle"
@@ -151,6 +151,8 @@ const StepList = (idTrip) => {
                         <IconButton id = "closeIconStep" onClick = {() =>handleModifyDescription(step.id)} aria-label="delete"> <AutoFixHighIcon /> </IconButton>
                     </div>
                 }
+                <IconButton id = "closeIconStep" aria-label="delete" onClick={handleClose}> <CloseIcon /> </IconButton>
+               <div id="poiListBox">
                 <Button
             onClick={() =>
              handleSave(step.id,step.title,step.description)
@@ -168,6 +170,7 @@ const StepList = (idTrip) => {
           >
            Delete
           </Button>
+          </div>
           
             { <Autocomplete
                 disablePortal
@@ -194,8 +197,9 @@ const StepList = (idTrip) => {
             /> }
             </div>
             
-                
-                <POIsbyStep idStep= {step.id}/>
+                <div>
+                  <POIsbyStep idStep= {step.id}/>
+                </div>
 
         </div>
 
