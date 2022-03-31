@@ -41,7 +41,7 @@ export const CreateTrip = () => {
         <CardMedia
           component="img"
           height="140"
-          image={require("../../assets/dune.png")}
+          image={require("../../assets/image.jpeg")}
           alt="dune"
         />
         <CardContent>

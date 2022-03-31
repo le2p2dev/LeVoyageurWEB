@@ -35,7 +35,7 @@ const CardTrip = ({ id, name, description }) => {
       <CardMedia
         component="img"
         height="140"
-        image={require("../../assets/dune.png")}
+        image={require("../../assets/image.jpeg")}
         alt="dune"
       />
       <CardContent>
