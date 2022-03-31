@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import EditIcon from '@mui/icons-material/Edit';
 import { useQuery, useMutation,useQueryClient } from "react-query";
 import POIsbyStep from "../POI/POIsByStep"
 
@@ -129,7 +129,7 @@ const StepList = (idTrip) => {
                 : 
                     <div id = "titleTrip"> 
                         <h2> {step.title}</h2>
-                        <IconButton id = "closeIconStep" onClick = {() =>handleModifyTitle(step.id)} aria-label="delete"> <AutoFixHighIcon /> </IconButton>
+                        <IconButton id = "closeIconStep" onClick = {() =>handleModifyTitle(step.id)} aria-label="delete"> <EditIcon /> </IconButton>
                     </div>
                 }
                 
@@ -146,7 +146,7 @@ const StepList = (idTrip) => {
                 : 
                     <div id = "titleTrip"> 
                         <p>{step.description}</p>
-                        <IconButton id = "closeIconStep" onClick = {() =>handleModifyDescription(step.id)} aria-label="delete"> <AutoFixHighIcon /> </IconButton>
+                        <IconButton id = "closeIconStep" onClick = {() =>handleModifyDescription(step.id)} aria-label="delete"> <EditIcon /> </IconButton>
                     </div>
                 }
                 <IconButton id = "closeIconStep" aria-label="delete" onClick={handleClose}> <CloseIcon /> </IconButton>
