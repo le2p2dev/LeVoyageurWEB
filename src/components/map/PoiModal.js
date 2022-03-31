@@ -80,6 +80,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
     const deletePoi = useMutation(listAPI.DeletePOI, {
         onSuccess: () =>  {
             queryClient.invalidateQueries(idTrip+ "POIs")
+            closePOI()
             
          }  
       });
@@ -141,7 +142,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
 
                 <label htmlFor="contained-button-file">
                     <Input accept="image/*" id="contained-button-file" multiple type="file"  style = { {display:'none'}}/>
-                    <Button variant="contained" component="span"> Upload Files </Button>
+                    {/* <Button variant="contained" component="span"> Upload Files </Button> */}
                 </label>
 
             <div className = "BtnBox">
