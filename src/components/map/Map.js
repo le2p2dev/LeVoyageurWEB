@@ -4,6 +4,8 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import "./Map.css";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
+import StepModal from "./StepModal";
+
 
 import MapBox from "../../api/MapBox"
 
@@ -65,7 +67,9 @@ const Map = ({idTrip,mode}) => {
 	const [POIList,setPOIList] = useState([]);
 	const [stepList,setStepList] = useState([]);
 	const [selectedPOI,setSelectedPOI] = useState(0);
+	const [selectedStep,setSelectedStep] = useState(0);
 	const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
+	const [isStepModalOpen,setIsStepModalOpen] = useState(false);
 
 	const [poiTypes,setPoiTypes] = useState([{name:"Shopping",value:false, mapName:"poi.business.Shopping"},
 											{name:"Attractions",value:false,mapName:"poi.attraction"},	
@@ -74,7 +78,7 @@ const Map = ({idTrip,mode}) => {
 											{name:"Park",value:false,mapName:"poi.park"},
 											{name:"Place of worship",value:false,mapName:"poi.place_of_worship"},
 											{name:"Medical",value:false,mapName:"poi.medical"},
-											/*{name:"Restaurants and Bars",value:false,mapName:"poi.food_and_drink"}*/]);
+											/*{name:"Restaurants and Bars",value:false,mapName:"poi.food_drink"}*/]);
 
 	//#endregion
 
@@ -90,16 +94,26 @@ const Map = ({idTrip,mode}) => {
 	};
 
 	//open modal POI
-	const handleOpen = (POI) => {
+	const handleOpenPOI = (POI) => {
 		console.log("open")
 		setIsPOIModalOpen(true);
 		setSelectedPOI(POI);
 	};
 
 	//close modal POI
-	const handleClose = () => {
+	const handleClosePOI = () => {
 		setIsPOIModalOpen(false);
 	};
+
+	const handleOpenStep = (Step) => {
+		setIsStepModalOpen(true);
+		setSelectedStep(Step);
+	}
+
+	const handleCloseStep = () => {
+		setIsStepModalOpen(false);
+	}
+
 
 	const handleCheckBoxPoi = (event,i) => {
 
@@ -255,8 +269,7 @@ const Map = ({idTrip,mode}) => {
 										position={{ lat: (e.latitude)? e.latitude: 0.0, lng: (e.longitude)? e.longitude:0.0 }}
 										draggable={(mode==3)?true:false}
 										//onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-										//onClick= {() => handleOpen(e)}
-										// onMouseOver = { () => console.log("on mouseover = ",e.title)}
+										onClick= {(mode==3)? () => handleOpenStep(e):null}
 										icon = {greenPin}
 									/>
 								);	
@@ -273,8 +286,7 @@ const Map = ({idTrip,mode}) => {
 									position={{ lat: e.latitude, lng: e.longitude }}
 									draggable={(mode==2)?true:false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-									onClick= {() => handleOpen(e)}
-									
+									onClick= {(mode==2)?() => handleOpenPOI(e):null}
 									/>
 								);
 							})
@@ -305,10 +317,11 @@ const Map = ({idTrip,mode}) => {
 						>
 						Search Location
 						</button>
-					</div>
+					</div>	
 
-					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClose}/> : null}
-					
+					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClosePOI}/> : null}
+					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closePOI = {handleCloseStep}/> : null}
+
 					<div id = "poiTypes">
 
 						{

@@ -168,6 +168,8 @@ const listAPI = {
 		}),
 		}).then((res) => res.json());
 	},
+
+  
     
   //list des steps d'un voyage
   GetStepsFromTrip: (id) => {

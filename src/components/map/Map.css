@@ -31,7 +31,7 @@
 
     pointer-events:auto;
 
-    left:65vh;
+    right: 70vh;
 
 }
 
@@ -111,3 +111,8 @@
 
     pointer-events: auto;
 }   
+
+.modal{
+
+    bottom:10vh;
+}
