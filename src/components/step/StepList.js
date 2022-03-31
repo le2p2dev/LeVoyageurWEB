@@ -104,16 +104,14 @@ const StepList = (idTrip) => {
         if (isLoading || isLoadingAllPOIs) return "Loading ..."
 
 
-        else return <ul>
+        else return <div>
            
 
            
        
         {steps.response.map(step => { 
 
-           return <li key={step.id}>
-
-        <div id = "stepListBox">
+           return <div key={step.id} id = "stepListBox">
 
             
 
@@ -202,15 +200,10 @@ const StepList = (idTrip) => {
                 </div>
 
         </div>
-
-
-        </li>
-            
-
             }
               ) 
 }
-        </ul>
+        </div>
 
    
 

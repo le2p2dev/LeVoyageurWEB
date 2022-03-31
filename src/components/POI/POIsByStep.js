@@ -105,14 +105,10 @@ const POIsByStep = (idStep) => {
         if (isLoading) return "Loading ..."
 
 
-        else return <ul id="poiListBox">
-           
-
-           
+        else return <div id="poiListBox">
        
-        {POIs.response.map(poi => { 
-
-           return <li key={poi.id}>
+        {POIs.response.map(poi => {
+           return <div key={poi.id}>
 
         <div id = "poiBox">
             <IconButton id = "closeIconPoi" aria-label="delete" onClick={handleClose}> <CloseIcon /> </IconButton>
@@ -175,13 +171,13 @@ const POIsByStep = (idStep) => {
         </div>
 
 
-        </li>
+        </div>
             
 
             }
               ) 
 }
-        </ul>
+        </div>
 
    
 

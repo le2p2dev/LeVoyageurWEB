@@ -17,6 +17,7 @@ import LogoHeader from "./LogoHeader";
 import Map from "./map/Map";
 import NavigationMap from "./map/NavigationMap";
 import StepList from "./step/StepList"
+import StepListItems from "./step/StepListItems";
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -51,11 +52,17 @@ const BaseApp = () => {
           <BottomNavigationAction value = "4" label="List View" icon={<FormatListBulletedIcon/>} />
 
       </BottomNavigation>
-      {value==4 ?       
+      {value==4 ?
       <StepList idTrip={id} titleTrip={data.response[0]?.title} />
       :
       <Map idTrip={id} mode = {value} />
       }
+        {
+            /*
+              <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/>
+             */
+        }
+
       
 
 
