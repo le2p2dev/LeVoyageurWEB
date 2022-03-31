@@ -7,6 +7,8 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { Button } from "@mui/material";
 import { useQuery, useQueryClient,useMutation} from "react-query";
 import { DeleteSweepOutlined } from "@mui/icons-material";
+import "../step/StepList.css"
+
 
 const POIsByStep = (idStep) => {
 
@@ -103,7 +105,7 @@ const POIsByStep = (idStep) => {
         if (isLoading) return "Loading ..."
 
 
-        else return <ul>
+        else return <ul id="poiListBox">
            
 
            
@@ -112,7 +114,7 @@ const POIsByStep = (idStep) => {
 
            return <li key={poi.id}>
 
-        <div id = "poiListBox">
+        <div id = "poiBox">
             <IconButton id = "closeIconPoi" aria-label="delete" onClick={handleClose}> <CloseIcon /> </IconButton>
 
             
