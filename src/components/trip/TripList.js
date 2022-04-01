@@ -97,10 +97,10 @@ export default function TripList() {
       <>
         <div>
           <h1>Mes voyages</h1>
-          <Grid container spacing={2} sx={{ paddingLeft: "5%" }}>
+          <Grid container spacing={1} sx={{ paddingLeft: "i" }}>
             {data?.response.map((trip, i, arr) => {
               return (
-                <Grid key={i} item >
+                <Grid key={i} item xs={3} >
                   <CardTrip
                     id={trip.id}
                     name={trip.title}
