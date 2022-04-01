@@ -1,118 +1,95 @@
+#mapWrapper {
+  position: relative;
 
-
-#mapWrapper{
-    
-    position: relative;
-
-    margin-top:2%;
-    width:99vw;
-    height: 85vh;
-    left:0.2vw;
-
-    
-
-
+  width: 98vw;
+  height: 81vh;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
-.inputBox{
-    width:20%;
-    height: 50px;
+.inputBox {
+  width: 20%;
+  height: 50px;
 }
 
+.searchBar {
+  position: relative;
+  top: 0vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  pointer-events: auto;
 
-.searchBar{
-
-    position:relative;
-    top: 0vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    pointer-events:auto;
-
-    right: 70vh;
-
+  left: -20%;
 }
 
 .map-container {
-
-    height: 800px;
+  height: 800px;
 }
 
-.buttonClass{
-
-    width:10%;
-    height: 50px;
-    margin-left: 5px;
-
+.buttonClass {
+  width: 10%;
+  height: 50px;
+  margin-left: 5px;
 }
 
-#test{
+#test {
+  height: 150px;
+  width: 200px;
+  position: absolute;
+  left: 85.5%;
+  top: 70.5%;
+  color: black;
+  opacity: 0.5;
 
-    height: 150px;
-    width: 200px;
-    position:absolute;
-    left:85.5%;
-    top:70.5%;
-    color :black;
-    opacity: 0.5;
+  padding-top: 35px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  font-size: 1.5em;
 
-    padding-top: 35px;   
-    padding-bottom: 15px; 
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    font-size: 1.5em;
-
-    overflow: auto;
-    max-height: 200px;
- 
+  overflow: auto;
+  max-height: 200px;
 }
 
-.modal{
-
-    width : 400px;
-    height: 1000px;
-    background-color: red;
-    position: absolute;
-    right: 0px;
-    margin-left: 1520px;
-    padding: 10px;
+.modal {
+  width: 400px;
+  height: 1000px;
+  background-color: red;
+  position: absolute;
+  right: 0px;
+  margin-left: 1520px;
+  padding: 10px;
 }
 
-#loadScriptWrapper{
-
-    position:absolute;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    height: 100%;
+#loadScriptWrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-#mapOverlay{
-
-
-    position:absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
+#mapOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-#poiTypes{
+#poiTypes {
+  position: absolute;
 
-    position: absolute;
+  right: 3vw;
+  bottom: 2vh;
 
-    right: 3vw;
-    bottom: 2vh;
+  pointer-events: auto;
+}
 
-    pointer-events: auto;
-}   
-
-.modal{
-
-    bottom:10vh;
+.modal {
+  bottom: 10vh;
 }

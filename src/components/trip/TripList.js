@@ -96,8 +96,17 @@ export default function TripList() {
     return (
       <>
         <div>
-          <h1 style={{ paddingLeft: "5px" }}>Mes voyages</h1>
-          <Grid container spacing={1} sx={{ paddingLeft: "5px" }}>
+          <h1 style={{ paddingLeft: "2%" }}>Mes voyages</h1>
+          <Grid
+            container
+            spacing={1}
+            sx={{
+              paddingLeft: "1%",
+              paddingRight: "1%",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             {data?.response.map((trip, i, arr) => {
               return (
                 <Grid key={i} item xs={3}>
