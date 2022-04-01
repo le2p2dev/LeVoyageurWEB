@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { Box } from "@mui/system";
 import { Button, Grid } from "@mui/material";
 import Card from "@mui/material/Card";
-import GridItem from "@mui/material/Grid"
+import GridItem from "@mui/material/Grid";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -96,11 +96,11 @@ export default function TripList() {
     return (
       <>
         <div>
-          <h1>Mes voyages</h1>
-          <Grid container spacing={1} sx={{ paddingLeft: "i" }}>
+          <h1 style={{ paddingLeft: "5px" }}>Mes voyages</h1>
+          <Grid container spacing={1} sx={{ paddingLeft: "5px" }}>
             {data?.response.map((trip, i, arr) => {
               return (
-                <Grid key={i} item xs={3} >
+                <Grid key={i} item xs={3}>
                   <CardTrip
                     id={trip.id}
                     name={trip.title}
@@ -109,9 +109,9 @@ export default function TripList() {
                 </Grid>
               );
             })}
-              <Grid item>
-                  <CreateTrip />
-              </Grid>
+            <Grid item>
+              <CreateTrip />
+            </Grid>
           </Grid>
         </div>
       </>
