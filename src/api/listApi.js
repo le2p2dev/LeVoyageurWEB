@@ -157,7 +157,7 @@ const listAPI = {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
-			title: data.title,
+			//title: data.title,
 			//description: data.description,
 			latitude: data.latitude,
 			longitude: data.longitude,
