@@ -48,19 +48,6 @@ useEffect(()=>{
 
 	//#endregion
 
-	//#region Google Maps Functions
-
-	//google maps api function to show and place a marker/POI
-	const renderPOIs = (map, maps) => {
-		let marker = new maps.Marker({
-		position: { lat: lat, lng: lng },
-		map,
-		title: "name",
-		});
-		return marker;
-	};
-
-	//#endregion
 
 	//#region useState Variables
 
@@ -87,6 +74,14 @@ useEffect(()=>{
 											{name:"Place of worship",value:false,mapName:"poi.place_of_worship"},
 											{name:"Medical",value:false,mapName:"poi.medical"},
 											/*{name:"Restaurants and Bars",value:false,mapName:"poi.food_drink"}*/]);
+
+	const [openNotification, setOpenNotification] = useState(false);
+	const [mapRef,setMapRef] = useState();
+
+
+	const handleClickOnNavMode = () => {
+        setOpenNotification(true);
+    };
 
 	//#endregion
 
@@ -202,9 +197,21 @@ useEffect(()=>{
 			longitude: ev.latLng.lng(),
 			tripId: idTrip,
 		});
-		setLat(null);
-		setLng(null);
+		setNewCenterWhenMapClicked();
+			
 	};
+
+	const setNewCenterWhenMapClicked = () => {
+
+		if(mapRef != null){
+			
+			var center = mapRef.getCenter();
+			setLat(center.lat());
+			setLng(center.lng());
+		}	
+
+	}
+	
 
 	//update coords of poi
 	const updatePOIOnClick = (id,lat,lng,i) => {
@@ -237,13 +244,11 @@ useEffect(()=>{
 			tripId: idTrip,
 		})
 
-		setLat(null);
-		setLng(null);
+		setNewCenterWhenMapClicked();
 
 	}
 	
-
-	//#endregion
+	//#endregion																																																																						
 
 
 	return (
@@ -259,8 +264,8 @@ useEffect(()=>{
 							zoom={13}
 							center={defaultCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
-							onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
-							onClick={(mode==1)? false : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
+							onLoad={(ev) => setMapRef(ev)}
+							onClick={(mode==1)? {handleClickOnNavMode} : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
 							options={{
 
 								styles:poiTypes.map((e) => {
