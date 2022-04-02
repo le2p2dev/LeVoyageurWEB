@@ -202,6 +202,8 @@ useEffect(()=>{
 			longitude: ev.latLng.lng(),
 			tripId: idTrip,
 		});
+		setLat(null);
+		setLng(null);
 	};
 
 	//update coords of poi
@@ -234,6 +236,9 @@ useEffect(()=>{
 			longitude: ev.latLng.lng(),
 			tripId: idTrip,
 		})
+
+		setLat(null);
+		setLng(null);
 
 	}
 	
