@@ -9,12 +9,13 @@ import {useMutation, useQueryClient} from "react-query";
 import listAPI from "../../api/listApi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
 
-
+import Notification from "./Notificaton";
 import "./PoiModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
 
-const PoiModal = ({id,title,description,closePOI,idTrip}) => {
+const PoiModal = ({id,title,description,closePOI,idTrip,openUpdatePOINotification,openDeletePOINotification}) => {
 
 
     const queryClient = useQueryClient();
@@ -41,6 +42,10 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
   
     const categories = [
         {   
+            value:"Select Category",
+            label: 'Select Category',
+        },
+        {   
             value:"Museum",
             label: 'Museum',
         },
@@ -58,12 +63,13 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
         },
     ];
 
-    const [category, setCategory] = useState('Hotel');
+    const [category, setCategory] = useState('Select Category');
 
     const handleCategory = (event) => {
         setCategory(event.target.value);
     };
     const [open, setOpen] = useState(false);
+
     const handleOpen = () => {
       setOpen(true);
     };
@@ -71,21 +77,32 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
       setOpen(false);
     };
 
+    function TransitionUp(props) {
+		return <Slide {...props} direction="up" />;
+	}
 
-    const updatePOI = useMutation(listAPI.UpdatePOI, {
-        onSuccess: () => queryClient.invalidateQueries(idTrip + "POIs")
 
-    });
+    const updatePOI = useMutation(listAPI.UpdatePOI, 
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(idTrip + "POIs");
+                closePOI();
+                openUpdatePOINotification(TransitionUp);
+            }
+        },
+    
+    );
 
     const deletePoi = useMutation(listAPI.DeletePOI, {
         onSuccess: () =>  {
-            queryClient.invalidateQueries(idTrip+ "POIs")
-            closePOI()
-            
-         }  
-      });
+            queryClient.invalidateQueries(idTrip+ "POIs");
+            closePOI();
+            openDeletePOINotification(TransitionUp);
 
-    const updatePOIOnClick = () => {
+        }  
+    });
+
+    const updatePOIOnClick = () => {    
         
         updatePOI.mutate({
             id: id,
@@ -95,8 +112,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
         
     }
     
-    
-
+   
     
     return (
         
@@ -157,16 +173,14 @@ const PoiModal = ({id,title,description,closePOI,idTrip}) => {
                             <DeleteModal 
                                 yesBtnFunction =  {() => {
                                     deletePoi.mutate(id)
-                                    handleClose()
-                                }
-                                }
-                                    
+                                }}
                                 noBtnFunction = {handleClose} 
                                 type = "marker"
                             />
                         </div>
                 </Modal>
             </div>
+
         </div>
     );
 }
