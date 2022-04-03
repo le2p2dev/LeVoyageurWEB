@@ -1,26 +1,25 @@
+//#region React Imports
 import React, {useEffect, useState } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import "./Map.css";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+//#endregion
+//#region Material UI Imports
+import Notification from "./Notificaton";
+import Slide from '@mui/material/Slide';
+//#endregion
+//#region Component Imports
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
 import StepModal from "./StepModal";
-
-
+//#endregion
+//#region CSS and other imports
 import MapBox from "../../api/MapBox"
-
+import "./Map.css";
 import greenPin from '../../assets/green_pin.png'
-
+//#endregion
 
 const Map = ({idTrip,mode}) => {
 
-useEffect(()=>{
-
-	handleCloseStep()
-	handleClosePOI()
-
-},[mode])
-	
 	//#region Get browser geolocalisation
 	// if ("geolocation" in navigator) {
 	//   navigator.geolocation.getCurrentPosition(position => {
@@ -30,8 +29,6 @@ useEffect(()=>{
 	//#endregion
 
 	//#region Google Maps style and initial location
-
-	
 
 	const [lat, setLat] = useState(41.3851);
 	const [lng, setLng] = useState(2.1734);
@@ -44,20 +41,6 @@ useEffect(()=>{
 	const defaultCenter = {
 		lat: lat,
 		lng: lng,
-	};
-
-	//#endregion
-
-	//#region Google Maps Functions
-
-	//google maps api function to show and place a marker/POI
-	const renderPOIs = (map, maps) => {
-		let marker = new maps.Marker({
-		position: { lat: lat, lng: lng },
-		map,
-		title: "name",
-		});
-		return marker;
 	};
 
 	//#endregion
@@ -88,6 +71,12 @@ useEffect(()=>{
 											{name:"Medical",value:false,mapName:"poi.medical"},
 											/*{name:"Restaurants and Bars",value:false,mapName:"poi.food_drink"}*/]);
 
+	const [notificationTransition, setNotificationTransition] = useState(undefined);
+	const [isOpenNavModeNotification, setIsOpenNavModeNotification] = useState(false);
+	const [isOpenUpdatePOINotification, setIsOpenUpdatePOINotification] = useState(false);
+	const [isOpenDeletePoiNotification,setIsOpenDeletePOINotification] = useState(false);
+
+
 	//#endregion
 
 	//#region Handler Functions
@@ -103,7 +92,6 @@ useEffect(()=>{
 
 	//open modal POI
 	const handleOpenPOI = (POI) => {
-		console.log("open")
 		setIsPOIModalOpen(true);
 		setSelectedPOI(POI);
 	};
@@ -130,6 +118,8 @@ useEffect(()=>{
 		setPoiTypes(poiTypesCopy);
 
 	}
+
+	
 
 
 	//#endregion
@@ -226,7 +216,6 @@ useEffect(()=>{
 
 	//add step from map onclick
 	const showStep = (ev) => {
-		console.log("ev=",ev.latLng.lat());
 		addStep.mutate({
 			title: "test",
 			description: "step from web app",
@@ -236,15 +225,65 @@ useEffect(()=>{
 		})
 
 	}
-	
+
+	useEffect(()=>{
+
+		handleCloseStep()
+		handleClosePOI()
+
+	},[mode])
+
+
+
 
 	//#endregion
 
+	//#region function for notifications 
+
+	function TransitionUp(props) {
+		return <Slide {...props} direction="up" />;
+	}
+
+	const openNavModeNotification = (NotificationTransition) => {
+		setIsOpenNavModeNotification(true);
+		setNotificationTransition(() => NotificationTransition);
+
+	};
+
+	const closeNavModeNotification = (NotificationTransition) => {
+		setIsOpenNavModeNotification(false);
+		setNotificationTransition(() => NotificationTransition);
+
+	};
+
+	const openUpdatePOINotification = (NotificationTransition) => {
+	    setIsOpenUpdatePOINotification(true);
+		setNotificationTransition(() => NotificationTransition);
+
+	};
+
+	const closeUpdatePOINotification = (NotificationTransition) => {
+		setIsOpenUpdatePOINotification(false);
+		setNotificationTransition(() => NotificationTransition);
+
+	};
+
+	const openDeletePOINotification = (NotificationTransition) => {
+	    setIsOpenDeletePOINotification(true);
+		setNotificationTransition(() => NotificationTransition);
+
+	};
+
+	const closeDeletePOINotification = (NotificationTransition) => {
+		setIsOpenDeletePOINotification(false);
+		setNotificationTransition(() => NotificationTransition);
+
+	};
+
+	//#endregion
 
 	return (
 		<div id="mapFile">
-
-
 			<div id="mapWrapper">
 				<div id = "loadScriptWrapper">
 					<LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
@@ -254,8 +293,7 @@ useEffect(()=>{
 							zoom={13}
 							center={defaultCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
-							onGoogleApiLoaded={(map, maps) => renderPOIs(map, maps)}
-							onClick={(mode==1)? false : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
+							onClick={(mode==1)? () => openNavModeNotification(TransitionUp) : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
 							options={{
 
 								styles:poiTypes.map((e) => {
@@ -329,11 +367,14 @@ useEffect(()=>{
 						</button>
 					</div>	
 
-					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClosePOI}/> : null}
-					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closeStep = {handleCloseStep}/> : null}
+					
+					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClosePOI} openUpdatePOINotification = {openUpdatePOINotification} openDeletePOINotification = {openDeletePOINotification}/> : null}
+					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closeStep = {handleCloseStep} /> : null}
+					{isOpenNavModeNotification ? <Notification severity = {"info"} message = "You are in Navigation Mode" open = {isOpenNavModeNotification} close = {closeNavModeNotification} transition = {notificationTransition} />: null}
+					{isOpenUpdatePOINotification ? <Notification severity = {"info"} message = "Poi succesfully updated" open = {isOpenUpdatePOINotification} close = {closeUpdatePOINotification} transition = {notificationTransition} />: null}
+					{isOpenDeletePoiNotification ? <Notification severity = {"info"} message = "Poi succesfully deleted" open = {isOpenDeletePoiNotification} close = {closeDeletePOINotification} transition = {notificationTransition} />: null}
 
 					<div id = "poiTypes">
-
 						{
 							poiTypes.map(
 								(e,i) => {
