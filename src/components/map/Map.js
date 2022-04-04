@@ -67,6 +67,7 @@ const Map = ({idTrip,mode}) => {
 	const [isOpenNavModeNotification, setIsOpenNavModeNotification] = useState(false);
 	const [isOpenUpdatePOINotification, setIsOpenUpdatePOINotification] = useState(false);
 	const [isOpenDeletePoiNotification,setIsOpenDeletePOINotification] = useState(false);
+	const [mapRef,setMapRef] = useState();
 
 
 	//#endregion
@@ -189,6 +190,8 @@ const Map = ({idTrip,mode}) => {
 			longitude: ev.latLng.lng(),
 			tripId: idTrip,
 		});
+
+		setNewCenterWhenMapClicked();
 	};
 
 	//update coords of poi
@@ -241,6 +244,7 @@ const Map = ({idTrip,mode}) => {
 			tripId: idTrip,
 		})
 
+		setNewCenterWhenMapClicked();
 	}
 
 	useEffect(()=>{
@@ -249,6 +253,17 @@ const Map = ({idTrip,mode}) => {
 		handleClosePOI()
 
 	},[mode])
+
+	const setNewCenterWhenMapClicked = () => {
+
+		if(mapRef != null){
+			
+			var center = mapRef.getCenter();
+			setLat(center.lat());
+			setLng(center.lng());
+		}	
+
+	}
 
 
 
@@ -310,6 +325,7 @@ const Map = ({idTrip,mode}) => {
 							zoom={13}
 							center={defaultCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
+							onLoad={(ev) => setMapRef(ev)}
 							onClick={(mode==1)? () => openNavModeNotification(TransitionUp) : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
 							options={{
 
