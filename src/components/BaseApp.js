@@ -53,14 +53,15 @@ const BaseApp = () => {
 
       </BottomNavigation>
       {value==4 ?
-      <StepList idTrip={id} titleTrip={data.response[0]?.title} />
+              <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/>
+
       :
       <Map idTrip={id} mode = {value} />
       }
 
-        {/*
-        <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/>
-        */}
+{/* <StepList idTrip={id} titleTrip={data.response[0]?.title} /> */}
+
+        
 
 
       

@@ -7,6 +7,8 @@ import CardPoi from "./CardPoi";
 
 
 const PoiList = ({idStep}) => {
+
+
     const {isLoading, data : POIs} = useQuery(idStep+"StepPOIs", () => listAPI.GetPOIsFromStep(idStep));
 
     if( isLoading){
@@ -16,7 +18,7 @@ const PoiList = ({idStep}) => {
     return <Grid container spacing={1}>
 
         {POIs.response.map( (poi) => {
-           return  <CardPoi id={poi.id} title={poi.title} description={poi.description} />
+           return  <CardPoi key={poi.id} id={poi.id} title={poi.title} description={poi.description} />
         })}
     </Grid>
 }
