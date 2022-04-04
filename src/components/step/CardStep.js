@@ -7,6 +7,8 @@ import {Button, Switch, TextField} from "@mui/material";
 const CardStep = ({idTrip,id,title,description,idStep}) => {
 
 
+!title ? title="" : title = title
+!description ? description="" : description = description
 
 const [newTitle,setNewTitle] = useState(title);
 const [newDescription,setNewDescription] = useState(description);
@@ -28,6 +30,12 @@ const saveChanges = () => {
       })
 }
 
+const cancelChanges = () => {
+    setShowSave(false)
+    setNewTitle(title ? title : "")
+    setNewDescription(description ? description : "")
+}
+
 const queryClient = useQueryClient();
 
 const updateStep = useMutation(listAPI.UpdateStep, {
@@ -38,7 +46,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
   const deleteStep = useMutation(listAPI.DeleteStep, {
     onSuccess: () => {
-        queryClient.invalidateQueries(idTrip.idTrip + "steps")
+        queryClient.invalidateQueries(idTrip + "steps")
     }
   });
 
@@ -53,21 +61,22 @@ const updateStep = useMutation(listAPI.UpdateStep, {
             id="standard-basic"
             InputProps={{ disableUnderline: true }}
             variant="standard"
-            defaultValue={title}
+            value={newTitle}
             placeholder={"title"}/>
         <br />
         <TextField 
-            onFocus={() =>setShowSave(true)}
+            onFocus={() => setShowSave(true)}
             onBlur={() => setShowSave(false)}
             onChange={handleChangeDescription}
             id="standard-basic"
             variant="standard"
             InputProps={{ disableUnderline: true }}
             placeholder={"description"}
-            defaultValue={description}/>
+            value={newDescription}/>
         
         {showSave || newTitle!==title || newDescription!==description ? 
-        <Button
+            <div>
+               <Button
         variant="normal"
         onClick={saveChanges}
 
@@ -75,13 +84,21 @@ const updateStep = useMutation(listAPI.UpdateStep, {
             Save
         </Button>
 
-         :null}
+        <Button
+        variant="normal"
+        onClick={cancelChanges}
+
+        >
+            Cancel
+        </Button>
+
+        </div>
 
         
 
+         :null}
 
-
-        <PoiList idStep={idStep} />
+        {/* <PoiList key={id} idStep={id} /> */} 
 
     </div>
 }
