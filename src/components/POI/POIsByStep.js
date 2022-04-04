@@ -10,9 +10,9 @@ import { DeleteSweepOutlined } from "@mui/icons-material";
 import "../step/StepList.css"
 
 
-const POIsByStep = (idStep) => {
+const POIsByStep = ({idStep}) => {
 
-
+console.log(idStep)
 
     const [modifyPoiTitle,setModifyPoiTitle] = useState(false);
     const [modifyPoiDescription,setModifyPoiDescription] = useState(false);
@@ -55,7 +55,7 @@ const POIsByStep = (idStep) => {
         setDescription(event.target.value)
       }
 
-      const {isLoading, data : POIs} = useQuery(idStep.idStep+"StepPOIs", () => listAPI.GetPOIsFromStep(idStep.idStep));
+      const {isLoading, data : POIs} = useQuery(idStep+"StepPOIs", () => listAPI.GetPOIsFromStep(idStep));
 
   
       
@@ -65,7 +65,7 @@ const POIsByStep = (idStep) => {
    
        const updatePoi = useMutation(listAPI.UpdatePOI, {
            onSuccess: () =>  {
-               queryClient.invalidateQueries(idStep.idStep+ "StepPOIs")
+               queryClient.invalidateQueries(idStep+ "StepPOIs")
                handleClose()
             } 
 
@@ -74,7 +74,7 @@ const POIsByStep = (idStep) => {
 
          const deletePoi = useMutation(listAPI.DeletePOI, {
             onSuccess: () =>  {
-                queryClient.invalidateQueries(idStep.idStep+ "StepPOIs")
+                queryClient.invalidateQueries(idStep+ "StepPOIs")
                 
              }  
           });

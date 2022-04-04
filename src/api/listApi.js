@@ -1,4 +1,4 @@
-const urlPrefix = "http://54.36.191.192:3631/api/";
+const urlPrefix = "http://levoyageur.mathieuv.pro:3631/api/";
 
 const listAPI = {
 

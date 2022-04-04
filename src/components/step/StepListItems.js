@@ -17,8 +17,8 @@ const StepListItems = ({idTrip,titleTrip}) => {
         <Grid container spacing={2} sx={{paddingLeft: "5%"}}>
             {steps.response.map((step) => {
                 return (
-                    <Grid xs={8} item>
-                        <CardStep idStep={step.id} id={step.id} title={step.title} description={step.description} />
+                    <Grid key={step.id} xs={8} item>
+                        <CardStep key={step.id} idTrip={idTrip} id={step.id} title={step.title} description={step.description} />
                     </Grid>
                 )
             })}

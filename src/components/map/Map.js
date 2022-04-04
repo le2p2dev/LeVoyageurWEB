@@ -1,22 +1,14 @@
-//#region React Imports
 import React, {useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-//#endregion
-//#region Material UI Imports
-import Notification from "./Notificaton";
 import Slide from '@mui/material/Slide';
-//#endregion
-//#region Component Imports
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
 import StepModal from "./StepModal";
-//#endregion
-//#region CSS and other imports
 import MapBox from "../../api/MapBox"
 import "./Map.css";
 import greenPin from '../../assets/green_pin.png'
-//#endregion
+import Notification from "./Notification"
 
 const Map = ({idTrip,mode}) => {
 
@@ -151,7 +143,7 @@ const Map = ({idTrip,mode}) => {
 	);
 	
 	// Get steps from trip
-	const { isLoading : isLoadingSteps, data: StepList } = useQuery(
+	const { isLoading : isLoadingSteps, data: stepListOriginal } = useQuery(
 		idTrip + "steps",
 		() => listAPI.GetStepsFromTrip(idTrip),
 		{onSuccess: (data)=> {setStepList(data.response)}}
@@ -177,6 +169,11 @@ const Map = ({idTrip,mode}) => {
 	const addStep = useMutation(listAPI.CreateStep, {
 		onSuccess: () => queryClient.invalidateQueries(idTrip + "steps")
 		
+	});
+
+	//update Step coords
+	const updateStep = useMutation(listAPI.UpdateStep, {
+		onSuccess: () => queryClient.invalidateQueries(idTrip + "steps")
 	});
 
 	//#endregion
@@ -208,6 +205,26 @@ const Map = ({idTrip,mode}) => {
 
 		//update backend
 		updatePOI.mutate({
+			id:id,
+			latitude: lat,
+			longitude: lng,
+		});
+	}
+
+	//update coords of step
+	const updateStepOnClick = (id,lat,lng,i) => {
+
+		//change step location so that there is no glitch on drag drop
+		let copy = [... stepList];
+		let copyItem = {...copy[i]};
+		copyItem.latitude = lat;
+		copyItem.longitude = lng;
+
+		copy[i] = copyItem;
+		setStepList(copy);
+
+		//update backend
+		updateStep.mutate({
 			id:id,
 			latitude: lat,
 			longitude: lng,
@@ -316,8 +333,8 @@ const Map = ({idTrip,mode}) => {
 										key={i}
 										position={{ lat: (e.latitude)? e.latitude: 0.0, lng: (e.longitude)? e.longitude:0.0 }}
 										draggable={(mode==3)?true:false}
-										//onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-										onClick= {(mode==3)? () => handleOpenStep(e):null}
+										onDragEnd = {(ev) => updateStepOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
+										onClick= {() => handleOpenStep(e)}
 										icon = {greenPin}
 									/>
 								);	
@@ -334,7 +351,7 @@ const Map = ({idTrip,mode}) => {
 									position={{ lat: e.latitude, lng: e.longitude }}
 									draggable={(mode==2)?true:false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-									onClick= {(mode==2)?() => handleOpenPOI(e):null}
+									onClick= {() => handleOpenPOI(e)}
 									/>
 								);
 							})
