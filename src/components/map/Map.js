@@ -341,6 +341,7 @@ const Map = ({idTrip,mode}) => {
 
 							}}
 						>
+							
 
 						{isLoadingSteps? null : 
 							stepList?.map((e,i) => {
