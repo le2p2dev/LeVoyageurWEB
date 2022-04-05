@@ -155,9 +155,12 @@ const Map = ({idTrip,mode}) => {
 	);	
 	
 	useEffect(()=>{
-		if(firstStepLoading==true){
-			setLat(stepListOriginal?.response[0].latitude)
-			setLng(stepListOriginal?.response[0].longitude)
+		if(firstStepLoading==true && stepListOriginal?.response[0] ){
+			
+				setLat(stepListOriginal?.response[0]?.latitude)
+				setLng(stepListOriginal?.response[0]?.longitude)
+		
+			
 		}
 		
 
@@ -334,7 +337,7 @@ const Map = ({idTrip,mode}) => {
 						<GoogleMap
 							clickableIcons={mode==1?true:false}
 							mapContainerStyle={mapStyles}
-							zoom={13}
+							zoom={7}
 							center={defaultCenter}
 							onCenterChanged={setNewCenter}
 							yesIWantToUseGoogleMapApiInternals={true}

@@ -125,7 +125,7 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
                                 }
                                     
                                 noBtnFunction = {handleClose} 
-                                type = "marker"
+                                type = "step"
                             />
                         </div>
                 </Modal>
