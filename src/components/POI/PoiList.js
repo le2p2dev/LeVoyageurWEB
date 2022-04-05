@@ -6,10 +6,10 @@ import CardPoi from "./CardPoi";
 
 
 
-const PoiList = ({idStep}) => {
+const PoiList = ({idStep,POIs}) => {
 
 
-    const {isLoading, data : POIs} = useQuery(idStep+"StepPOIs", () => listAPI.GetPOIsFromStep(idStep));
+   // const {isLoading, data : POIs} = useQuery(idStep+"StepPOIs", () => listAPI.GetPOIsFromStep(idStep));
 
     if( isLoading){
         return "loading"
