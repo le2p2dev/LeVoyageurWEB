@@ -67,6 +67,7 @@ const Map = ({idTrip,mode}) => {
 	const [isOpenNavModeNotification, setIsOpenNavModeNotification] = useState(false);
 	const [isOpenUpdatePOINotification, setIsOpenUpdatePOINotification] = useState(false);
 	const [isOpenDeletePoiNotification,setIsOpenDeletePOINotification] = useState(false);
+	const [firstStepLoading,setFirstStepLoading] = useState(false);
 	const [mapRef,setMapRef] = useState();
 
 
@@ -149,11 +150,19 @@ const Map = ({idTrip,mode}) => {
 		() => listAPI.GetStepsFromTrip(idTrip),
 		{onSuccess: (data)=> {
 			setStepList(data.response)
-			setLat(data.response[0].latitude)
-			setLng(data.response[0].longitude)}}
+			setFirstStepLoading(true)
+			}}
 	);	
-
 	
+	useEffect(()=>{
+		if(firstStepLoading==true){
+			setLat(stepListOriginal?.response[0].latitude)
+			setLng(stepListOriginal?.response[0].longitude)
+		}
+		
+
+	},[firstStepLoading])
+			
 
 
 	//#endregion
