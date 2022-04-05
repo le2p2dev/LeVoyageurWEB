@@ -147,8 +147,13 @@ const Map = ({idTrip,mode}) => {
 	const { isLoading : isLoadingSteps, data: stepListOriginal } = useQuery(
 		idTrip + "steps",
 		() => listAPI.GetStepsFromTrip(idTrip),
-		{onSuccess: (data)=> {setStepList(data.response)}}
+		{onSuccess: (data)=> {
+			setStepList(data.response)
+			setLat(data.response[0].latitude)
+			setLng(data.response[0].longitude)}}
 	);	
+
+	
 
 
 	//#endregion
@@ -191,7 +196,6 @@ const Map = ({idTrip,mode}) => {
 			tripId: idTrip,
 		});
 
-		setNewCenterWhenMapClicked();
 	};
 
 	//update coords of poi
@@ -244,7 +248,6 @@ const Map = ({idTrip,mode}) => {
 			tripId: idTrip,
 		})
 
-		setNewCenterWhenMapClicked();
 	}
 
 	useEffect(()=>{
@@ -254,7 +257,7 @@ const Map = ({idTrip,mode}) => {
 
 	},[mode])
 
-	const setNewCenterWhenMapClicked = () => {
+	const setNewCenter= () => {
 
 		if(mapRef != null){
 			
@@ -320,10 +323,11 @@ const Map = ({idTrip,mode}) => {
 				<div id = "loadScriptWrapper">
 					<LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
 						<GoogleMap
-							clickableIcons={false}
+							clickableIcons={mode==1?true:false}
 							mapContainerStyle={mapStyles}
 							zoom={13}
 							center={defaultCenter}
+							onCenterChanged={setNewCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
 							onLoad={(ev) => setMapRef(ev)}
 							onClick={(mode==1)? () => openNavModeNotification(TransitionUp) : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
@@ -344,6 +348,7 @@ const Map = ({idTrip,mode}) => {
 							
 
 						{isLoadingSteps? null : 
+							
 							stepList?.map((e,i) => {
 								return(
 									<Marker
