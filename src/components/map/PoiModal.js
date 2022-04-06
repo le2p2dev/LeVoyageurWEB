@@ -120,7 +120,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip,openUpdatePOINotificatio
             <IconButton id = "closeIcon" onClick = {closePOI} aria-label="delete"> <CloseIcon /> </IconButton>
             <div id = "PoiInputs"> 
                 <TextField 
-                    required
+                    
                     className = "PoiInput"
                     margin = "dense"
                     id="outlined-basic" 

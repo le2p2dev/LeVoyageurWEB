@@ -9,8 +9,6 @@ import {useMutation, useQueryClient} from "react-query";
 import listAPI from "../../api/listApi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
-
 import "./PoiModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
 
@@ -83,7 +81,6 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
             <div id = "PoiInputs"> 
                 <TextField 
-                    required
                     className = "PoiInput"
                     margin = "dense"
                     id="outlined-basic" 

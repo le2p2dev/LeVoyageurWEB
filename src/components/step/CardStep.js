@@ -1,7 +1,7 @@
 import React, {useState } from "react";
 import { useMutation, useQueryClient  } from "react-query";
 import listAPI from "../../api/listApi";
-import PoiList from "../POI/PoiList";
+import Day from "../day/Day";
 import {Button, Switch, TextField} from "@mui/material";
 
 const CardStep = ({idTrip,id,title,description,idStep}) => {
@@ -72,7 +72,8 @@ const updateStep = useMutation(listAPI.UpdateStep, {
             variant="standard"
             InputProps={{ disableUnderline: true }}
             placeholder={"description"}
-            value={newDescription}/>
+            value={newDescription}
+            multiline/>
         
         {showSave || newTitle!==title || newDescription!==description ? 
             <div>
@@ -98,7 +99,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
          :null}
 
-        {/* <PoiList key={id} idStep={id} /> */} 
+        <Day key={id} idStep={id} />  
 
     </div>
 }

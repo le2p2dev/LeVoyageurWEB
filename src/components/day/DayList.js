@@ -9,7 +9,7 @@ import CardPoi from "./CardPoi";
 const DayList = ({idStep}) => {
 
 
-    const {isLoading, data : days} = useQuery(idStep+"StepPOIs", () => listAPI.GetDaysfromStep(idStep));
+    //const {isLoading, data : days} = useQuery(idStep+"StepPOIs", () => listAPI.GetDaysfromStep(idStep));
 
     if( isLoading){
         return "loading"
@@ -17,7 +17,7 @@ const DayList = ({idStep}) => {
 
     return <Grid container spacing={1}>
 
-        {days.response.map( (day) => {
+        {days?.response.map( (day) => {
            return  <Day key={day.id} id={day.id} idStep={idStep} POIs={day.poiList} />
         })}
     </Grid>

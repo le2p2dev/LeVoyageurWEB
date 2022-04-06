@@ -9,6 +9,7 @@ import MapBox from "../../api/MapBox"
 import "./Map.css";
 import greenPin from '../../assets/green_pin.png'
 import Notification from "./Notification"
+import Day from "../day/Day";
 
 const Map = ({idTrip,mode}) => {
 
