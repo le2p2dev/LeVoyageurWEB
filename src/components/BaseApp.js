@@ -23,8 +23,14 @@ import StepListItems from "./step/StepListItems";
 const BaseApp = () => {
   const { id } = useParams();
 
+  const [poisForDay,setPoisForDay] = useState([]);
 
-  const [value, setValue] = useState("1");
+  const addPoiToDay = (poi) => {
+    setPoisForDay(oldList => [...oldList, poi])
+
+  }
+
+  const [value, setValue] = useState("1"); 
 
   const { isLoading, data } = useQuery(id + "trip", () => listAPI.GetTrip(id));
 
@@ -55,8 +61,8 @@ const BaseApp = () => {
       </BottomNavigation>
      
               <Grid container direction="row">
-              {value==4 ?  <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/> : null}
-              <Map idTrip={id} mode = {value} />
+              {value==4 ?  <StepListItems poisForDay={poisForDay} idTrip={id} titleTrip={data.response[0]?.title}/> : null}
+              <Map idTrip={id} mode = {value} addPoiToDay={addPoiToDay} />
 
              </Grid>
               

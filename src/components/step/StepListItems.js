@@ -5,7 +5,7 @@ import CardStep from "./CardStep";
 import {useQuery} from "react-query";
 import listAPI from "../../api/listApi";
 
-const StepListItems = ({idTrip,titleTrip}) => {
+const StepListItems = ({idTrip,titleTrip,poisForDay}) => {
 
     const {isLoading, data : steps} = useQuery(idTrip+ "steps", () => listAPI.GetStepsFromTrip(idTrip))
 
@@ -18,7 +18,7 @@ const StepListItems = ({idTrip,titleTrip}) => {
             {steps.response.map((step) => {
                 return (
                     <Grid key={step.id} xs={8} item>
-                        <CardStep key={step.id} idTrip={idTrip} id={step.id} title={step.title} description={step.description} />
+                        <CardStep key={step.id} poisForDay={poisForDay} idTrip={idTrip} id={step.id} title={step.title} description={step.description} />
                     </Grid>
                 )
             })}

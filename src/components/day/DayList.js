@@ -6,7 +6,7 @@ import CardPoi from "./CardPoi";
 
 
 
-const DayList = ({idStep}) => {
+const DayList = ({idStep,poisForDay}) => {
 
 
     //const {isLoading, data : days} = useQuery(idStep+"StepPOIs", () => listAPI.GetDaysfromStep(idStep));
@@ -18,7 +18,7 @@ const DayList = ({idStep}) => {
     return <Grid container spacing={1}>
 
         {days?.response.map( (day) => {
-           return  <Day key={day.id} id={day.id} idStep={idStep} POIs={day.poiList} />
+           return  <Day poisForDay={poisForDay} key={day.id} id={day.id} idStep={idStep} POIs={day.poiList} />
         })}
     </Grid>
 }
