@@ -4,7 +4,7 @@ import listAPI from "../../api/listApi";
 import Day from "../day/Day";
 import {Button, Switch, TextField} from "@mui/material";
 
-const CardStep = ({idTrip,id,title,description,idStep, poisForDay}) => {
+const CardStep = ({idTrip,id,title,description,idStep, poisForDay, removePoiOfDay}) => {
 
 
 !title ? title="" : title = title
@@ -99,7 +99,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
          :null}
 
-        <Day key={id} poisForDay={poisForDay} idStep={id} />  
+        <Day key={id} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={id} />  
 
     </div>
 }

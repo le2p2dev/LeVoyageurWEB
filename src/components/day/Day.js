@@ -1,34 +1,44 @@
-import { Grid, Select, MenuItem, Checkbox, ListItemText } from "@mui/material";
-import React, { useState } from "react";
+import { Grid, Select, MenuItem, Checkbox, ListItemText, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import PoiList from "../POI/PoiList";
 
-const Day = ({id,idStep,POIs,poisForDay}) => {
+const Day = ({id,idStep,POIs,poisForDay,removePoiOfDay}) => {
 
     const [poisSelected, setPoisSelected] =useState([]);
 
-    const handleChange = (event) => {
-        setPoisSelected(event.target.value)
-    } 
+
+    const removePoi = (poi) => {
+        let list = poisSelected
+        list.splice(list.indexOf(poi),1)
+        setPoisSelected(list)
+        removePoiOfDay(poisSelected)
+    }
+
    
+   
+    useEffect(()=>{
+        setPoisSelected(poisForDay)
+    },[poisForDay])
 
     return <Grid>
         <PoiList idDay={id} POIs={POIs} idStep={idStep}/>
-        <Select
-        value={poisSelected}
-        multiple
-        onChange={handleChange}
-        
-        
-  >
-    {poisForDay?.map((poi) => (
+       
+    {poisSelected?.map((poi) => (
+       
+         
 
-        <MenuItem key={poi} value={poi}>{poi}</MenuItem>
+          <div key={poi}>
+            {poi} <Button onClick={()=> removePoi(poi)}>
+                x
+            </Button>
+        </div>
+
     )
     
     )}
 
     
-  </Select>
+
     </Grid>
 
 }

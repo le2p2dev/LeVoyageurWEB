@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -24,10 +24,14 @@ const BaseApp = () => {
   const { id } = useParams();
 
   const [poisForDay,setPoisForDay] = useState([]);
-
   const addPoiToDay = (poi) => {
     setPoisForDay(oldList => [...oldList, poi])
 
+  }
+
+
+  const removePoiOfDay = (list) =>{
+    setPoisForDay(list)
   }
 
   const [value, setValue] = useState("1"); 
@@ -61,7 +65,7 @@ const BaseApp = () => {
       </BottomNavigation>
      
               <Grid container direction="row">
-              {value==4 ?  <StepListItems poisForDay={poisForDay} idTrip={id} titleTrip={data.response[0]?.title}/> : null}
+              {value==4 ?  <StepListItems removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={id} titleTrip={data.response[0]?.title}/> : null}
               <Map idTrip={id} mode = {value} addPoiToDay={addPoiToDay} />
 
              </Grid>
