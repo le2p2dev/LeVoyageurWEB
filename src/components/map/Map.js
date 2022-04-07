@@ -9,6 +9,7 @@ import MapBox from "../../api/MapBox"
 import "./Map.css";
 import greenPin from '../../assets/green_pin.png'
 import Notification from "./Notification"
+import Day from "../day/Day";
 
 const Map = ({idTrip,mode}) => {
 
@@ -67,6 +68,7 @@ const Map = ({idTrip,mode}) => {
 	const [isOpenNavModeNotification, setIsOpenNavModeNotification] = useState(false);
 	const [isOpenUpdatePOINotification, setIsOpenUpdatePOINotification] = useState(false);
 	const [isOpenDeletePoiNotification,setIsOpenDeletePOINotification] = useState(false);
+	const [firstStepLoading,setFirstStepLoading] = useState(false);
 	const [mapRef,setMapRef] = useState();
 
 
@@ -147,8 +149,24 @@ const Map = ({idTrip,mode}) => {
 	const { isLoading : isLoadingSteps, data: stepListOriginal } = useQuery(
 		idTrip + "steps",
 		() => listAPI.GetStepsFromTrip(idTrip),
-		{onSuccess: (data)=> {setStepList(data.response)}}
+		{onSuccess: (data)=> {
+			setStepList(data.response)
+			setFirstStepLoading(true)
+			}}
 	);	
+	
+	useEffect(()=>{
+		if(firstStepLoading==true && stepListOriginal?.response[0] ){
+			
+				setLat(stepListOriginal?.response[0]?.latitude)
+				setLng(stepListOriginal?.response[0]?.longitude)
+		
+			
+		}
+		
+
+	},[firstStepLoading])
+			
 
 
 	//#endregion
@@ -191,7 +209,6 @@ const Map = ({idTrip,mode}) => {
 			tripId: idTrip,
 		});
 
-		setNewCenterWhenMapClicked();
 	};
 
 	//update coords of poi
@@ -244,7 +261,6 @@ const Map = ({idTrip,mode}) => {
 			tripId: idTrip,
 		})
 
-		setNewCenterWhenMapClicked();
 	}
 
 	useEffect(()=>{
@@ -254,7 +270,7 @@ const Map = ({idTrip,mode}) => {
 
 	},[mode])
 
-	const setNewCenterWhenMapClicked = () => {
+	const setNewCenter= () => {
 
 		if(mapRef != null){
 			
@@ -320,10 +336,11 @@ const Map = ({idTrip,mode}) => {
 				<div id = "loadScriptWrapper">
 					<LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
 						<GoogleMap
-							clickableIcons={false}
+							clickableIcons={mode==1?true:false}
 							mapContainerStyle={mapStyles}
-							zoom={13}
+							zoom={7}
 							center={defaultCenter}
+							onCenterChanged={setNewCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
 							onLoad={(ev) => setMapRef(ev)}
 							onClick={(mode==1)? () => openNavModeNotification(TransitionUp) : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
@@ -344,6 +361,7 @@ const Map = ({idTrip,mode}) => {
 							
 
 						{isLoadingSteps? null : 
+							
 							stepList?.map((e,i) => {
 								return(
 									<Marker

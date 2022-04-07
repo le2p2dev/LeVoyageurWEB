@@ -12,7 +12,6 @@ import "../step/StepList.css"
 
 const POIsByStep = ({idStep}) => {
 
-console.log(idStep)
 
     const [modifyPoiTitle,setModifyPoiTitle] = useState(false);
     const [modifyPoiDescription,setModifyPoiDescription] = useState(false);

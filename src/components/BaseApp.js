@@ -7,6 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MapIcon from '@mui/icons-material/Map';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import { Grid } from "@mui/material";
 
 //import files*
 
@@ -52,12 +53,17 @@ const BaseApp = () => {
           <BottomNavigationAction value = "4" label="List View" icon={<FormatListBulletedIcon/>} />
 
       </BottomNavigation>
-      {value==4 ?
-              <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/>
+     
+              <Grid container direction="row">
+              {value==4 ?  <StepListItems idTrip={id} titleTrip={data.response[0]?.title}/> : null}
+              <Map idTrip={id} mode = {value} />
 
-      :
-      <Map idTrip={id} mode = {value} />
-      }
+             </Grid>
+              
+
+
+      
+      
 
 {/* <StepList idTrip={id} titleTrip={data.response[0]?.title} /> */}
 
