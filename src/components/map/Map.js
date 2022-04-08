@@ -9,9 +9,8 @@ import MapBox from "../../api/MapBox"
 import "./Map.css";
 import greenPin from '../../assets/green_pin.png'
 import Notification from "./Notification"
-import Day from "../day/Day";
 
-const Map = ({idTrip,mode}) => {
+const Map = ({idTrip,mode,addPoiToDay}) => {
 
 	//#region Get browser geolocalisation
 	// if ("geolocation" in navigator) {
@@ -386,7 +385,7 @@ const Map = ({idTrip,mode}) => {
 									position={{ lat: e.latitude, lng: e.longitude }}
 									draggable={(mode==2)?true:false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-									onClick= {() => handleOpenPOI(e)}
+									onClick= {mode==4 ? () => addPoiToDay(e.id) : ()=>handleOpenPOI(e)}
 									/>
 								);
 							})
