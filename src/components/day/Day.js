@@ -5,16 +5,9 @@ import PoiList from "../POI/PoiList";
 const Day = ({id,idStep,POIs,poisForDay,removePoiOfDay}) => {
 
     const [poisSelected, setPoisSelected] =useState([]);
-
-
-    const removePoi = (poi) => {
-        let list = poisSelected
-        list.splice(list.indexOf(poi),1)
-        setPoisSelected(list)
-        removePoiOfDay(poisSelected)
-    }
-
    
+    //will go in dayList
+    const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0)
    
     useEffect(()=>{
         setPoisSelected(poisForDay)
@@ -23,21 +16,28 @@ const Day = ({id,idStep,POIs,poisForDay,removePoiOfDay}) => {
     return <Grid>
         <PoiList idDay={id} POIs={POIs} idStep={idStep}/>
        
-    {poisSelected?.map((poi) => (
+    {
+    AddingPoiToDayId == id ? 
+    
+    poisSelected?.map((poi) => (
        
-         
+        
 
           <div key={poi}>
-            {poi} <Button onClick={()=> removePoi(poi)}>
-                x
-            </Button>
+            {poi} <Button onClick={()=> removePoiOfDay(poi)}>x</Button>
         </div>
 
+        
+    )
     )
     
-    )}
 
+    :
+      <Button onClick={() => setAddingPoiToDayId(id)}>Add Pois</Button>
     
+     }
+
+    {AddingPoiToDayId == id ? <div><br/>Add pois by clicking on the map <br/><Button onClick={() => setAddingPoiToDayId(0)}>Cancel</Button></div> : null}
 
     </Grid>
 

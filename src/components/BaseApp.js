@@ -24,14 +24,13 @@ const BaseApp = () => {
   const { id } = useParams();
 
   const [poisForDay,setPoisForDay] = useState([]);
+  
   const addPoiToDay = (poi) => {
     setPoisForDay(oldList => [...oldList, poi])
-
   }
 
-
-  const removePoiOfDay = (list) =>{
-    setPoisForDay(list)
+  const removePoiOfDay = (poiId) =>{
+    setPoisForDay(oldList => oldList.filter(poi => poi !== poiId));
   }
 
   const [value, setValue] = useState("1"); 
