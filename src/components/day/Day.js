@@ -5,13 +5,20 @@ import PoiList from "../POI/PoiList";
 const Day = ({id,idStep,POIs,poisForDay,removePoiOfDay}) => {
 
     const [poisSelected, setPoisSelected] =useState([]);
+    const handleCancel = () =>{
+        setAddingPoiToDayId(0)
+        removePoiOfDay(0)
+    }
    
     //will go in dayList
     const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0)
    
     useEffect(()=>{
+        
         setPoisSelected(poisForDay)
     },[poisForDay])
+
+  
 
     return <Grid>
         <PoiList idDay={id} POIs={POIs} idStep={idStep}/>
@@ -23,8 +30,8 @@ const Day = ({id,idStep,POIs,poisForDay,removePoiOfDay}) => {
        
         
 
-          <div key={poi}>
-            {poi} <Button onClick={()=> removePoiOfDay(poi)}>x</Button>
+          <div key={poi.id}>
+         {poi.title ? poi.title : poi.id} <Button onClick={()=> removePoiOfDay(poi.id)}>x</Button>
         </div>
 
         
@@ -37,8 +44,12 @@ const Day = ({id,idStep,POIs,poisForDay,removePoiOfDay}) => {
     
      }
 
-    {AddingPoiToDayId == id ? <div><br/>Add pois by clicking on the map <br/><Button onClick={() => setAddingPoiToDayId(0)}>Cancel</Button></div> : null}
-
+    {AddingPoiToDayId == id ? <div>
+        <br/>Add pois by clicking on the map <br/>
+        <Button onClick={handleCancel}>Cancel</Button>
+        {poisSelected.length>=1 ? <Button>Save</Button> : null}
+        </div> : null}
+    
     </Grid>
 
 }

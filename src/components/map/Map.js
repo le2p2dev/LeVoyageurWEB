@@ -8,9 +8,11 @@ import StepModal from "./StepModal";
 import MapBox from "../../api/MapBox"
 import "./Map.css";
 import greenPin from '../../assets/green_pin.png'
+import bluePin from '../../assets/blue_pin.png'
+
 import Notification from "./Notification"
 
-const Map = ({idTrip,mode,addPoiToDay}) => {
+const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 
 	//#region Get browser geolocalisation
 	// if ("geolocation" in navigator) {
@@ -342,7 +344,7 @@ const Map = ({idTrip,mode,addPoiToDay}) => {
 							onCenterChanged={setNewCenter}
 							yesIWantToUseGoogleMapApiInternals={true}
 							onLoad={(ev) => setMapRef(ev)}
-							onClick={(mode==1)? () => openNavModeNotification(TransitionUp) : ((mode==2)? (ev) => {showPOI(ev)} : (ev) => {showStep(ev)})}
+							onClick={mode==1? () => openNavModeNotification(TransitionUp) : mode==2? (ev) => {showPOI(ev)} : mode==3 ? (ev) => {showStep(ev)} : null}
 							options={{
 
 								styles:poiTypes.map((e) => {
@@ -383,9 +385,13 @@ const Map = ({idTrip,mode,addPoiToDay}) => {
 								<Marker
 									key={i}
 									position={{ lat: e.latitude, lng: e.longitude }}
-									draggable={(mode==2)?true:false}
+									draggable={(mode==2) ? true : false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-									onClick= {mode==4 ? () => addPoiToDay(e.id) : ()=>handleOpenPOI(e)}
+									onClick= {mode!=4 ?
+										() => handleOpenPOI(e)
+										 :
+										() => addPoiToDay(e) }
+									icon = {poisForDay.find(element => element ===e ) && mode==4 ? bluePin : null}
 									/>
 								);
 							})
