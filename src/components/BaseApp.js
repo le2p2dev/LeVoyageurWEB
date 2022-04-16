@@ -30,7 +30,10 @@ const BaseApp = () => {
   }
 
   const removePoiOfDay = (poiId) =>{
-    setPoisForDay(oldList => oldList.filter(poi => poi !== poiId));
+    poiId == 0 ? 
+    setPoisForDay([])
+    :
+    setPoisForDay(oldList => oldList.filter(poi => poi.id !== poiId));
   }
 
   const [value, setValue] = useState("1"); 
@@ -65,7 +68,7 @@ const BaseApp = () => {
      
               <Grid container direction="row">
               {value==4 ?  <StepListItems removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={id} titleTrip={data.response[0]?.title}/> : null}
-              <Map idTrip={id} mode = {value} addPoiToDay={addPoiToDay} />
+              <Map idTrip={id} mode = {value} addPoiToDay={addPoiToDay} poisForDay={poisForDay} removePoiOfDay={removePoiOfDay} />
 
              </Grid>
               
