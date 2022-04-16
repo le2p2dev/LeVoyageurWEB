@@ -7,15 +7,11 @@ import Signin from "./SignIn";
 const Home = () => {
   const isLogged = localStorage.getItem("isLogged");
 
-  return isLogged ? (
+  return (
     <>
       <VoyageurLogged />
-    </>
-  ) : (
-    <>
-      <Signin />
-    </>
-  );
+    </>)
+
 };
 
 export default Home;

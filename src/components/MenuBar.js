@@ -40,7 +40,7 @@ const MenuBar = () => {
   return window.localStorage.getItem("isLogged") ? (
 
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: "white"}}>
+        <AppBar position="static" sx={{ backgroundColor: "white", height: '10vh'}}>
           <Toolbar sx={{justifyContent: "space-between"}}>
             <MenuItem onClick={() => navigate("/home")}> <img style={{width:"5vh",height:"5vh" }} src={require("../assets/icon.png")} alt={"logo"}/> </MenuItem>
             <Typography color="black">

@@ -23,7 +23,7 @@ const Main = () => {
       <CssBaseline />
       <MenuBar />
       <Routes>
-        <Route path="/" element={<TripList />} />
+        <Route path="/" element={<Home />} />
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/about" element={<DiscoverVoyageur />} />
         <Route path="*" element={<Navigate to="/" />} />
