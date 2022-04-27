@@ -24,6 +24,8 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 
 	//#region Google Maps style and initial location
 
+	//test a comment
+	
 	const [lat, setLat] = useState(41.3851);
 	const [lng, setLng] = useState(2.1734);
 
