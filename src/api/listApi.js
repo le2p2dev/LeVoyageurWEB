@@ -182,7 +182,7 @@ const listAPI = {
   },
   Login: (username, password) => {
     const urlSuffix = "login";
-    return fetch("http://54.36.191.192:3630/login", {
+    return fetch("http://54.36.191.192:3631/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -193,7 +193,7 @@ const listAPI = {
   },
   Register: (username, password) => {
     const urlSuffix = "register";
-    return fetch("http://54.36.191.192:3630/register", {
+    return fetch("http://54.36.191.192:3631/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
