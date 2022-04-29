@@ -107,7 +107,7 @@ export default function TripList() {
               flexDirection: "row",
             }}
           >
-            {data?.response.map((trip, i, arr) => {
+            {data?.map((trip, i, arr) => {
               return (
                 <Grid key={i} item xs={3}>
                   <CardTrip

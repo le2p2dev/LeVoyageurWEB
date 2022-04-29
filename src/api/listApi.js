@@ -1,34 +1,30 @@
-const urlPrefix = "http://levoyageur.mathieuv.pro:3631/api/";
+import jwtDecode from "jwt-decode";
+
+const urlPrefix = "http://levoyageur.mathieuv.pro:3630/api/";
 
 const listAPI = {
 
 
   //Listes des voyages pour un utilisateurs
   GetTrips: () => {
-    const urlSuffix = "trip/";
-
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip`;
+   
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
-      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem("token")
+    },
       //body: JSON.stringify({'search' : data.email})
     }).then((res) => res.json());
   },
-  //Voyage pour un id donné
-  GetTrip: (id) => {
-    const urlSuffix = `trip/${id}`;
 
-    return fetch(urlPrefix + urlSuffix, {
-      method: "GET",
-      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
-      //body: JSON.stringify({'search' : data.email})
-    }).then((res) => res.json());
-  },
 
   CreateTrip: (data) => {
-    const urlSuffix = "trip/";
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip`;
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},
+     
+
       body: JSON.stringify({
         title: data.tripName,
         description: data.description,
@@ -36,29 +32,10 @@ const listAPI = {
     }).then((res) => res.json());
   },
  
-  //Info d'un POI
-  GetPOI: (id) => {
-    const urlSuffix = `poi/${id}`;
 
-    return fetch(urlPrefix + urlSuffix, {
-      method: "GET",
-      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
-      //body: JSON.stringify({"idTrip" : data.idTrip})
-    }).then((res) => res.json());
-  },
-  //Listes des marker
-  GetPOIs: () => {
-    const urlSuffix = "poi/";
-
-    return fetch(urlPrefix + urlSuffix, {
-      method: "GET",
-      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
-      //body: JSON.stringify({"idTrip" : data.idTrip})
-    }).then((res) => res.json());
-  },
   //Listes des marker d'un voyage
   GetPOIsFromTrip: (id) => {
-    const urlSuffix = `poi/trip/${id}`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id}poi`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
@@ -66,35 +43,19 @@ const listAPI = {
       //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
-  
-    //Listes des POI d'une étape
-    GetPOIsFromStep: (id) => {
-      const urlSuffix = `poi/step/${id}`;
-  
-      return fetch(urlPrefix + urlSuffix, {
-        method: "GET",
-        //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
-        //body: JSON.stringify({"idTrip" : data.idTrip})
-      }).then((res) => res.json());
-    },
 
   CreatePOI: (data) => {
-    const urlSuffix = "poi";
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}poi`;
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        //title: data.title,
-        //description: data.description,
         latitude: data.latitude,
         longitude: data.longitude,
-        //poiType: data.poiType,
-        tripId: data.tripId,
-
-
       }),
     }).then((res) => res.json());
   },
+
   UpdatePOI: (data) => {
     const urlSuffix = `poi/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
@@ -125,7 +86,7 @@ const listAPI = {
     const urlSuffix = `step/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},
       body: JSON.stringify({
         
         title: data.title,
@@ -140,30 +101,22 @@ const listAPI = {
 
   },
   DeleteStep: (id) => {
-    const urlSuffix = `step/${id}`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id.idtrip}/step/${id.idStep}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-     
+      headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},     
     }).then((res) => res.json());
 
   },
    CreateStep: (data) => {
 	 
 
-		const urlSuffix = "step";
+		const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/step`;
 		return fetch(urlPrefix + urlSuffix, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({
-			//title: data.title,
-			//description: data.description,
+    headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},		body: JSON.stringify({
 			latitude: data.latitude,
 			longitude: data.longitude,
-			//duration: data.duration,
-			tripId: data.tripId,
-
-
 		}),
 		}).then((res) => res.json());
 	},
@@ -172,17 +125,16 @@ const listAPI = {
     
   //list des steps d'un voyage
   GetStepsFromTrip: (id) => {
-    const urlSuffix = `step/trip/${id}`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id}/step`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
-      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
-      //body: JSON.stringify({"idTrip" : data.idTrip})
+      headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},      //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
   Login: (username, password) => {
     const urlSuffix = "login";
-    return fetch("http://54.36.191.192:3631/login", {
+    return fetch(urlPrefix+urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -192,8 +144,8 @@ const listAPI = {
     }).then((res) => res.json());
   },
   Register: (username, password) => {
-    const urlSuffix = "register";
-    return fetch("http://54.36.191.192:3631/register", {
+    const urlSuffix = "signup";
+    return fetch(urlPrefix+urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

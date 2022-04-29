@@ -128,7 +128,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 	const { isLoading, data: POIListOriginal } = useQuery(
 		idTrip + "POIs",
 		() => listAPI.GetPOIsFromTrip(idTrip),
-		{onSuccess: (data)=> {setPOIList(data.response)}}
+		{onSuccess: (data)=> {setPOIList(data)}}
 	);
 
 	//use query function for getting cords of place
@@ -151,7 +151,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 		idTrip + "steps",
 		() => listAPI.GetStepsFromTrip(idTrip),
 		{onSuccess: (data)=> {
-			setStepList(data.response)
+			setStepList(data)
 			setFirstStepLoading(true)
 			}}
 	);	

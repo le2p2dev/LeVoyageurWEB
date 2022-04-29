@@ -17,7 +17,6 @@ import TripList from "./trip/TripList";
 import LogoHeader from "./LogoHeader";
 import Map from "./map/Map";
 import NavigationMap from "./map/NavigationMap";
-import StepList from "./step/StepList"
 import StepListItems from "./step/StepListItems";
 
 const BaseApp = () => {
