@@ -12,7 +12,7 @@ import bluePin from '../../assets/blue_pin.png'
 
 import Notification from "./Notification"
 
-const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
+const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay,poiTypes}) => {
 
 	//#region Get browser geolocalisation
 	// if ("geolocation" in navigator) {
@@ -56,15 +56,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 	const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
 	const [isStepModalOpen,setIsStepModalOpen] = useState(false);
 
-	const [poiTypes,setPoiTypes] = useState([{name:"Shopping",value:false, mapName:"poi.business.Shopping"},
-											{name:"Attractions",value:false,mapName:"poi.attraction"},	
-											{name:"All Businesses",value:false,mapName:"poi.business"},
-											{name:"Lodging",value:false,mapName:"poi.business.Lodging"},
-											{name:"Park",value:false,mapName:"poi.park"},
-											{name:"Place of worship",value:false,mapName:"poi.place_of_worship"},
-											{name:"Medical",value:false,mapName:"poi.medical"},
-											/*{name:"Restaurants and Bars",value:false,mapName:"poi.food_drink"}*/]);
-
+	
 	const [notificationTransition, setNotificationTransition] = useState(undefined);
 	const [isOpenNavModeNotification, setIsOpenNavModeNotification] = useState(false);
 	const [isOpenUpdatePOINotification, setIsOpenUpdatePOINotification] = useState(false);
@@ -104,18 +96,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 
 	const handleCloseStep = () => {
 		setIsStepModalOpen(false);
-	}
-
-
-	const handleCheckBoxPoi = (event,i) => {
-
-		let poiTypesCopy = [...poiTypes];
-		poiTypesCopy[i].value = (poiTypesCopy[i].value === true)?false : true;
-		setPoiTypes(poiTypesCopy);
-
-	}
-
-	
+	}	
 
 
 	//#endregion
@@ -396,7 +377,8 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 								);
 							})
 						}
-
+						
+						
 
 						</GoogleMap>
 					</LoadScript>
@@ -431,21 +413,6 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 					{isOpenUpdatePOINotification ? <Notification severity = {"info"} message = "Poi succesfully updated" open = {isOpenUpdatePOINotification} close = {closeUpdatePOINotification} transition = {notificationTransition} />: null}
 					{isOpenDeletePoiNotification ? <Notification severity = {"info"} message = "Poi succesfully deleted" open = {isOpenDeletePoiNotification} close = {closeDeletePOINotification} transition = {notificationTransition} />: null}
 
-					<div id = "poiTypes">
-						{
-							poiTypes.map(
-								(e,i) => {
-									return(
-										<div key={i}>
-											<input onChange = {(ev) => handleCheckBoxPoi(ev,i)} type="checkbox" name = {e.name} checked={e.value}/>
-											<label htmlFor = {e.name}> {e.name} </label>
-										</div>
-									)
-								}
-							)
-						}
-
-					</div>
 				</div>
 			</div>
 		</div>
