@@ -59,9 +59,6 @@ const BaseApp = () => {
 
   if (isLoading) return "Loading..";
 
-  
-
-
   return (
     <>
 
