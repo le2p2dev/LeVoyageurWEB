@@ -157,10 +157,10 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 	);	
 	
 	useEffect(()=>{
-		if(firstStepLoading==true && stepListOriginal?.response[0] ){
+		if(firstStepLoading==true && stepListOriginal[0] ){
 			
-				setLat(stepListOriginal?.response[0]?.latitude)
-				setLng(stepListOriginal?.response[0]?.longitude)
+				setLat(stepListOriginal[0]?.latitude)
+				setLng(stepListOriginal[0]?.longitude)
 		
 			
 		}
@@ -229,6 +229,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 			id:id,
 			latitude: lat,
 			longitude: lng,
+			tripId : idTrip
 		});
 	}
 
@@ -249,6 +250,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 			id:id,
 			latitude: lat,
 			longitude: lng,
+			tripId : idTrip
 		});
 	}
 

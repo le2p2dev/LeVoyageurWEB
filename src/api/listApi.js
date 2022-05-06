@@ -17,6 +17,17 @@ const listAPI = {
     }).then((res) => res.json());
   },
 
+  GetTrip: (id) => {
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id}`;
+   
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem("token")
+    },
+      //body: JSON.stringify({'search' : data.email})
+    }).then((res) => res.json());
+  },
+
 
   CreateTrip: (data) => {
     const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip`;
@@ -35,20 +46,20 @@ const listAPI = {
 
   //Listes des marker d'un voyage
   GetPOIsFromTrip: (id) => {
-    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id}poi`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id}/poi`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
-      //headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.token },
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem("token")},
       //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
 
   CreatePOI: (data) => {
-    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}poi`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/poi`;
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem("token")},
       body: JSON.stringify({
         latitude: data.latitude,
         longitude: data.longitude,
@@ -57,10 +68,10 @@ const listAPI = {
   },
 
   UpdatePOI: (data) => {
-    const urlSuffix = `poi/${data.id}`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/poi/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},
       body: JSON.stringify({
         title: data.title,
         description: data.description,
@@ -74,16 +85,16 @@ const listAPI = {
     }).then((res) => res.json());
 
   },
-  DeletePOI: (id) => {
-    const urlSuffix = `poi/${id}`;
+  DeletePOI: (data) => {
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/poi/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem("token")},
     }).then((res) => res.json());
 
   },
   UpdateStep: (data) => {
-    const urlSuffix = `step/${data.id}`;
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/step/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "PUT",
       headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},
@@ -100,8 +111,8 @@ const listAPI = {
     }).then((res) => res.json());
 
   },
-  DeleteStep: (id) => {
-    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${id.idtrip}/step/${id.idStep}`;
+  DeleteStep: (data) => {
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/step/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},     
