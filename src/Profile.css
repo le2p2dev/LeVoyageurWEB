@@ -1,0 +1,43 @@
+
+
+#addImgBtn{
+
+    /* transform: translate(-168px,140px); */
+    transform: translate(0%,-60%);
+
+}
+
+#avatarAndButton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#profilePage{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    height: 70%;
+}
+
+#img,#userInfo{
+
+    width: 50%;
+    height: 100%;
+}
+
+.spanBox{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.uIcons{
+
+    margin-left: 3%;
+}
+
