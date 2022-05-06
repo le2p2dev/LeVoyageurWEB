@@ -370,11 +370,11 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay,poiTypes}) => {
 									position={{ lat: e.latitude, lng: e.longitude }}
 									draggable={(mode==2) ? true : false}
 									onDragEnd = {(ev) => updatePOIOnClick(e.id,ev.latLng.lat(),ev.latLng.lng(),i)}
-									onClick= {mode!=4 ?
+									onClick= {mode!=3 ?
 										() => handleOpenPOI(e)
 										 :
 										() => addPoiToDay(e) }
-									icon = {poisForDay.find(element => element ===e ) && mode==4 ? bluePin : null}
+									icon = {poisForDay.find(element => element ===e ) && mode==3 ? bluePin : null}
 									/>
 								);
 							})
@@ -410,7 +410,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay,poiTypes}) => {
 
 					
 					{isPOIModalOpen ? <PoiModal title = {selectedPOI.title} description = {selectedPOI.description} id = {selectedPOI.id}   idTrip = {idTrip} closePOI = {handleClosePOI} openUpdatePOINotification = {openUpdatePOINotification} openDeletePOINotification = {openDeletePOINotification}/> : null}
-					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closeStep = {handleCloseStep} /> : null}
+					{isStepModalOpen ? <StepModal title = {selectedStep.title} description = {selectedStep.description} id = {selectedStep.id}   idTrip = {idTrip} closeStep = {handleCloseStep} poisForDay= {poisForDay} removePoiOfDay = {removePoiOfDay} duration = {selectedStep.duration}/> : null}
 					{isOpenNavModeNotification ? <Notification severity = {"info"} message = "You are in Navigation Mode" open = {isOpenNavModeNotification} close = {closeNavModeNotification} transition = {notificationTransition} />: null}
 					{isOpenUpdatePOINotification ? <Notification severity = {"info"} message = "Poi succesfully updated" open = {isOpenUpdatePOINotification} close = {closeUpdatePOINotification} transition = {notificationTransition} />: null}
 					{isOpenDeletePoiNotification ? <Notification severity = {"info"} message = "Poi succesfully deleted" open = {isOpenDeletePoiNotification} close = {closeDeletePOINotification} transition = {notificationTransition} />: null}

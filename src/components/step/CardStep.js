@@ -2,16 +2,21 @@ import React, {useState } from "react";
 import { useMutation, useQueryClient  } from "react-query";
 import listAPI from "../../api/listApi";
 import Day from "../day/Day";
-import {Button, Switch, TextField} from "@mui/material";
+import DayList from "../day/DayList";
+import {Button, duration, Switch, TextField} from "@mui/material";
 
-const CardStep = ({idTrip,id,title,description,idStep, poisForDay, removePoiOfDay}) => {
+const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay}) => {
 
 
 !title ? title="" : title = title
 !description ? description="" : description = description
+!duration ? duration=0 : duration = duration
+
 
 const [newTitle,setNewTitle] = useState(title);
 const [newDescription,setNewDescription] = useState(description);
+const [newDuration,setNewDuration] = useState(duration);
+
 const [showSave,setShowSave] = useState(false);
 
 
@@ -21,12 +26,17 @@ const handleChangeTitle = (event) => {
 const handleChangeDescription = (event) => {
     setNewDescription(event.target.value)
 } 
+const handleChangeDuration = (event) => {
+    setNewDuration(event.target.value)
+}
 
 const saveChanges = () => {
     updateStep.mutate({
         title: newTitle,
         description: newDescription,
-        id: id
+        duration: newDuration,
+        id: idStep,
+        tripId : idTrip
       })
 }
 
@@ -34,6 +44,7 @@ const cancelChanges = () => {
     setShowSave(false)
     setNewTitle(title ? title : "")
     setNewDescription(description ? description : "")
+    setNewDuration(duration ? duration : 0)
 }
 
 const queryClient = useQueryClient();
@@ -53,7 +64,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
 
 
-    return <div key={id} style={{border: "2px solid red"}} >
+    return <div key={idStep} style={{border: "2px solid black"}} >
         <TextField 
             onFocus={() => setShowSave(true)}
             onBlur={() => setShowSave(false)}
@@ -74,8 +85,18 @@ const updateStep = useMutation(listAPI.UpdateStep, {
             placeholder={"description"}
             value={newDescription}
             multiline/>
+        <TextField 
+            onFocus={() => setShowSave(true)}
+            onBlur={() => setShowSave(false)}
+            onChange={handleChangeDuration}
+            id="standard-basic"
+            variant="standard"
+            InputProps={{ disableUnderline: true }}
+            placeholder={"duration"}
+            value={newDuration}
+            multiline/>
         
-        {showSave || newTitle!==title || newDescription!==description ? 
+        {showSave || newTitle!==title || newDescription!==description || newDuration!==duration ? 
             <div>
                <Button
         variant="normal"
@@ -99,7 +120,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
          :null}
 
-        <Day key={id} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={id} />  
+        <DayList key={idStep} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={idStep} idTrip={idTrip} />  
 
     </div>
 }

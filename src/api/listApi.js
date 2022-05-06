@@ -55,6 +55,16 @@ const listAPI = {
     }).then((res) => res.json());
   },
 
+  GetPOIsFromDay: (data) => {
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/step/${data.idStep}/day/${data.idDay}/poi`;
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem("token")},
+      //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
+
   CreatePOI: (data) => {
     const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/poi`;
     return fetch(urlPrefix + urlSuffix, {
@@ -67,6 +77,7 @@ const listAPI = {
     }).then((res) => res.json());
   },
 
+
   UpdatePOI: (data) => {
     const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/poi/${data.id}`;
     return fetch(urlPrefix + urlSuffix, {
@@ -78,8 +89,10 @@ const listAPI = {
         latitude: data.latitude,
         longitude: data.longitude,
         poiType: data.poiType,
-        tripId: data.idTrip,
-        stepId: data.stepId
+        tripId: data.tripId,
+        stepId: data.stepId,
+        dayId : data.dayId
+
 
       }),
     }).then((res) => res.json());
@@ -143,6 +156,16 @@ const listAPI = {
       headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},      //body: JSON.stringify({"idTrip" : data.idTrip})
     }).then((res) => res.json());
   },
+
+  GetDaysfromStep: (data) => {
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}/trip/${data.tripId}/step/${data.idStep}/day`;
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" , Authorization: 'Bearer ' + localStorage.getItem("token")},      //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
+
   Login: (username, password) => {
     const urlSuffix = "login";
     return fetch(urlPrefix+urlSuffix, {
@@ -165,7 +188,7 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
-    
+  
 
 };
 

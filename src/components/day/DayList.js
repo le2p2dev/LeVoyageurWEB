@@ -1,15 +1,15 @@
 import {useQuery} from "react-query";
 import listAPI from "../../api/listApi";
 import {Grid} from "@mui/material";
-import CardPoi from "./CardPoi";
+import Day from "./Day";
 
 
 
 
-const DayList = ({idStep,poisForDay,removePoiOfDay}) => {
+const DayList = ({idStep,poisForDay,removePoiOfDay, idTrip}) => {
 
 
-    //const {isLoading, data : days} = useQuery(idStep+"StepPOIs", () => listAPI.GetDaysfromStep(idStep));
+    const {isLoading, data : days} = useQuery(idStep+"days", () => listAPI.GetDaysfromStep({idStep : idStep, tripId : idTrip}));
 
     if( isLoading){
         return "loading"
@@ -17,8 +17,8 @@ const DayList = ({idStep,poisForDay,removePoiOfDay}) => {
 
     return <Grid container spacing={1}>
 
-        {days?.response.map( (day) => {
-           return  <Day removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} key={day.id} id={day.id} idStep={idStep} POIs={day.poiList} />
+        {days?.map( (day) => {
+           return  <Day removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} key={day.id} id={day.id} number={day.number} idStep={idStep} idTrip={idTrip} POIs={day.poiList} />
         })}
     </Grid>
 }
