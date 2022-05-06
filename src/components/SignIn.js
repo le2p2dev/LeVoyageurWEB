@@ -39,9 +39,9 @@ const Signin = () => {
   const [error, setError] = useState(false);
 
   const handleClick = () => {
-    console.log({ username, password });
     listAPI.Login(username, password).then((data) => {
       if (data.token) {
+        console.log(data)
         window.localStorage.setItem("isLogged", "true");
         window.localStorage.setItem("token", data.token);
         navigate("/home");

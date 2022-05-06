@@ -66,6 +66,7 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
             id: id,
             title: stepTitle,
             description: stepDescription,
+            tripId : idTrip
         });
         
     }
@@ -116,7 +117,9 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
                         <div className = "deleteModal">
                             <DeleteModal 
                                 yesBtnFunction =  {() => {
-                                    deleteStep.mutate(id)
+                                    deleteStep.mutate({
+                                        id : id,
+                                        tripId : idTrip})
                                     handleClose()
                                 }
                                 }

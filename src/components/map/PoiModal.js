@@ -106,6 +106,7 @@ const PoiModal = ({id,title,description,closePOI,idTrip,openUpdatePOINotificatio
             id: id,
             title: poiTitle,
             description: poiDescription,
+            tripId : idTrip
         });
         
     }
@@ -170,7 +171,9 @@ const PoiModal = ({id,title,description,closePOI,idTrip,openUpdatePOINotificatio
                         <div className = "deleteModal">
                             <DeleteModal 
                                 yesBtnFunction =  {() => {
-                                    deletePoi.mutate(id)
+                                    deletePoi.mutate({
+                                        tripId : idTrip,
+                                        id : id})
                                 }}
                                 noBtnFunction = {handleClose} 
                                 type = "marker"

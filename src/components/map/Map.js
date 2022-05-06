@@ -128,7 +128,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 	const { isLoading, data: POIListOriginal } = useQuery(
 		idTrip + "POIs",
 		() => listAPI.GetPOIsFromTrip(idTrip),
-		{onSuccess: (data)=> {setPOIList(data.response)}}
+		{onSuccess: (data)=> {setPOIList(data)}}
 	);
 
 	//use query function for getting cords of place
@@ -151,16 +151,16 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 		idTrip + "steps",
 		() => listAPI.GetStepsFromTrip(idTrip),
 		{onSuccess: (data)=> {
-			setStepList(data.response)
+			setStepList(data)
 			setFirstStepLoading(true)
 			}}
 	);	
 	
 	useEffect(()=>{
-		if(firstStepLoading==true && stepListOriginal?.response[0] ){
+		if(firstStepLoading==true && stepListOriginal[0] ){
 			
-				setLat(stepListOriginal?.response[0]?.latitude)
-				setLng(stepListOriginal?.response[0]?.longitude)
+				setLat(stepListOriginal[0]?.latitude)
+				setLng(stepListOriginal[0]?.longitude)
 		
 			
 		}
@@ -229,6 +229,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 			id:id,
 			latitude: lat,
 			longitude: lng,
+			tripId : idTrip
 		});
 	}
 
@@ -249,6 +250,7 @@ const Map = ({idTrip,mode,addPoiToDay,poisForDay,removePoiOfDay}) => {
 			id:id,
 			latitude: lat,
 			longitude: lng,
+			tripId : idTrip
 		});
 	}
 
