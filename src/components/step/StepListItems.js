@@ -13,9 +13,11 @@ const StepListItems = ({idTrip,titleTrip,poisForDay,removePoiOfDay}) => {
         return "Loading"
     }
 
+    console.log(steps)
+
     return <div key={idTrip}>
         <Grid container spacing={2} sx={{paddingLeft: "5%"}}>
-            {steps.response.map((step) => {
+            {steps.map((step) => {
                 return (
                     <Grid key={step.id} xs={8} item>
                         <CardStep key={step.id}  removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} id={step.id} title={step.title} description={step.description} />

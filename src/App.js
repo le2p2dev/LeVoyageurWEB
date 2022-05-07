@@ -12,7 +12,6 @@ import Home from "./components/Home";
 import BaseApp from "./components/BaseApp";
 import SignIn from "./components/SignIn";
 import MenuBar from "./components/MenuBar";
-import DiscoverVoyageur from "./components/DiscoverVoyageur";
 import TripList from "./components/trip/TripList";
 import { CssBaseline } from "@mui/material";
 import CreateAccount from "./components/CreateAccount";
@@ -26,7 +25,6 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route exact path="/signin" element={<SignIn />} />
-        <Route exact path="/about" element={<DiscoverVoyageur />} />
         <Route exact path="/account" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/trip/:id" element={<BaseApp />} />

@@ -1,7 +1,11 @@
 import React from "react";
 
 const DiscoverVoyageur = () => {
-  return <>Hello</>;
+  return (<>
+
+        hello
+    </>
+    );
 };
 
 export default DiscoverVoyageur;

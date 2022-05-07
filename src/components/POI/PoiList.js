@@ -14,7 +14,7 @@ const PoiList = ({idDay,idStep,POIs}) => {
 
     return <Grid container spacing={1}>
 
-        {POIs?.response.map( (poi) => {
+        {POIs?.map( (poi) => {
            return  <CardPoi key={poi.id} id={poi.id} title={poi.title} description={poi.description} />
         })}
     </Grid>
