@@ -11,32 +11,19 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import "./PoiModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
+import CardStep from "../step/CardStep";
 
-const StepModal = ({id,title,description,closeStep,idTrip}) => {
+const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay}) => {
 
 
     const queryClient = useQueryClient();
     
-    const [stepTitle, setStepTitle] = useState(title ? title : "test");
-    const [stepDescription,setStepDescription] = useState("");
+    
     const [idStep,setIdStep] = useState(id);
 
-    if (id!=idStep){
-        setIdStep(id)
-        setStepTitle(title ? title : "")
-        setStepDescription(description ? description : "")
-    }
-
-
-    const handleStepTitleChange = (event) => {
-        setStepTitle(event.target.value);
-    };
-
-    const handleStepDescriptionChange = (event) => {
-        setStepDescription(event.target.value);
-    };
-
   
+
+
    
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -47,10 +34,7 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
     };
 
 
-    const updateStep = useMutation(listAPI.UpdateStep, {
-        onSuccess: () => queryClient.invalidateQueries(idTrip + "steps")
-
-    });
+   
 
     const deleteStep = useMutation(listAPI.DeleteStep, {
         onSuccess: () =>  {
@@ -60,16 +44,7 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
          }  
       });
 
-    const updateStepOnClick = () => {
-        
-        updateStep.mutate({
-            id: id,
-            title: stepTitle,
-            description: stepDescription,
-            tripId : idTrip
-        });
-        
-    }
+    
     
     
 
@@ -80,26 +55,8 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
         
         <div id = "PoiModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
-            <div id = "PoiInputs"> 
-                <TextField 
-                    className = "PoiInput"
-                    margin = "dense"
-                    id="outlined-basic" 
-                    label="Step Title" 
-                    variant="outlined"
-                    value={stepTitle} 
-                    onChange={handleStepTitleChange} />
-                <TextField
-                    className = "PoiInput"
-                    margin = "dense"
-                    id="outlined-textarea"
-                    label="Step Description"
-                    placeholder="Placeholder"
-                    multiline
-                    rows={5}
-                    value={stepDescription}
-                    onChange={handleStepDescriptionChange}/>
-            </div>
+            <CardStep key={id}  removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
+
 
                 <label htmlFor="contained-button-file">
                     <Input accept="image/*" id="contained-button-file" multiple type="file"  style = { {display:'none'}}/>
@@ -108,7 +65,6 @@ const StepModal = ({id,title,description,closeStep,idTrip}) => {
 
             <div className = "BtnBox">
                 <Button onClick={handleOpen} variant="contained">Delete Step</Button>
-                <Button onClick={updateStepOnClick}variant="contained">Save Step</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}

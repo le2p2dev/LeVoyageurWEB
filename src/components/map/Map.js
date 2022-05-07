@@ -7,6 +7,7 @@ import PoiModal from "./PoiModal";
 import StepModal from "./StepModal";
 import MapBox from "../../api/MapBox";
 import "./Map.css";
+
 import greenPin from "../../assets/green_pin.png";
 import bluePin from "../../assets/blue_pin.png";
 
@@ -504,6 +505,7 @@ const Map = ({
       </div>
     </div>
   );
+
 };
 
 export default Map;

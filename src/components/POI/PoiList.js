@@ -6,18 +6,20 @@ import CardPoi from "./CardPoi";
 
 
 
-const PoiList = ({idDay,idStep,POIs}) => {
+const PoiList = ({idDay,idStep,idTrip}) => {
 
 
-   // const {isLoading, data : POIs} = useQuery(idStep+"StepPOIs", () => listAPI.GetPOIsFromStep(idStep));
+   const {isLoading, data : POIs} = useQuery(idStep+"DayPOIs", () => listAPI.GetPOIsFromDay({idStep,idDay,tripId : idTrip}));
 
 
-    return <Grid container spacing={1}>
+   if(!isLoading) return <Grid container spacing={1}>
 
         {POIs?.map( (poi) => {
-           return  <CardPoi key={poi.id} id={poi.id} title={poi.title} description={poi.description} />
+           <CardPoi key={poi.id} id={poi.id} title={poi.title} description={poi.description} />
         })}
     </Grid>
-}
+
+else return "loading ..."
+} 
 
 export default PoiList
