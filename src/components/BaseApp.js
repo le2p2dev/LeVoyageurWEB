@@ -19,6 +19,7 @@ import Map from "./map/Map";
 import NavigationMap from "./map/NavigationMap";
 import StepListItems from "./step/StepListItems";
 import Filter from "./map/Filter";
+import ListView from "./map/ListView";
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -125,12 +126,15 @@ const BaseApp = () => {
         </div>
         <div style={{  height: "90vh" }}>
           {value === "4" ? (
+              /*
             <StepListItems
               removePoiOfDay={removePoiOfDay}
               poisForDay={poisForDay}
               idTrip={id}
               titleTrip={data[0]?.title}
             />
+            */
+           <ListView />
           ) : (
             <Map
               idTrip={id}

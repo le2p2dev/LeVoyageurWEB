@@ -1,26 +1,35 @@
-import {useQuery} from "react-query";
+import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
-import {Grid} from "@mui/material";
+import { Grid } from "@mui/material";
 import Day from "./Day";
 
+const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip }) => {
+  const { isLoading, data: days } = useQuery(idStep + "days", () =>
+    listAPI.GetDaysfromStep({ idStep: idStep, tripId: idTrip })
+  );
 
+  if (isLoading) {
+    return "loading";
+  }
 
-
-const DayList = ({idStep,poisForDay,removePoiOfDay, idTrip}) => {
-
-
-    const {isLoading, data : days} = useQuery(idStep+"days", () => listAPI.GetDaysfromStep({idStep : idStep, tripId : idTrip}));
-
-    if( isLoading){
-        return "loading"
-    }
-
-    return <Grid container spacing={1}>
-
-        {days?.map( (day) => {
-           return  <Day removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} key={day.id} id={day.id} number={day.number} idStep={idStep} idTrip={idTrip} POIs={day.poiList} />
-        })}
+  return (
+    <Grid container spacing={1}>
+      {days?.map((day) => {
+        return (
+          <Day
+            removePoiOfDay={removePoiOfDay}
+            poisForDay={poisForDay}
+            key={day.id}
+            id={day.id}
+            number={day.number}
+            idStep={idStep}
+            idTrip={idTrip}
+            POIs={day.poiList}
+          />
+        );
+      })}
     </Grid>
-}
+  );
+};
 
-export default DayList
+export default DayList;
