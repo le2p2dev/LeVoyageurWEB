@@ -61,7 +61,7 @@ const MenuBar = () => {
               open={Boolean(anchor)}
               keepMounted
               onClose={handleClose}
-              anchorEl={anchor}
+
               anchorOrigin={{ vertical: "top", horizontal: "right" }}
             >
               <MenuItem onClick={() => navigate("/account")}>

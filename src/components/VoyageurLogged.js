@@ -18,16 +18,6 @@ const DiscoverVoyageur = () => {
 
   const isLogged = window.localStorage.getItem('isLogged')
 
-  var interval = setTimeout(() => {
-    let nameChoosen = name[number];
-   // document.getElementById("title").innerHTML = "";
-    //document.getElementById("title").innerHTML = `<h1> ${nameChoosen}   </h1>`;
-    if (number + 1 < name.length) {
-      setNumber(number + 1);
-    } else {
-      setNumber(0);
-    }
-  }, 2000);
 
   return (
       <>
