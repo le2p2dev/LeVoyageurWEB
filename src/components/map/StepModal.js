@@ -17,13 +17,6 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
 
 
     const queryClient = useQueryClient();
-    
-    
-    const [idStep,setIdStep] = useState(id);
-
-  
-
-
    
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -34,8 +27,6 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
     };
 
 
-   
-
     const deleteStep = useMutation(listAPI.DeleteStep, {
         onSuccess: () =>  {
             queryClient.invalidateQueries(idTrip+ "steps")
@@ -44,14 +35,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
          }  
       });
 
-    
-    
-    
-
-    
     return (
-        
-  
         
         <div id = "PoiModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>

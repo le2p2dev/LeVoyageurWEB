@@ -9,13 +9,15 @@ import CardPoi from "./CardPoi";
 const PoiList = ({idDay,idStep,idTrip}) => {
 
 
-   const {isLoading, data : POIs} = useQuery(idStep+"DayPOIs", () => listAPI.GetPOIsFromDay({idStep,idDay,tripId : idTrip}));
+   const {isLoading, data} = useQuery(idStep+"DayPOIs", () => listAPI.GetPOIsFromDay({idStep,idDay,tripId : idTrip}));
 
 
    if(!isLoading) return <Grid container spacing={1}>
 
-        {POIs?.map( (poi) => {
+        {data.Pois?.map( (poi) => {
+           return(
            <CardPoi key={poi.id} id={poi.id} title={poi.title} description={poi.description} />
+           )
         })}
     </Grid>
 
