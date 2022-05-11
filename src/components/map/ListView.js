@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import listAPI from "../../api/listApi";
 import DayList from "../day/DayList";
+import ListDay from "../day/ListDay";
 
 const ListView = () => {
   const { id } = useParams();
@@ -26,9 +27,8 @@ const ListView = () => {
 
   return (
     <>
-      {console.log(Steps)}
       <div style={styles}>
-        <h3>display all steps in a list ? </h3>
+        <h3> List View for steps</h3>
         {Steps.map((step, no) => {
           return (
             <div
@@ -50,12 +50,7 @@ const ListView = () => {
                 <p>{step.description}</p>{" "}
               </div>
 
-              <DayList
-                removePoiOfDay={null}
-                idStep={step.id}
-                idTrip={id}
-                poisForDay={null}
-              />
+              <ListDay idStep={step.id} idTrip={id} />
             </div>
           );
         })}
