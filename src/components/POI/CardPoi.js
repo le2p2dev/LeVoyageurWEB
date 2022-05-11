@@ -16,20 +16,7 @@ const CardPoi = ({id,title,description}) => {
 
 
     return <Grid item xs={4} >
-       <Card>
-           <CardContent>
-               <Typography>
-                   <TextField id="standard-basic"  InputProps={{ disableUnderline: true, style: {fontSize: 25,fontWeight: "bold"} }} variant="standard" value={title}/>
-               </Typography>
-               <Typography>
-                   <TextField id="standard-basic"  InputProps={{ disableUnderline: true }} variant="standard" value={description}/>
-               </Typography>
-           </CardContent>
-           <CardActions>
-               <Button size="small">retirer</Button>
-
-           </CardActions>
-       </Card>
+      id : {id}
     </Grid>
 }
 

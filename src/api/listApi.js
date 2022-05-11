@@ -71,7 +71,7 @@ const listAPI = {
   GetPOIsFromDay: (data) => {
     const urlSuffix = `user/${
       jwtDecode(localStorage.getItem("token")).id
-    }/trip/${data.tripId}/step/${data.idStep}/day/${data.idDay}/poi`;
+    }/trip/${data.tripId}/step/${data.idStep}/day/${data.idDay}`;
 
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",

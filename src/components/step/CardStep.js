@@ -3,7 +3,7 @@ import { useMutation, useQueryClient  } from "react-query";
 import listAPI from "../../api/listApi";
 import Day from "../day/Day";
 import DayList from "../day/DayList";
-import {Button, duration, Switch, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 
 const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay}) => {
 
@@ -52,6 +52,7 @@ const queryClient = useQueryClient();
 const updateStep = useMutation(listAPI.UpdateStep, {
     onSuccess: () => {
         queryClient.invalidateQueries(idTrip + "steps")
+        queryClient.invalidateQueries(idStep + "days")
     }
   });
 

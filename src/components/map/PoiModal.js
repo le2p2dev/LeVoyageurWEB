@@ -86,7 +86,7 @@ const PoiModal = ({
   const updatePOI = useMutation(listAPI.UpdatePOI, {
     onSuccess: () => {
       queryClient.invalidateQueries(idTrip + "POIs");
-      closePOI();
+      handleClose();
       openUpdatePOINotification(TransitionUp);
     },
   });
@@ -94,6 +94,7 @@ const PoiModal = ({
   const deletePoi = useMutation(listAPI.DeletePOI, {
     onSuccess: () => {
       queryClient.invalidateQueries(idTrip + "POIs");
+      handleClose();
       closePOI();
       openDeletePOINotification(TransitionUp);
     },

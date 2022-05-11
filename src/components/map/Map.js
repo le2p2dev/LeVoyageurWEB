@@ -58,8 +58,8 @@ const Map = ({
   ]);
   const [POIList, setPOIList] = useState([]);
   const [stepList, setStepList] = useState([]);
-  const [selectedPOI, setSelectedPOI] = useState(0);
-  const [selectedStep, setSelectedStep] = useState(0);
+  const [selectedPOI, setSelectedPOI] = useState();
+  const [selectedStep, setSelectedStep] = useState();
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
   const [isStepModalOpen, setIsStepModalOpen] = useState(false);
 
@@ -386,7 +386,7 @@ const Map = ({
                             i
                           )
                         }
-                        onClick={() => handleOpenStep(e)}
+                        onClick={() => mode == 3 ? handleOpenStep(e) : null}
                         icon={greenPin}
                       />
                     );
@@ -410,13 +410,13 @@ const Map = ({
                           )
                         }
                         onClick={
-                          mode != 4
+                         mode != 3
                             ? () => handleOpenPOI(e)
                             : () => addPoiToDay(e)
                         }
                         icon={
                           poisForDay.find((element) => element === e) &&
-                          mode == 4
+                          mode == 3
                             ? bluePin
                             : null
                         }
@@ -454,7 +454,7 @@ const Map = ({
             </button>
           </div>
 
-          {isPOIModalOpen ? (
+          {isPOIModalOpen && selectedPOI ? (
             <PoiModal
               title={selectedPOI.title}
               description={selectedPOI.description}
@@ -465,13 +465,16 @@ const Map = ({
               openDeletePOINotification={openDeletePOINotification}
             />
           ) : null}
-          {isStepModalOpen ? (
+          {isStepModalOpen && selectedStep ? (
             <StepModal
               title={selectedStep.title}
               description={selectedStep.description}
               id={selectedStep.id}
+              duration={selectedStep.duration}
               idTrip={idTrip}
+              poisForDay={poisForDay}
               closeStep={handleCloseStep}
+              removePoiOfDay={removePoiOfDay}
             />
           ) : null}
           {isOpenNavModeNotification ? (
