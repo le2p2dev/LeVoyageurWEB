@@ -203,6 +203,7 @@ const listAPI = {
     }/trip/${data.tripId}/step/${data.idStep}/day`;
 
     console.log(urlPrefix + urlSuffix);
+
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
       headers: {
