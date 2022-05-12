@@ -205,9 +205,6 @@ const listAPI = {
     const urlSuffix = `user/${
       jwtDecode(localStorage.getItem("token")).id
     }/trip/${data.tripId}/step/${data.idStep}/day`;
-
-    console.log(urlPrefix + urlSuffix);
-
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
       headers: {
@@ -239,6 +236,23 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
+
+  GetUser: () => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }`;
+
+    console.log(urlPrefix + urlSuffix);
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }, 
+    }).then((res) => res.json());
+  },
+
 };
 
 export default listAPI;
