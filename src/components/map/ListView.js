@@ -49,7 +49,6 @@ const ListView = () => {
               <div>
                 <p>{step.description}</p>{" "}
               </div>
-
               <ListDay idStep={step.id} idTrip={id} />
             </div>
           );
