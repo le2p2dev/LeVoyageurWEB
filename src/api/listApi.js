@@ -97,7 +97,11 @@ const listAPI = {
         latitude: data.latitude,
         longitude: data.longitude,
       }),
-    }).then((res) => res.json());
+    }).then((res) => {
+        console.log("res  in create poi",res);
+        console.log("res json in create poi",res.json());
+        return res.json();
+    })
   },
 
   UpdatePOI: (data) => {
@@ -132,7 +136,7 @@ const listAPI = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    }).then((res) => res.json());
+    }).then((res) => res)
   },
   UpdateStep: (data) => {
     const urlSuffix = `user/${
@@ -163,7 +167,7 @@ const listAPI = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    }).then((res) => res.json());
+    }).then((res) => res);
   },
   CreateStep: (data) => {
     const urlSuffix = `user/${
