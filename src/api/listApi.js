@@ -98,8 +98,6 @@ const listAPI = {
         longitude: data.longitude,
       }),
     }).then((res) => {
-      console.log("res  in create poi", res);
-      console.log("res json in create poi", res.json());
       return res.json();
     });
   },
