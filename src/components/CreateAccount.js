@@ -40,7 +40,6 @@ const Signin = () => {
   const [error, setError] = useState(false);
 
   const handleClick = () => {
-    console.log({ username, password, confirmPassword });
     if (password !== confirmPassword) {
       setError(true);
     } else {

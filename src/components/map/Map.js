@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { GoogleMap, LoadScript, Marker, Polyline } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  Polyline,
+} from "@react-google-maps/api";
 import Slide from "@mui/material/Slide";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
@@ -155,6 +160,8 @@ const Map = ({
       setLat(stepListOriginal[0]?.latitude);
       setLng(stepListOriginal[0]?.longitude);
     }
+
+    console.log("hello there !");
   }, [firstStepLoading]);
 
   //#endregion
@@ -247,6 +254,10 @@ const Map = ({
       longitude: ev.latLng.lng(),
       tripId: idTrip,
     });
+
+    //path.push({ lat: e.latitude, lng: e.longitude });
+
+    //path.push({ lat: ev.latLng.lat(), lng: ev.latLng.lng() });
   };
 
   useEffect(() => {
@@ -302,22 +313,19 @@ const Map = ({
 
   //#endregion
 
-
   //définition polyline
-  const [path,setPath] = useState([])
-  const onLoad = polyline => {
-	console.log('polyline: ', polyline)
-	console.log(path);
+  const [path, setPath] = useState([]);
+  const onLoad = (polyline) => {
+    console.log("polyline: ", polyline);
+    console.log(path);
   };
 
   const clickLine = () => {
-	  console.log("clicked on a line")
-  }
+    console.log("clicked on a line");
+  };
 
-
-
-  if(!stepList){
-	  return <>loading</>
+  if (!stepList) {
+    return <>loading</>;
   }
 
   /*
@@ -327,12 +335,11 @@ const Map = ({
 	  })
 	  setPath(stepPath)
 	  */
-  
 
   return (
     <div id="">
       <div id="">
-        <div style={{width: "90vw", height: "90vh" }}>
+        <div style={{ width: "90vw", height: "90vh" }}>
           <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
             <GoogleMap
               clickableIcons={mode == 1 ? true : false}
@@ -368,8 +375,7 @@ const Map = ({
               {isLoadingSteps
                 ? null
                 : stepList?.map((e, i) => {
-
-					path.push({lat:e.latitude, lng:e.longitude})
+                    path.push({ lat: e.latitude, lng: e.longitude });
                     return (
                       <Marker
                         key={i}
@@ -386,12 +392,11 @@ const Map = ({
                             i
                           )
                         }
-                        onClick={() => mode == 3 ? handleOpenStep(e) : null}
+                        onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
                         icon={greenPin}
                       />
                     );
-                  }) 
-				  }
+                  })}
               //shows markers on map from DB
               {isLoading
                 ? null
@@ -410,7 +415,7 @@ const Map = ({
                           )
                         }
                         onClick={
-                         mode != 3
+                          mode != 3
                             ? () => handleOpenPOI(e)
                             : () => addPoiToDay(e)
                         }
@@ -423,12 +428,21 @@ const Map = ({
                       />
                     );
                   })}
-
-				  //définition du polyline
-				  {path.length != stepList.length ? (
-				  <Polyline onLoad={onLoad} path={path} onClick={() => clickLine()} options={{strokeColor:"green",strokeWeight:"4"}} />) 
-				  : console.log("loading")}
-				
+              //définition du polyline
+              {path.length != stepList.length ? (
+                <Polyline
+                  onLoad={onLoad}
+                  path={path}
+                  onClick={() => clickLine()}
+                  options={{
+                    geodesic: true,
+                    strokeColor: "green",
+                    strokeWeight: "4",
+                  }}
+                />
+              ) : (
+                console.log("loading")
+              )}
             </GoogleMap>
           </LoadScript>
         </div>
@@ -508,7 +522,6 @@ const Map = ({
       </div>
     </div>
   );
-
 };
 
 export default Map;
