@@ -98,10 +98,10 @@ const listAPI = {
         longitude: data.longitude,
       }),
     }).then((res) => {
-        console.log("res  in create poi",res);
-        console.log("res json in create poi",res.json());
-        return res.json();
-    })
+      console.log("res  in create poi", res);
+      console.log("res json in create poi", res.json());
+      return res.json();
+    });
   },
 
   UpdatePOI: (data) => {
@@ -136,7 +136,7 @@ const listAPI = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    }).then((res) => res)
+    }).then((res) => res);
   },
   UpdateStep: (data) => {
     const urlSuffix = `user/${
@@ -230,6 +230,7 @@ const listAPI = {
   },
   Register: (username, password) => {
     const urlSuffix = "signup";
+    console.log(urlPrefix + urlSuffix);
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
