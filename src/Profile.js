@@ -134,7 +134,7 @@ const Profile = () => {
                         <p> {username} </p>
                         {
                             (modifyName==false)? <p> info from back end  </p> :
-                            <div>
+                            <div id = "nameChange">
                                  <TextField
                                     label="Name"
                                     type="text"

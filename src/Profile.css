@@ -52,7 +52,7 @@
     height: 100%;
 }
 
-#passwordChange{
+#passwordChange,#nameChange{
 
     height: 100%;
     width: 100%;
@@ -61,6 +61,8 @@
     flex-direction: column;
 
 }
+
+
 
 .modifyButton{
 
