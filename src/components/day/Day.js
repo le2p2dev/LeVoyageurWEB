@@ -56,7 +56,7 @@ const Day = ({
   });
 
   return (
-    <Grid style={{ border: "2px solid black" }}>
+    <Grid style={{ border: "2px solid black", height: "150px", width: "200px", marginLeft:"20px", marginBottom:"20px"}}>
       <p>
         {" "}
         {id} day {number}
