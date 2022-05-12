@@ -25,8 +25,11 @@ const ListDay = ({ idStep, idTrip }) => {
             key={day.id}
             style={{
               margin: "2px",
-              border: "2px solid red",
+              border: "2px solid black",
+              borderRadius: "20px",
               textAlign: "center",
+              height : "150px",
+              width : "300px"
             }}
           >
             Jour {day.number}

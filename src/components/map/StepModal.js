@@ -9,7 +9,7 @@ import {useMutation, useQueryClient} from "react-query";
 import listAPI from "../../api/listApi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import "./PoiModal.css";
+import "./StepModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
 import CardStep from "../step/CardStep";
 
