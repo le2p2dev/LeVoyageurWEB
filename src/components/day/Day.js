@@ -76,8 +76,8 @@ const Day = ({
 
       {AddingPoiToDayId == id ? (
         <div>
-          <br />
-          Add pois by clicking on the map <br />
+          
+          Add pois by clicking on the map 
           <Button onClick={handleCancel}>Cancel</Button>
           {poisSelected?.length >= 1 ? (
             <Button onClick={handleSave}>Save</Button>

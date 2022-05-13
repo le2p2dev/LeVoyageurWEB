@@ -51,7 +51,36 @@ const listAPI = {
       }),
     }).then((res) => res.json());
   },
+  
+  UpdateTrip: (data) => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${data.id}`;
+    return fetch(urlPrefix + urlSuffix, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
 
+      body: JSON.stringify({
+        title: data.tripName,
+        description: data.description,
+      }),
+    }).then((res) => res.json());
+  },
+  DeleteTrip: (id) => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${id}`;
+    return fetch(urlPrefix + urlSuffix, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+  },
   //Listes des marker d'un voyage
   GetPOIsFromTrip: (id) => {
     const urlSuffix = `user/${

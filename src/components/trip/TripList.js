@@ -61,11 +61,14 @@ export const CreateTrip = () => {
         </CardContent>
         <CardActions>
           <Button
-            onClick={() =>
+            onClick={() => {
               addTrip.mutate({
                 tripName: tripName,
                 description: description,
-              })
+              });
+              setCreating(false);
+            }
+             
             }
           >
             Create a new trip
