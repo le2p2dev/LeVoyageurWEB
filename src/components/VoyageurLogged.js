@@ -24,7 +24,7 @@ const DiscoverVoyageur = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          backgroundImage: `url(https://c.tenor.com/bOJzGR2YhHQAAAAC/dedsec-logo.gif)`,
+          backgroundImage: `url(https://i.pinimg.com/originals/1f/3e/e8/1f3ee8d02c84a3a08ceb973bf90895bc.gif)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           height: "90vh",
