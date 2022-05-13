@@ -17,6 +17,7 @@ import greenPin from "../../assets/green_pin.png";
 import bluePin from "../../assets/blue_pin.png";
 
 import Notification from "./Notification";
+import PoiList from "../POI/PoiList";
 
 const Map = ({
   idTrip,
@@ -196,6 +197,8 @@ const Map = ({
 
   //add to POI from map onclick
   const showPOI = (ev) => {
+    console.log("ev",ev);
+    console.log("poiList=",PoiList);
     addPOI.mutate({
       title: "test",
       description: "from web app",
@@ -203,6 +206,7 @@ const Map = ({
       longitude: ev.latLng.lng(),
       tripId: idTrip,
     });
+    console.log("poiList=",PoiList);
   };
 
   //update coords of poi
@@ -316,12 +320,12 @@ const Map = ({
   //définition polyline
   const [path, setPath] = useState([]);
   const onLoad = (polyline) => {
-    console.log("polyline: ", polyline);
-    console.log(path);
+
+
   };
 
   const clickLine = () => {
-    console.log("clicked on a line");
+
   };
 
   if (!stepList) {
@@ -441,8 +445,7 @@ const Map = ({
                   }}
                 />
               ) : (
-                console.log("loading")
-              )}
+null              )}
             </GoogleMap>
           </LoadScript>
         </div>
