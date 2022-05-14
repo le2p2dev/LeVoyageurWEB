@@ -266,18 +266,30 @@ const listAPI = {
   },
 
   GetUser: () => {
-    const urlSuffix = `user/${
-      jwtDecode(localStorage.getItem("token")).id
-    }`;
-
-    console.log(urlPrefix + urlSuffix);
-
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}`;
     return fetch(urlPrefix + urlSuffix, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      }, 
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + localStorage.getItem("token"),
+		}, 
+		}).then((res) => res.json());
+  },
+
+  UpdateUser: (data) => {
+	  console.log(data);
+    const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}`;
+    return fetch(urlPrefix + urlSuffix, {
+		method: "PUT",
+      	headers: {
+			"Content-Type": "application/json",
+		  	Authorization: "Bearer " + localStorage.getItem("token"),
+      	},
+      	body: JSON.stringify({
+        username: data.username,
+        password: data.password,
+		avatar:data.avatar
+      }),
     }).then((res) => res.json());
   },
 
