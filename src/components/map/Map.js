@@ -6,6 +6,9 @@ import {
   Marker,
   Polyline,
 } from "@react-google-maps/api";
+import TextField from "@mui/material/TextField";
+import { IconButton } from "@mui/material";
+import { SearchRounded } from "@mui/icons-material";
 import Slide from "@mui/material/Slide";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
@@ -341,9 +344,27 @@ const Map = ({
 	  */
 
   return (
-    <div id="">
-      <div id="">
-        <div style={{ width: "90vw", height: "90vh" }}>
+      <>
+      <div className="searchBar">
+        <TextField
+        className="searchText"
+          id="outlined-search"
+          label="Search"
+          type="search"
+          margin="normal"
+          size="small"
+          variant="outlined"
+          onChange={handleSearchLocationChange}
+          value={searchLocation}
+        />
+        <IconButton color="secondary" aria-label="Search location"
+          id="seatchBtnMap"
+          type="submit"
+          onClick={() => handleLocationSearch()}>
+          <SearchRounded className="searchIcon"/>
+        </IconButton>
+      </div>
+        <div className="mapDiv">
           <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
             <GoogleMap
               clickableIcons={mode == 1 ? true : false}
@@ -451,25 +472,6 @@ null              )}
         </div>
 
         <div id="">
-          <div className="">
-            <input
-              className="inputBox"
-              type="text"
-              name="lng"
-              placeholder="Search Location"
-              onChange={handleSearchLocationChange}
-              value={searchLocation}
-            />
-
-            <button
-              className="buttonClass"
-              id="seatchBtnMap"
-              type="submit"
-              onClick={() => handleLocationSearch()}
-            >
-              Search Location
-            </button>
-          </div>
 
           {isPOIModalOpen && selectedPOI ? (
             <PoiModal
@@ -522,8 +524,7 @@ null              )}
             />
           ) : null}
         </div>
-      </div>
-    </div>
+      </>
   );
 };
 

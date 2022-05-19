@@ -1,36 +1,30 @@
-#mapWrapper {
-  position: relative;
-
-  width: 98vw;
-  height: 81vh;
-  margin-left: 1%;
-  margin-right: 1%;
-}
-
-.inputBox {
-  width: 20%;
-  height: 50px;
-}
-
 .searchBar {
-  position: relative;
-  top: 0vh;
+  position: absolute;
+  top: 9%;
+  left: 19%;
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  pointer-events: auto;
-
-  left: -20%;
+  flex-direction: row;
+  z-index: 3;
+}
+.searchText {
+  background-color: white;
+  border-radius: 5px;
+}
+.searchIcon {
+  margin-top: 3%;
+  color:white;
+  border-radius: 5px;
+}
+.mapDiv {
+  height: 89vh;
+  width: 95vw;
 }
 
-.map-container {
-  height: 800px;
-}
 
 .buttonClass {
   width: 10%;
-  height: 50px;
+  height: 10%;
   margin-left: 5px;
 }
 
