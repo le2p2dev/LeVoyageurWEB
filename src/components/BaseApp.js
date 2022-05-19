@@ -68,15 +68,13 @@ const BaseApp = () => {
 		id={data.response[0]?.id}
 		/> */}
 
-      <Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
+      
 
       
 
       <div
         style={{
           
-          width: "100vw",
-          height: "80vh",
           display: "flex",
           flexDirection: "row",
      
@@ -86,7 +84,7 @@ const BaseApp = () => {
           <BottomNavigation
             style={{
               width: navWidth,
-              height: "80vh",
+              height: "70vh",
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
@@ -136,6 +134,7 @@ const BaseApp = () => {
             */
            <ListView />
           ) : (
+            <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
             <Map
               idTrip={id}
               mode={value}
@@ -144,6 +143,7 @@ const BaseApp = () => {
               removePoiOfDay={removePoiOfDay}
               poiTypes={poiTypes}
             />
+            </>
           )}
         </div>
       </div>
