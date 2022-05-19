@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useQuery,useQueryClient,useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+
 import "./Profile.css"
 import listAPI from "./api/listApi";
-
+import Notification from "./components/map/Notification"
 
 //#region MUI Imports
 import TextField from '@mui/material/TextField';
@@ -16,18 +18,25 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import Slide from "@mui/material/Slide";
 
 //#endregion
 
 const Profile = () => {
+
+    const navigate = useNavigate();
 
     // const Input = styled('input')({
     //     display: 'none',
     // });
 
     const queryClient = useQueryClient();
-
+    const Disconnect = () => {
+        window.localStorage.removeItem("isLogged");
+        window.localStorage.removeItem("username");
+        navigate("/signin");
+      };
 
     //#region DATA
     const [srcPath,setSrcPath] = useState("../assets/user.jpg");
@@ -45,6 +54,9 @@ const Profile = () => {
     const [showCurrentPassword,setShowCurrentPassword] = useState(false);
     const [showNewPassowrd,setShowNewPassoword] = useState(false);
     const [showNewPasswordConfirm,setShowNewPasswordConfirm] = useState(false);
+
+    const [notificationTransition, setNotificationTransition] = useState(undefined);
+    const [isOpenDeleteAccountNotification, setIsOpenDeleteAccountNotification] =useState(false);
 
     //#endregion
 
@@ -66,6 +78,19 @@ const Profile = () => {
 
     const handleSrcUrlChange = (event) => {
         setSrcURl(event.target.value);
+    }
+    const openDeleteAccountNotification = (NotificationTransition) => {
+        setIsOpenDeleteAccountNotification(true);
+        setNotificationTransition(() => NotificationTransition);
+    };
+    const closeDeleteAccountNotification = (NotificationTransition) => {
+        console.log("here");
+        setIsOpenDeleteAccountNotification(false);
+        setNotificationTransition(() => NotificationTransition);
+    };
+
+    function TransitionUp(props) {
+        return <Slide {...props} direction="up" />;
     }
 
 
@@ -96,7 +121,6 @@ const Profile = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    
 
     //#endregion
     
@@ -119,6 +143,14 @@ const Profile = () => {
             reader.readAsDataURL(file);
         });
     };
+
+    const handleUrlBtn = () => {
+
+        if(urlBtn==false){
+            setUrlBtn(true)
+        }
+        else setUrlBtn(false);
+    }
    
     //#endregion
 
@@ -141,17 +173,18 @@ const Profile = () => {
         onSuccess: () => queryClient.invalidateQueries("user"),
         onError: () => alert("Error updating profile")
     });
+    //#endregion 
+
+    //#region UseMutate delete user
+    
+    const deleteUser = useMutation(listAPI.DeleteUser,{
+        onSucces:() => queryClient.invalidateQueries("user"),
+        onError: () => alert("Error deleting account")
+    })
+
     //#endregion
 
     //#region Logical functions
-
-    const handleUrlBtn = () => {
-
-        if(urlBtn==false){
-            setUrlBtn(true)
-        }
-        else setUrlBtn(false);
-    }
 
     const modifyBtn = (toModify,ev) => {
     
@@ -195,6 +228,7 @@ const Profile = () => {
     }
 
     const onCancelClick = (toModify) => {
+     
 
         if (toModify == "name"){
             setModifyName(false);
@@ -223,7 +257,7 @@ const Profile = () => {
     }
 
     const onUrlPictureBtnClick = () => {
-
+        
         if(urlPictureClick == false){
             setUrlPictureClick(true);
             //mutate url
@@ -237,11 +271,18 @@ const Profile = () => {
         }
     }
 
+    const deleteAccount = () => {
+        console.log("deleteAccount in profile")
+        //deleteUser.mutate();
+        openDeleteAccountNotification(TransitionUp);
+        //Disconnect();
+
+    }
     
 
     //#endregion
 
-
+    
     return(
 
         <div id = "page">
@@ -394,10 +435,29 @@ const Profile = () => {
                             </div>
                         }
                     </div>
-                    <Button onClick = {(ev) => modifyBtn("password",ev)}  className = "modifyButton" variant="contained" >  {modifyPassword==false? "Modify" : "Save"}  </Button>
+                    <Button onClick = {(ev) => modifyBtn("password",ev)}  className = "modifyButton" variant="contained" >  {modifyPassword==false? "Modify" : "Save"}  </Button>   
 
                 </div> 
 
+            </div>
+
+            <div 
+                id="deleteAccount"
+                onClick={deleteAccount}>
+                <IconButton aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
+                <p> Delete Account </p> 
+                {isOpenDeleteAccountNotification ? (
+                    <Notification
+                        severity={"info"}
+                        message="Account Deleted Succesfully"
+                        open={isOpenDeleteAccountNotification}
+                        close={closeDeleteAccountNotification}
+                        transition={notificationTransition}
+                    />
+                    
+                ) : null}
             </div>
         </div>
     )
