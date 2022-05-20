@@ -6,13 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-// import Button from '@mui/material/Button';
-// import ClickAwayListener from '@mui/material/ClickAwayListener';
-// import Grow from '@mui/material/Grow';
-// import Paper from '@mui/material/Paper';
-// import Popper from '@mui/material/Popper';
-// import MenuList from '@mui/material/MenuList';
-// import CheckIcon from '@mui/icons-material/Check';
 
 
 const Filter = ({checkBoxPOI,poiTypes}) => {
@@ -32,14 +25,7 @@ const Filter = ({checkBoxPOI,poiTypes}) => {
    
     const [value,setValue] = useState([]);
 
-    return(<div style={{
-          
-          position: "absolute",
-          bottom: "2%",
-          left: "5.5%",
-          zIndex: "3",
-     
-        }}>
+    return(<div style={{ position: "absolute", bottom: "2%", left: "5.5%", zIndex: "3", }}>
         <FormControl size="small" sx={{ width: 200 }}>
             <InputLabel id="demo-multiple-checkbox-label">Filter</InputLabel>
 

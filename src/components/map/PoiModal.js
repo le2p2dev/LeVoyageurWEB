@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import Input from "@mui/material/Input";
+import { InputAdornment, FormControl, InputLabel, Input, Button, MenuItem, TextField, IconButton, Modal } from "@mui/material";
 import DeleteModal from "./DeleteModal";
-import Modal from "@mui/material/Modal";
 import { useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import { DeleteForever, Close, Save } from "@mui/icons-material";
 import Slide from "@mui/material/Slide";
 import "./PoiModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
@@ -110,27 +105,26 @@ const PoiModal = ({
   };
 
   return (
-    <div id="PoiModalBox">
+    <div id="ModalBox" className="ModalBox">
       <IconButton id="closeIcon" onClick={closePOI} aria-label="delete">
-        {" "}
-        <CloseIcon />{" "}
+        <Close />
       </IconButton>
-      <div id="PoiInputs">
+      <div className="PoiInputs">
         <TextField
           className="PoiInput"
           margin="dense"
-          id="outlined-basic"
-          label="POI Title"
-          variant="outlined"
+          variant="standard"
+          id="basic"
+          placeholder="Title"
           value={poiTitle}
           onChange={handlePoiTitleChange}
         />
         <TextField
           className="PoiInput"
           margin="dense"
-          id="outlined-textarea"
-          label="POI Description"
-          placeholder="Placeholder"
+          variant="outlined"
+          id="textarea"
+          placeholder="Set a description"
           multiline
           rows={5}
           value={poiDescription}
@@ -139,9 +133,9 @@ const PoiModal = ({
         <TextField
           className="PoiInput"
           margin="dense"
-          id="outlined-select-currency"
+          variant="outlined"
+          id="select-currency"
           select
-          label="POI Category"
           value={category}
           onChange={handleCategory}
         >
@@ -165,12 +159,12 @@ const PoiModal = ({
       </label>
 
       <div className="BtnBox">
-        <Button onClick={handleOpen} variant="contained">
-          Delete POI
-        </Button>
-        <Button onClick={updatePOIOnClick} variant="contained">
-          Save POI
-        </Button>
+      <IconButton id="DeleteIcon" onClick={handleOpen} aria-label="delete">
+        <DeleteForever />
+      </IconButton>
+      <IconButton id="SaveIcon" onClick={updatePOIOnClick} aria-label="save">
+        <Save />
+      </IconButton>
         <Modal
           open={open}
           onClose={handleClose}

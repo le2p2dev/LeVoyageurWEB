@@ -37,7 +37,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
 
     return (
         
-        <div id = "PoiModalBox">
+        <div id = "ModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
             <CardStep key={id}  removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 
