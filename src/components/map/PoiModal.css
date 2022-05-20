@@ -6,7 +6,7 @@
     align-items: center;
     flex-direction: column;
 
-    right: 1%;
+    right: 4%;
     width : 25%;
     height: 55%;
 
@@ -52,14 +52,13 @@
 .deleteModal{
 
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400;
-    border: 2px solid #000;
+    top: 40%;
+    left: 35%;
+    border: 1px solid #000;
+    border-radius: 5px;
     background-color: white;
-    width: 400px;
-    height: 200px;
+    width: 30%;
+    height: 20%;
 
     padding: 10px;
       
