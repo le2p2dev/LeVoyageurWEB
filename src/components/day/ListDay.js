@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
 import PoiList from "../POI/PoiList";
 
-const ListDay = ({ idStep, idTrip }) => {
+const ListDay = ({ idStep, idTrip,openModal }) => {
   const { isLoading, data: days } = useQuery(idStep + "days", () =>
     listAPI.GetDaysfromStep({ idStep: idStep, tripId: idTrip })
   );
@@ -33,7 +33,7 @@ const ListDay = ({ idStep, idTrip }) => {
             }}
           >
             Jour {day.number}
-            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} />
+            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} openModal={openModal}/>
           </div>
         );
       })}
