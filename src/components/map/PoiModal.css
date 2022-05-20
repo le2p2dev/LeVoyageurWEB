@@ -1,56 +1,51 @@
-#PoiModalBox{
+.ModalBox{
 
     position: absolute;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
 
+    right: 1%;
+    width : 25%;
+    height: 55%;
 
-    width : 400px;
-    height: 500px;
-
-    border: 2px solid grey;
-
-    margin-top : -50%;
-
-    background-color: rgba(200,200,200, 0.8);
-
-    left:60%;
-
+    border: 1px gray;
+    box-shadow:#000 40px;
+    border-radius: 5px;
+    margin-top : -39%;
+    z-index: 4;
+    background-color: white;
     pointer-events: auto;
 }
 
-#PoiInputs{
-
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-
-
-}
 
 #closeIcon{
 
-    margin-left:350px;
+    margin-left:89%;
+    margin-top: -2%;
+}
+
+.PoiInputs{
+    width: 90%;
+    height: 90%;
 }
 
 .PoiInput{
-
-    width: 300px;  
     background-color: white;
+    width: 100%;
+    
+    padding-left: 5%;
+    padding-right: 5%;
 
 }
 
 .BtnBox{
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    
     flex-direction: row;
     
-    width: 300px;
 }
 
 
