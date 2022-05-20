@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import {
-  GoogleMap,
+  GoogleMap, InfoWindow,
   LoadScript,
   Marker,
   Polyline,
@@ -110,6 +110,7 @@ const Map = ({
   const handleOpenStep = (Step) => {
     setIsStepModalOpen(true);
     setSelectedStep(Step);
+
   };
 
   const handleCloseStep = () => {
@@ -165,7 +166,6 @@ const Map = ({
       setLng(stepListOriginal[0]?.longitude);
     }
 
-    console.log("hello there !");
   }, [firstStepLoading]);
 
   //#endregion
@@ -397,6 +397,8 @@ const Map = ({
                 }),
               }}
             >
+
+
               {isLoadingSteps
                 ? null
                 : stepList?.map((e, i) => {
@@ -450,11 +452,23 @@ const Map = ({
                             ? bluePin
                             : null
                         }
-                      />
+                        label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : null}
+
+                        style={{color:"blue"}}
+
+                      >
+
+                        {console.log(selectedStep)}
+                        {console.log({select:selectedStep, e: e.StepId})}
+
+
+
+                      </Marker>
+
                     );
                   })}
               //définition du polyline
-              {path.length != stepList.length ? (
+              {path.length !== stepList.length ? (
                 <Polyline
                   onLoad={onLoad}
                   path={path}
@@ -465,8 +479,9 @@ const Map = ({
                     strokeWeight: "4",
                   }}
                 />
-              ) : (
-null              )}
+              ) : null}
+
+
             </GoogleMap>
           </LoadScript>
         </div>

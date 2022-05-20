@@ -44,12 +44,11 @@ const DiscoverVoyageur = () => {
         >
           <h1>Le Voyageur</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Accusantium aspernatur dignissimos est eveniet, expedita fugiat
-            ipsum neque nisi optio pariatur quas quibusdam quis quisquam tempore
-            unde. Accusantium alias at corporis deserunt eaque facere, fugit
-            illum ipsum magni maxime, nemo nihil nostrum officia perferendis
-            provident repellendus sapiente sequi sint, temporibus veritatis.
+            Utilisez Le Voyageur pour planifier votre voyage comme si vos y
+            Étiez déjà ! CLickez sur "access trip" pour pouvoir accéder à vos
+            voyages et/ou en crée un nouveau. Notre outil vous permet d'élaborer
+            votre séjour et de le suivre sur notre application mobile. Un outil
+            d'organisation, d'économie et de gestion !
           </p>
 
           {isLogged ? (
