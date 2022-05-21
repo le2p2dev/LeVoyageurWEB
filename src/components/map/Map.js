@@ -21,6 +21,7 @@ import bluePin from "../../assets/blue_pin.png";
 
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
+import ListView from "./ListView";
 
 const Map = ({
   idTrip,
@@ -29,6 +30,7 @@ const Map = ({
   poisForDay,
   removePoiOfDay,
   poiTypes,
+  changeMode
 }) => {
   //#region Get browser geolocalisation
   // if ("geolocation" in navigator) {
@@ -52,6 +54,7 @@ const Map = ({
     lat: lat,
     lng: lng,
   };
+
 
   //#endregion
 
@@ -82,6 +85,7 @@ const Map = ({
     useState(false);
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
+
 
   //#endregion
 
@@ -200,8 +204,7 @@ const Map = ({
 
   //add to POI from map onclick
   const showPOI = (ev) => {
-    console.log("ev",ev);
-    console.log("poiList=",PoiList);
+    
     addPOI.mutate({
       title: "test",
       description: "from web app",
@@ -268,8 +271,8 @@ const Map = ({
   };
 
   useEffect(() => {
-    handleCloseStep();
-    handleClosePOI();
+    if(mode==2) handleCloseStep()
+    if(mode==3) handleClosePOI()
   }, [mode]);
 
   const setNewCenter = () => {
@@ -279,6 +282,25 @@ const Map = ({
       setLng(center.lng());
     }
   };
+
+  //to open the modal of data, type is poi or step
+  const openModal = (data,type) => {
+    if(type=="poi"){
+      changeMode("2");
+    setSelectedPOI(data);
+    setIsPOIModalOpen(true);
+    setLat(data.latitude);
+    setLng(data.longitude);
+    }
+    if(type=="step"){
+      changeMode("3");
+      setSelectedStep(data);
+      setIsStepModalOpen(true);
+      setLat(data.latitude);
+      setLng(data.longitude)
+    }
+    
+  }
 
   //#endregion
 
@@ -344,6 +366,9 @@ const Map = ({
 	  */
 
   return (
+    mode == 4 ? 
+    <ListView openModal={openModal}/>
+    :
       <>
       <div className="searchBar">
         <TextField
@@ -458,8 +483,7 @@ const Map = ({
 
                       >
 
-                        {console.log(selectedStep)}
-                        {console.log({select:selectedStep, e: e.StepId})}
+                    
 
 
 
@@ -509,6 +533,7 @@ const Map = ({
               poisForDay={poisForDay}
               closeStep={handleCloseStep}
               removePoiOfDay={removePoiOfDay}
+              openModal={openModal}
             />
           ) : null}
           {isOpenNavModeNotification ? (

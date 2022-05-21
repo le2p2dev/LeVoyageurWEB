@@ -12,11 +12,12 @@ import React from "react";
 
 
 
-const CardPoi = ({id,title,description}) => {
+const CardPoi = ({poi,openModal}) => {
 
 
     return <Grid item xs={4} >
-      id : {id}
+      id : {poi.id}
+      <Button onClick={()=>openModal(poi,"poi")}>"""%</Button>
     </Grid>
 }
 

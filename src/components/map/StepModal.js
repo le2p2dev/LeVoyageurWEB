@@ -13,7 +13,7 @@ import "./StepModal.css";
 import { DeleteSweepOutlined } from "@mui/icons-material";
 import CardStep from "../step/CardStep";
 
-const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay}) => {
+const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal}) => {
 
 
     const queryClient = useQueryClient();
@@ -39,7 +39,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
         
         <div id = "ModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
-            <CardStep key={id}  removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
+            <CardStep key={id} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 
 
                 <label htmlFor="contained-button-file">
