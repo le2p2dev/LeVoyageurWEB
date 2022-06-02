@@ -1,7 +1,7 @@
 import React, {useState } from "react";
 import { useMutation, useQueryClient  } from "react-query";
 import listAPI from "../../api/listApi";
-import Day from "../day/Day";
+import "./StepList.css"
 import DayList from "../day/DayList";
 import {Button, TextField} from "@mui/material";
 
@@ -65,7 +65,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
 
 
-    return <div key={idStep} style={{border: "2px solid black"}} >
+    return <div key={idStep} className="poiListBox" >
         <TextField 
             onFocus={() => setShowSave(true)}
             onBlur={() => setShowSave(false)}

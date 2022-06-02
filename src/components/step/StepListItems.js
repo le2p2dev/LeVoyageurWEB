@@ -16,7 +16,7 @@ const StepListItems = ({idTrip,titleTrip,poisForDay,removePoiOfDay}) => {
     console.log(steps)
 
     return <div key={idTrip}>
-        <Grid container spacing={2} sx={{paddingLeft: "5%"}}>
+        <Grid container spacing={2}>
             {steps.map((step) => {
                 return (
                     <Grid key={step.id} xs={8} item>

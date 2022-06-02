@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { InputAdornment, FormControl, InputLabel, Input, Button, MenuItem, TextField, IconButton, Modal } from "@mui/material";
+import { DeleteForever, Close, Save } from "@mui/icons-material";
 import DeleteModal from "./DeleteModal";
 import { useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
-import { DeleteForever, Close, Save } from "@mui/icons-material";
 import Slide from "@mui/material/Slide";
 import "./PoiModal.css";
-import { DeleteSweepOutlined } from "@mui/icons-material";
 
 const PoiModal = ({
   id,

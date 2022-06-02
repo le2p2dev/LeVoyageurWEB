@@ -10,7 +10,6 @@ import listAPI from "../../api/listApi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import "./StepModal.css";
-import { DeleteSweepOutlined } from "@mui/icons-material";
 import CardStep from "../step/CardStep";
 
 const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal}) => {
@@ -37,7 +36,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
 
     return (
         
-        <div id = "ModalBox">
+        <div className="StepModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
             <CardStep key={id} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 

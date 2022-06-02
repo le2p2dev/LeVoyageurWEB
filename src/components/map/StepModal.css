@@ -1,0 +1,21 @@
+.StepModalBox{
+
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    right: 4%;
+    width : 40%;
+    height: 75%;
+
+    border: 1px gray;
+    box-shadow:#000 40px;
+    border-radius: 5px;
+    margin-top : -39%;
+    z-index: 4;
+    background-color: white;
+    pointer-events: auto;
+}
+

@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
 import PoiList from "../POI/PoiList";
+import {Button, Grid, GridItem} from "@mui/material";
 
 const ListDay = ({ idStep, idTrip,openModal }) => {
   const { isLoading, data: days } = useQuery(idStep + "days", () =>
@@ -17,23 +18,27 @@ const ListDay = ({ idStep, idTrip,openModal }) => {
       style={{
         display: "flex",
         flexDirection: "row",
+        overflow: "auto",
       }}
     >
+
       {days.data.map((day) => {
         return (
           <div
             key={day.id}
             style={{
               margin: "2px",
-              border: "2px solid black",
-              borderRadius: "20px",
+              boxShadow: "rgba(0, 0, 0, 0.40) 0px 2px 4px",
+              borderRadius: "5px",
               textAlign: "center",
-              height : "150px",
-              width : "300px"
+              minHeight : "150px",
+              minWidth : "150px",
+              maxWidth: "300px",
             }}
           >
-            Jour {day.number}
-            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} openModal={openModal}/>
+            <p style={{fontSize: 20}}>Day {day.number}</p>
+            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} openModal={openModal} />
+
           </div>
         );
       })}
