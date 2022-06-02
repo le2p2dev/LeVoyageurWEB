@@ -9,6 +9,7 @@ const CardPoi = ({id,title,description}) => {
       paddingLeft: "5%",
       paddingRight: "3%",
     }}>- {title ? title : "No title"}</p>
+    <Button onClick={()=>openModal(poi,"poi")}>"""%</Button>
   </Grid>
 }
 

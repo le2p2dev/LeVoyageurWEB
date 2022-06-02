@@ -68,6 +68,7 @@ const BaseApp = () => {
 		id={data.response[0]?.id}
 		/> */}
 
+    
       
 
       
@@ -92,7 +93,6 @@ const BaseApp = () => {
             showLabels
             value={value}
             onChange={(event, newValue) => {
-              console.log(newValue);
               setValue(newValue);
             }}
           >
@@ -123,28 +123,20 @@ const BaseApp = () => {
           </BottomNavigation>
         </div>
         <div style={{  height: "90vh" }}>
-          {value === "4" ? (
-              /*
-            <StepListItems
-              removePoiOfDay={removePoiOfDay}
-              poisForDay={poisForDay}
-              idTrip={id}
-              titleTrip={data[0]?.title}
-            />
-            */
-           <ListView />
-          ) : (
+        
             <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
             <Map
               idTrip={id}
               mode={value}
+              changeMode={setValue}
               addPoiToDay={addPoiToDay}
               poisForDay={poisForDay}
               removePoiOfDay={removePoiOfDay}
               poiTypes={poiTypes}
+              
             />
             </>
-          )}
+          
         </div>
       </div>
 
