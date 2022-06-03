@@ -74,6 +74,8 @@ const Map = ({
   const [selectedStep, setSelectedStep] = useState();
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
   const [isStepModalOpen, setIsStepModalOpen] = useState(false);
+  const [zoom,setZoom] = useState(7)
+  
 
   const [notificationTransition, setNotificationTransition] =
     useState(undefined);
@@ -291,6 +293,7 @@ const Map = ({
     setIsPOIModalOpen(true);
     setLat(data.latitude);
     setLng(data.longitude);
+    setZoom(13)
     }
     if(type=="step"){
       changeMode("3");
@@ -298,6 +301,7 @@ const Map = ({
       setIsStepModalOpen(true);
       setLat(data.latitude);
       setLng(data.longitude)
+      setZoom(13)
     }
     
   }
@@ -394,7 +398,7 @@ const Map = ({
             <GoogleMap
               clickableIcons={mode == 1 ? true : false}
               mapContainerStyle={mapStyles}
-              zoom={7}
+              zoom={zoom}
               center={defaultCenter}
               onCenterChanged={setNewCenter}
               yesIWantToUseGoogleMapApiInternals={true}
@@ -445,7 +449,7 @@ const Map = ({
                           )
                         }
                         onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
-                        icon={greenPin}
+                        icon={selectedStep?.id === e.id && isStepModalOpen ? bluePin : greenPin}
                       />
                     );
                   })}
@@ -475,8 +479,8 @@ const Map = ({
                           poisForDay.find((element) => element === e) &&
                           mode == 3
                             ? bluePin
-                            : null
-                        }
+                            : selectedPOI?.id === e.id && isPOIModalOpen ? bluePin : null}
+                        
                         label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : null}
 
                         style={{color:"blue"}}
