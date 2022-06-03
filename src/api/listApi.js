@@ -110,6 +110,7 @@
 		},
 		//body: JSON.stringify({"idTrip" : data.idTrip})
 		}).then((res) => res.json());
+	
 	},
 
 	CreatePOI: (data) => {

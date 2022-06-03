@@ -52,7 +52,7 @@ const Map = ({
 
   const defaultCenter = {
     lat: lat,
-    lng: lng,
+    lng: lng
   };
 
 
@@ -123,6 +123,15 @@ const Map = ({
     setIsStepModalOpen(false);
   };
 
+  const center = () => {
+    if(isPOIModalOpen && mode==2 ){
+   return selectedPOI.latitude, selectedPOI.longitude
+  }
+     
+        if(isStepModalOpen && mode==3){
+          return selectedStep.latitude,selectedStep.longitude }
+          
+      else return defaultCenter}
   //#endregion
 
   //#region useQuerries
@@ -287,21 +296,22 @@ const Map = ({
 
   //to open the modal of data, type is poi or step
   const openModal = (data,type) => {
+    console.log(data)
     if(type=="poi"){
       changeMode("2");
-    setSelectedPOI(data);
-    setIsPOIModalOpen(true);
-    setLat(data.latitude);
-    setLng(data.longitude);
-    setZoom(13)
+      setSelectedPOI(data);
+      setIsPOIModalOpen(true);
+      setZoom(13);
+      setLat(data.latitude);
+      setLng(data.longitude);
     }
     if(type=="step"){
       changeMode("3");
       setSelectedStep(data);
       setIsStepModalOpen(true);
+      setZoom(13);
       setLat(data.latitude);
-      setLng(data.longitude)
-      setZoom(13)
+      setLng(data.longitude);
     }
     
   }
@@ -400,7 +410,7 @@ const Map = ({
               mapContainerStyle={mapStyles}
               zoom={zoom}
               center={defaultCenter}
-              onCenterChanged={setNewCenter}
+              onCenterChanged={isPOIModalOpen || isStepModalOpen ? null : setNewCenter}
               yesIWantToUseGoogleMapApiInternals={true}
               onLoad={(ev) => setMapRef(ev)}
               onClick={
@@ -476,8 +486,7 @@ const Map = ({
                             : () => addPoiToDay(e)
                         }
                         icon={
-                          poisForDay.find((element) => element === e) &&
-                          mode == 3
+                          poisForDay.find((element) => element === e) && mode == 3
                             ? bluePin
                             : selectedPOI?.id === e.id && isPOIModalOpen ? bluePin : null}
                         
@@ -486,11 +495,6 @@ const Map = ({
                         style={{color:"blue"}}
 
                       >
-
-                    
-
-
-
                       </Marker>
 
                     );
@@ -534,6 +538,7 @@ const Map = ({
               id={selectedStep.id}
               duration={selectedStep.duration}
               idTrip={idTrip}
+              addPoiToDay={addPoiToDay}
               poisForDay={poisForDay}
               closeStep={handleCloseStep}
               removePoiOfDay={removePoiOfDay}
