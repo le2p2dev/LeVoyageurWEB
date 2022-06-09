@@ -305,7 +305,7 @@ const Map = ({
       changeMode("3");
       setSelectedStep(data);
       setIsStepModalOpen(true);
-      setZoom(13);
+      setZoom(10);
       setLat(data.latitude);
       setLng(data.longitude);
     }
