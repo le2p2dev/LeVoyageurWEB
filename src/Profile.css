@@ -104,23 +104,4 @@
 
 
 
-#deleteAccount{
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15%;
-
-    height: 10%;
-}
-
-#deleteAccount:hover{
-
-    background-color: antiquewhite;
-}
-
-#deleteAccount >p{
-
-    margin:0;
-    padding:0;
-}
