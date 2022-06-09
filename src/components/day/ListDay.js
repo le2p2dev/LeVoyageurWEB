@@ -2,8 +2,9 @@ import React from "react";
 import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
 import PoiList from "../POI/PoiList";
+import {Button, Grid, GridItem} from "@mui/material";
 
-const ListDay = ({ idStep, idTrip,openModal }) => {
+const ListDay = ({ idStep, idTrip }) => {
   const { isLoading, data: days } = useQuery(idStep + "days", () =>
     listAPI.GetDaysfromStep({ idStep: idStep, tripId: idTrip })
   );
@@ -36,8 +37,7 @@ const ListDay = ({ idStep, idTrip,openModal }) => {
             }}
           >
             <p style={{fontSize: 20}}>Day {day.number}</p>
-            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} openModal={openModal} />
-
+            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} />
           </div>
         );
       })}

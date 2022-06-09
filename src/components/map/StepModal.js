@@ -12,7 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import "./StepModal.css";
 import CardStep from "../step/CardStep";
 
-const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal}) => {
+const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay}) => {
 
 
     const queryClient = useQueryClient();
@@ -38,7 +38,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
         
         <div className="StepModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
-            <CardStep key={id} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
+            <CardStep key={id}  removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 
 
                 <label htmlFor="contained-button-file">

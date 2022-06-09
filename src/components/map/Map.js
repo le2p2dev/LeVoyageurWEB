@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import {
-  GoogleMap, InfoWindow,
+  GoogleMap,
   LoadScript,
   Marker,
   Polyline,
@@ -21,7 +21,6 @@ import bluePin from "../../assets/blue_pin.png";
 
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
-import ListView from "./ListView";
 
 const Map = ({
   idTrip,
@@ -30,7 +29,6 @@ const Map = ({
   poisForDay,
   removePoiOfDay,
   poiTypes,
-  changeMode
 }) => {
   //#region Get browser geolocalisation
   // if ("geolocation" in navigator) {
@@ -55,7 +53,6 @@ const Map = ({
     lng: lng,
   };
 
-
   //#endregion
 
   //#region useState Variables
@@ -74,8 +71,6 @@ const Map = ({
   const [selectedStep, setSelectedStep] = useState();
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
   const [isStepModalOpen, setIsStepModalOpen] = useState(false);
-  const [zoom,setZoom] = useState(7)
-  
 
   const [notificationTransition, setNotificationTransition] =
     useState(undefined);
@@ -87,7 +82,6 @@ const Map = ({
     useState(false);
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
-
 
   //#endregion
 
@@ -116,7 +110,6 @@ const Map = ({
   const handleOpenStep = (Step) => {
     setIsStepModalOpen(true);
     setSelectedStep(Step);
-
   };
 
   const handleCloseStep = () => {
@@ -172,6 +165,7 @@ const Map = ({
       setLng(stepListOriginal[0]?.longitude);
     }
 
+    console.log("hello there !");
   }, [firstStepLoading]);
 
   //#endregion
@@ -206,7 +200,8 @@ const Map = ({
 
   //add to POI from map onclick
   const showPOI = (ev) => {
-    
+    console.log("ev",ev);
+    console.log("poiList=",PoiList);
     addPOI.mutate({
       title: "test",
       description: "from web app",
@@ -273,8 +268,8 @@ const Map = ({
   };
 
   useEffect(() => {
-    if(mode==2) handleCloseStep()
-    if(mode==3) handleClosePOI()
+    handleCloseStep();
+    handleClosePOI();
   }, [mode]);
 
   const setNewCenter = () => {
@@ -284,27 +279,6 @@ const Map = ({
       setLng(center.lng());
     }
   };
-
-  //to open the modal of data, type is poi or step
-  const openModal = (data,type) => {
-    if(type=="poi"){
-      changeMode("2");
-    setSelectedPOI(data);
-    setIsPOIModalOpen(true);
-    setLat(data.latitude);
-    setLng(data.longitude);
-    setZoom(13)
-    }
-    if(type=="step"){
-      changeMode("3");
-      setSelectedStep(data);
-      setIsStepModalOpen(true);
-      setLat(data.latitude);
-      setLng(data.longitude)
-      setZoom(13)
-    }
-    
-  }
 
   //#endregion
 
@@ -370,9 +344,6 @@ const Map = ({
 	  */
 
   return (
-    mode == 4 ? 
-    <ListView openModal={openModal}/>
-    :
       <>
       <div className="searchBar">
         <TextField
@@ -398,7 +369,7 @@ const Map = ({
             <GoogleMap
               clickableIcons={mode == 1 ? true : false}
               mapContainerStyle={mapStyles}
-              zoom={zoom}
+              zoom={7}
               center={defaultCenter}
               onCenterChanged={setNewCenter}
               yesIWantToUseGoogleMapApiInternals={true}
@@ -426,8 +397,6 @@ const Map = ({
                 }),
               }}
             >
-
-
               {isLoadingSteps
                 ? null
                 : stepList?.map((e, i) => {
@@ -449,7 +418,7 @@ const Map = ({
                           )
                         }
                         onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
-                        icon={selectedStep?.id === e.id && isStepModalOpen ? bluePin : greenPin}
+                        icon={greenPin}
                       />
                     );
                   })}
@@ -479,24 +448,13 @@ const Map = ({
                           poisForDay.find((element) => element === e) &&
                           mode == 3
                             ? bluePin
-                            : selectedPOI?.id === e.id && isPOIModalOpen ? bluePin : null}
-                        
-                        label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : null}
-
-                        style={{color:"blue"}}
-
-                      >
-
-                    
-
-
-
-                      </Marker>
-
+                            : null
+                        }
+                      />
                     );
                   })}
               //définition du polyline
-              {path.length !== stepList.length ? (
+              {path.length != stepList.length ? (
                 <Polyline
                   onLoad={onLoad}
                   path={path}
@@ -507,9 +465,8 @@ const Map = ({
                     strokeWeight: "4",
                   }}
                 />
-              ) : null}
-
-
+              ) : (
+null              )}
             </GoogleMap>
           </LoadScript>
         </div>
@@ -537,7 +494,6 @@ const Map = ({
               poisForDay={poisForDay}
               closeStep={handleCloseStep}
               removePoiOfDay={removePoiOfDay}
-              openModal={openModal}
             />
           ) : null}
           {isOpenNavModeNotification ? (

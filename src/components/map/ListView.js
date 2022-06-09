@@ -1,12 +1,10 @@
-import {Button, Grid, Switch, IconButton } from "@mui/material";
-import { Directions } from "@mui/icons-material";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import listAPI from "../../api/listApi";
 import ListDay from "../day/ListDay";
 
-const ListView = ({openModal}) => {
+const ListView = () => {
   const { id } = useParams();
 
   const { isLoading, data: Steps } = useQuery(id + "POIs", () =>
@@ -44,16 +42,9 @@ const ListView = ({openModal}) => {
                 <h3>{no}. no title</h3>
               )}
               <div>
-                <p>{step.description}
-                <IconButton color="secondary" aria-label="Search location"
-                  id="findButton"
-                  type="submit"
-                  onClick={() => openModal(step,"step")}>
-                  <Directions className="findIcon"/>
-                </IconButton>
-                </p>{" "}
+                <p>{step.description}</p>{" "}
               </div>
-              <ListDay openModal ={openModal} idStep={step.id} idTrip={id} />
+              <ListDay idStep={step.id} idTrip={id} />
             </div>
           );
         })}

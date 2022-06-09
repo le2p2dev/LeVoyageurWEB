@@ -20,7 +20,6 @@ const Day = ({
   POIs,
   poisForDay,
   removePoiOfDay,
-  openModal
 }) => {
   const [poisSelected, setPoisSelected] = useState(poisForDay);
   const handleCancel = () => {
@@ -62,7 +61,7 @@ const Day = ({
         {" "}
         {id} day {number}
       </p>
-      <PoiList key={id} idDay={id} POIs={POIs} idStep={idStep} idTrip={idTrip} openModal={openModal} />
+      <PoiList idDay={id} POIs={POIs} idStep={idStep} idTrip={idTrip} />
 
       {AddingPoiToDayId == id ? (
         poisSelected?.map((poi) => (
