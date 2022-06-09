@@ -20,13 +20,22 @@ const Day = ({
   POIs,
   poisForDay,
   removePoiOfDay,
-  openModal
+  openModal,
+  addPoiToDay
 }) => {
   const [poisSelected, setPoisSelected] = useState(poisForDay);
   const handleCancel = () => {
     setAddingPoiToDayId(0);
     removePoiOfDay(0);
   };
+
+  const handleAddingPoi = () => {
+    setAddingPoiToDayId(id);
+    POIs?.map(poi=>{
+      addPoiToDay(poi)
+    })
+
+  }
 
   const handleSave = () => {
     poisSelected?.map((poi) => {
@@ -72,7 +81,7 @@ const Day = ({
           </div>
         ))
       ) : (
-        <Button onClick={() => setAddingPoiToDayId(id)}>Add Pois</Button>
+        <Button onClick={handleAddingPoi}>Add Pois</Button>
       )}
 
       {AddingPoiToDayId == id ? (

@@ -12,7 +12,7 @@ const ListDay = ({ idStep, idTrip,openModal }) => {
   if (isLoading) {
     return <>Loading</>;
   }
-
+  else
   return (
     <div
       style={{
@@ -37,7 +37,7 @@ const ListDay = ({ idStep, idTrip,openModal }) => {
             }}
           >
             <p style={{fontSize: 20}}>Day {day.number}</p>
-            <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} openModal={openModal} />
+            {day.id ? <PoiList idDay={day.id} idStep={idStep} idTrip={idTrip} openModal={openModal} /> : null}
 
           </div>
         );
