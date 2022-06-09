@@ -8,6 +8,7 @@ const PoiList = ({ idDay, idStep, idTrip }) => {
     listAPI.GetPOIsFromDay({ idStep, idDay, tripId: idTrip })
   );
 
+
   if (!isLoading)
     return (
       <Grid container spacing={1}>

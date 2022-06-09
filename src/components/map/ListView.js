@@ -7,7 +7,7 @@ import ListDay from "../day/ListDay";
 const ListView = () => {
   const { id } = useParams();
 
-  const { isLoading, data: Steps } = useQuery(id + "POIs", () =>
+  const { isLoading, data: Steps } = useQuery(id + "steps", () =>
     listAPI.GetStepsFromTrip(id)
   );
 

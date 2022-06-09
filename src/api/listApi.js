@@ -102,15 +102,17 @@ const listAPI = {
       jwtDecode(localStorage.getItem("token")).id
     }/trip/${data.tripId}/step/${data.idStep}/day/${data.idDay}`;
 
-    return fetch(urlPrefix + urlSuffix, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      //body: JSON.stringify({"idTrip" : data.idTrip})
-    }).then((res) => res.json());
-  },
+		return fetch(urlPrefix + urlSuffix, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + localStorage.getItem("token"),
+		},
+		//body: JSON.stringify({"idTrip" : data.idTrip})
+		}).then((res) => res.json());
+	
+	},
+
 
   CreatePOI: (data) => {
     const urlSuffix = `user/${

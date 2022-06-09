@@ -5,7 +5,9 @@ import "./StepList.css"
 import DayList from "../day/DayList";
 import {Button, TextField} from "@mui/material";
 
-const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay}) => {
+
+const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay, openModal,addPoiToDay}) => {
+
 
 
 !title ? title="" : title = title
@@ -121,7 +123,9 @@ const updateStep = useMutation(listAPI.UpdateStep, {
 
          :null}
 
-        <DayList key={idStep} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={idStep} idTrip={idTrip} />  
+
+        <DayList key={idStep} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={idStep} idTrip={idTrip} />  
+
 
     </div>
 }
