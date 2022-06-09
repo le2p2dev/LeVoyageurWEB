@@ -9,14 +9,16 @@
     
 
 }
+
+.titleStepModal{
+    font-size: large;
+}
 .poiListBox{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     
-    max-height: 99%;
-    min-height: 99%;
-    overflow: hidden;
+    height: 100%;
     overflow-y: auto;
 }
 

@@ -3,7 +3,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MapIcon from '@mui/icons-material/Map';
-import PushPinIcon from '@mui/icons-material/PushPin';
+import DirectionsIcon from '@mui/icons-material/Directions';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import "./NavigationMap.css";
 
@@ -31,7 +31,7 @@ const NavigationMap = ({tabChange}) => {
 
                 <BottomNavigationAction value = "1" label="Navigation" icon={<MapIcon />} />
                 <BottomNavigationAction value = "2" label="POI" icon={<LocationOnIcon />} />
-                <BottomNavigationAction value = "3" label="Step" icon={<PushPinIcon/>} />
+                <BottomNavigationAction value = "3" label="Step" icon={<DirectionsIcon/>} />
                 <BottomNavigationAction value = "4" label="List View" icon={<FormatListBulletedIcon/>} />
 
             </BottomNavigation>
