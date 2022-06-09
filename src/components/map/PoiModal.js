@@ -19,8 +19,8 @@ const PoiModal = ({
 }) => {
   const queryClient = useQueryClient();
 
-  const [poiTitle, setPoiTitle] = useState(title ? title : "test");
-  const [poiDescription, setPoiDescription] = useState("");
+  const [poiTitle, setPoiTitle] = useState(title ? title : "");
+  const [poiDescription, setPoiDescription] = useState(description ? description : "");
   const [idPOI, setIdPOI] = useState(id);
 
   if (id != idPOI) {

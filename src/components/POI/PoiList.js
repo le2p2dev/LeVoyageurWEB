@@ -14,13 +14,13 @@ const PoiList = ({ idDay, idStep, idTrip,openModal }) => {
       <Grid container spacing={1}>
         {data.Pois?.map((poi) => {
           return (
-            <>
+            
               <CardPoi
                 key={poi.id}
                 poi={poi}
                 openModal={openModal}
               />
-            </>
+            
           );
         })}
       </Grid>

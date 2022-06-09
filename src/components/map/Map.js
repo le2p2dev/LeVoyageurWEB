@@ -111,6 +111,7 @@ const Map = ({
   //close modal POI
   const handleClosePOI = () => {
     setIsPOIModalOpen(false);
+    setSelectedPOI(null)
   };
 
   const handleOpenStep = (Step) => {
@@ -121,6 +122,7 @@ const Map = ({
 
   const handleCloseStep = () => {
     setIsStepModalOpen(false);
+    setSelectedStep(null)
   };
 
   const center = () => {

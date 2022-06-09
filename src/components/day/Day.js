@@ -71,7 +71,7 @@ const Day = ({
         {" "}
         {id} day {number}
       </p>
-      <PoiList key={id} idDay={id} POIs={POIs} idStep={idStep} idTrip={idTrip} openModal={openModal} />
+      <PoiList key={id+POIs} idDay={id} POIs={POIs} idStep={idStep} idTrip={idTrip} openModal={openModal} />
 
       {AddingPoiToDayId == id ? (
         poisSelected?.map((poi) => (
