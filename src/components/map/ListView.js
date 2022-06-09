@@ -1,11 +1,10 @@
-import { Button } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import listAPI from "../../api/listApi";
 import ListDay from "../day/ListDay";
 
-const ListView = ({openModal}) => {
+const ListView = () => {
   const { id } = useParams();
 
   const { isLoading, data: Steps } = useQuery(id + "steps", () =>
@@ -44,9 +43,8 @@ const ListView = ({openModal}) => {
               )}
               <div>
                 <p>{step.description}</p>{" "}
-                <Button onClick={()=>openModal(step,"step")}>"""%</Button>
               </div>
-              <ListDay openModal ={openModal} idStep={step.id} idTrip={id} />
+              <ListDay idStep={step.id} idTrip={id} />
             </div>
           );
         })}

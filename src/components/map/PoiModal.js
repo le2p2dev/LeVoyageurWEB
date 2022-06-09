@@ -15,7 +15,6 @@ const PoiModal = ({
   idTrip,
   openUpdatePOINotification,
   openDeletePOINotification,
-  openPoiFromDay
 }) => {
   const queryClient = useQueryClient();
 
