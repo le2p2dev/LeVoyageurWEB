@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import {Save, Cancel, Close} from '@mui/icons-material';
 import {Button, TextField} from "@mui/material";
 
-const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay, openModal,addPoiToDay}) => {
+const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay, openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
 
 
 !title ? title="" : title = title
@@ -111,7 +111,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
         </div>
          :null}
 
-        <DayList key={idStep} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={idStep} idTrip={idTrip} />  
+        <DayList key={idStep} AddingPoiToDayId={AddingPoiToDayId} setAddingPoiToDayId={setAddingPoiToDayId} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={idStep} idTrip={idTrip} />  
 
     </div>
 }

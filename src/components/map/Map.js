@@ -76,7 +76,9 @@ const Map = ({
   const [selectedStep, setSelectedStep] = useState();
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
   const [isStepModalOpen, setIsStepModalOpen] = useState(false);
-  const [zoom,setZoom] = useState(7)
+  const [zoom,setZoom] = useState(7);
+   //id du day dans lequel des poi sont entrain d'etre ajouté, 0 si quand il n'y en a pas
+   const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
   
 
   const [notificationTransition, setNotificationTransition] =
@@ -487,7 +489,7 @@ const Map = ({
                         onClick={
                           mode != 3
                             ? () => handleOpenPOI(e)
-                            : () => addPoiToDay(e)
+                            : AddingPoiToDayId != 0 ? () => addPoiToDay(e) : null //même affichage que nav mode quand dispo
                         }
                         icon={
                           poisForDay.find((element) => element === e) && mode == 3
@@ -545,6 +547,8 @@ const Map = ({
               closeStep={handleCloseStep}
               removePoiOfDay={removePoiOfDay}
               openModal={openModal}
+              AddingPoiToDayId={AddingPoiToDayId}
+              setAddingPoiToDayId={setAddingPoiToDayId}
             />
           ) : null}
           {isOpenNavModeNotification ? (

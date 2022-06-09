@@ -10,7 +10,7 @@ import {DeleteForever, UploadFile, Close} from '@mui/icons-material';
 import "./StepModal.css";
 import CardStep from "../step/CardStep";
 
-const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal,addPoiToDay}) => {
+const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
 
 
     const queryClient = useQueryClient();
@@ -36,7 +36,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
         
         <div className="StepModalBox">
             <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <Close /> </IconButton>
-            <CardStep key={id} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
+            <CardStep key={id} AddingPoiToDayId={AddingPoiToDayId} setAddingPoiToDayId={setAddingPoiToDayId} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 
             <div className = "BtnBox">
                 <label htmlFor="contained-button-file">

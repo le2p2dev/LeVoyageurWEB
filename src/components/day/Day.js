@@ -21,7 +21,9 @@ const Day = ({
   poisForDay,
   removePoiOfDay,
   openModal,
-  addPoiToDay
+  addPoiToDay,
+  AddingPoiToDayId,
+  setAddingPoiToDayId
 }) => {
   const [poisSelected, setPoisSelected] = useState(poisForDay);
   const handleCancel = () => {
@@ -50,8 +52,6 @@ const Day = ({
     removePoiOfDay(0);
   };
 
-  //will go in dayList
-  const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
 
   useEffect(() => {
     setPoisSelected(poisForDay);
@@ -73,7 +73,7 @@ const Day = ({
       </p>
       <PoiList key={id+POIs} idDay={id} POIs={POIs} idStep={idStep} idTrip={idTrip} openModal={openModal} />
 
-      {AddingPoiToDayId == id ? (
+      {AddingPoiToDayId === id ? (
         poisSelected?.map((poi) => (
           <div key={poi.id}>
             {poi.title ? poi.title : poi.id}{" "}
@@ -84,7 +84,7 @@ const Day = ({
         <Button onClick={handleAddingPoi}>Add Pois</Button>
       )}
 
-      {AddingPoiToDayId == id ? (
+      {AddingPoiToDayId === id ? (
         <div>
           
           Add pois by clicking on the map 

@@ -3,7 +3,7 @@ import listAPI from "../../api/listApi";
 import { Grid } from "@mui/material";
 import Day from "./Day";
 
-const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiToDay}) => {
+const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
   const { isLoading, data: days } = useQuery(idStep + "days", () =>
     listAPI.GetDaysfromStep({ idStep: idStep, tripId: idTrip })
   );
@@ -26,6 +26,8 @@ const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiT
               POIs={day.poiList}
               openModal={openModal}
               addPoiToDay={addPoiToDay}
+              AddingPoiToDayId={AddingPoiToDayId}
+              setAddingPoiToDayId={setAddingPoiToDayId}
             />
           );
         })}
