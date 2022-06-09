@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import {Button, Grid, Switch, IconButton } from "@mui/material";
+import { Directions } from "@mui/icons-material";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -43,8 +44,14 @@ const ListView = ({openModal}) => {
                 <h3>{no}. no title</h3>
               )}
               <div>
-                <p>{step.description}</p>{" "}
-                <Button onClick={()=>openModal(step,"step")}>"""%</Button>
+                <p>{step.description}
+                <IconButton color="secondary" aria-label="Search location"
+                  id="findButton"
+                  type="submit"
+                  onClick={() => openModal(step,"step")}>
+                  <Directions className="findIcon"/>
+                </IconButton>
+                </p>{" "}
               </div>
               <ListDay openModal ={openModal} idStep={step.id} idTrip={id} />
             </div>

@@ -1,4 +1,5 @@
-import {Button, Grid, Switch, TextField} from "@mui/material";
+import {Button, Grid, Switch, IconButton } from "@mui/material";
+import { Directions } from "@mui/icons-material";
 import React from "react";
 
 const CardPoi = ({poi,openModal}) => {
@@ -8,8 +9,15 @@ const CardPoi = ({poi,openModal}) => {
       textAlign: "left",
       paddingLeft: "5%",
       paddingRight: "3%",
-    }}>- {poi.title ? poi.title : "No title"}</p>
-    <Button onClick={()=>openModal(poi,"poi")}>"""%</Button>
+    }}>{poi.title ? poi.title : "No title"}
+      <IconButton color="secondary" aria-label="Search location"
+        id="findButton"
+        type="submit"
+        onClick={() => openModal(poi,"poi")}>
+        <Directions className="findIcon"/>
+      </IconButton>
+    </p>
+    
   </Grid>
 }
 

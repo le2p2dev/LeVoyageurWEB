@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
 import PoiList from "../POI/PoiList";
-import {Button, Grid, GridItem} from "@mui/material";
 
 const ListDay = ({ idStep, idTrip,openModal }) => {
   const { isLoading, data: days } = useQuery(idStep + "days", () =>
