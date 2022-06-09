@@ -1,6 +1,4 @@
 import React, {useState } from "react";
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import DeleteModal from "./DeleteModal";
@@ -8,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import {useMutation, useQueryClient} from "react-query";
 import listAPI from "../../api/listApi";
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import {DeleteForever, UploadFile, Close} from '@mui/icons-material';
 import "./StepModal.css";
 import CardStep from "../step/CardStep";
 
@@ -37,17 +35,16 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
     return (
         
         <div className="StepModalBox">
-            <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <CloseIcon /> </IconButton>
+            <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <Close /> </IconButton>
             <CardStep key={id} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 
-
+            <div className = "BtnBox">
                 <label htmlFor="contained-button-file">
-                    <Input accept="image/*" id="contained-button-file" multiple type="file"  style = { {display:'none'}}/>
-                    {/* <Button variant="contained" component="span"> Upload Files </Button> */}
+                    <Input accept="image/*" id="contained-button-file" multiple type="file"  style = {{display:'none'}}/>
+                    <IconButton id = "uploadFile" aria-label="uploadFile"> <UploadFile /> </IconButton>
                 </label>
 
-            <div className = "BtnBox">
-                <Button onClick={handleOpen} variant="contained">Delete Step</Button>
+                <IconButton id = "uploadFile" onClick={handleOpen} aria-label="uploadFile"> <DeleteForever /> </IconButton>
                 <Modal
                     open={open}
                     onClose={handleClose}

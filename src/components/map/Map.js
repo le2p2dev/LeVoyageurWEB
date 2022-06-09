@@ -17,7 +17,9 @@ import MapBox from "../../api/MapBox";
 import "./Map.css";
 
 import greenPin from "../../assets/green_pin.png";
-import bluePin from "../../assets/blue_pin.png";
+import yellowStepPin from "../../assets/yellowStep_pin.png";
+import yellowPoiPin from "../../assets/yellowPoi_pin.png";
+import redPin from "../../assets/red_pin.png";
 
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
@@ -395,16 +397,15 @@ const Map = ({
           variant="outlined"
           onChange={handleSearchLocationChange}
           value={searchLocation}
+          onKeyPress={(ev) => { if (ev.key === 'Enter') { handleLocationSearch(); } }}
         />
         <IconButton color="secondary" aria-label="Search location"
-          id="seatchBtnMap"
-          type="submit"
-          onClick={() => handleLocationSearch()}>
+          id="seatchBtnMap" type="submit" onClick={() => handleLocationSearch()}>
           <SearchRounded className="searchIcon"/>
         </IconButton>
       </div>
         <div className="mapDiv">
-          <LoadScript googleMapsApiKey="AIzaSyAr_YxyNFRK6HRPkMhwxUwyrux4ysNbO4M">
+          <LoadScript googleMapsApiKey="AIzaSyAYdTsYL1j24J-9yh82wyY8K088VoYT69M">
             <GoogleMap
               clickableIcons={mode == 1 ? true : false}
               mapContainerStyle={mapStyles}
@@ -427,6 +428,7 @@ const Map = ({
                   : null
               }
               options={{
+                mapId: "6e120bcd575d29f7",
                 styles: poiTypes.map((e) => {
                   return {
                     elementType: "labels.icon",
@@ -459,7 +461,7 @@ const Map = ({
                           )
                         }
                         onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
-                        icon={selectedStep?.id === e.id && isStepModalOpen ? bluePin : greenPin}
+                        icon={selectedStep?.id === e.id && isStepModalOpen ? yellowStepPin : greenPin}
                       />
                     );
                   })}
@@ -487,12 +489,10 @@ const Map = ({
                         }
                         icon={
                           poisForDay.find((element) => element === e) && mode == 3
-                            ? bluePin
-                            : selectedPOI?.id === e.id && isPOIModalOpen ? bluePin : null}
+                            ? yellowPoiPin
+                            : selectedPOI?.id === e.id && isPOIModalOpen ? yellowPoiPin : redPin}
                         
                         label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : null}
-
-                        style={{color:"blue"}}
 
                       >
                       </Marker>

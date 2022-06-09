@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import {Button, Grid, Switch, TextField, IconButton} from "@mui/material";
+import MyLocationIcon from '@mui/icons-material/MyLocation';
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -23,7 +24,7 @@ const ListView = ({openModal}) => {
             height: "90vh",
             overflow: "hidden",
             overflowY: "scroll",}}>
-        <h3 style={{paddingLeft: "1%",}}>List View</h3>
+        <h3 style={{paddingLeft: "1%"}}>List View</h3>
         {Steps.map((step, no) => {
           return (
             <div
@@ -44,7 +45,7 @@ const ListView = ({openModal}) => {
               )}
               <div>
                 <p>{step.description}</p>{" "}
-                <Button onClick={()=>openModal(step,"step")}>"""%</Button>
+                <IconButton id = "myLocationIcon" onClick = {()=>openModal(step,"step")} aria-label="locate"> <MyLocationIcon /> </IconButton>
               </div>
               <ListDay openModal ={openModal} idStep={step.id} idTrip={id} />
             </div>

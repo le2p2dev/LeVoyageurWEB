@@ -5,7 +5,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MapIcon from "@mui/icons-material/Map";
-import PushPinIcon from "@mui/icons-material/PushPin";
+import DirectionsIcon from "@mui/icons-material/Directions";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Grid } from "@mui/material";
 
@@ -112,7 +112,7 @@ const BaseApp = () => {
               style={{ width: navWidth }}
               value="3"
               label="Step"
-              icon={<PushPinIcon />}
+              icon={<DirectionsIcon />}
             />
             <BottomNavigationAction
               style={{ width: navWidth }}

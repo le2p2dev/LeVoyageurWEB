@@ -1,4 +1,5 @@
-import {Button, Grid, Switch, TextField} from "@mui/material";
+import {Button, Grid, Switch, TextField, IconButton} from "@mui/material";
+import MyLocationIcon from '@mui/icons-material/MyLocation';
 import React from "react";
 
 const CardPoi = ({poi,openModal}) => {
@@ -9,10 +10,8 @@ const CardPoi = ({poi,openModal}) => {
       paddingLeft: "5%",
       paddingRight: "3%",
     }}>- {poi.title ? poi.title : "No title"}</p>
-    <Button onClick={()=>openModal(poi,"poi")}>"""%</Button>
+    <IconButton id = "myLocationIcon" onClick = {()=>openModal(poi,"poi")} aria-label="locate"> <MyLocationIcon /> </IconButton>
   </Grid>
 }
 
-
-//test
 export default CardPoi

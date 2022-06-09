@@ -7,13 +7,14 @@
     flex-direction: column;
 
     right: 4%;
-    width : 40%;
-    height: 75%;
+    width : 30%;
+    height: 85%;
 
     border: 1px gray;
-    box-shadow:#000 40px;
+    
+    box-shadow:"rgba(0, 0, 0, 0.90) 0px 4px 4px";
     border-radius: 5px;
-    margin-top : -39%;
+    margin-top : -42.2%;
     z-index: 4;
     background-color: white;
     pointer-events: auto;
