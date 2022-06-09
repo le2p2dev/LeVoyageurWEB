@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import {
-  GoogleMap, InfoWindow,
+import {GoogleMap,
+  InfoBox,
   LoadScript,
   Marker,
   Polyline,
@@ -79,6 +79,9 @@ const Map = ({
   const [zoom,setZoom] = useState(7);
    //id du day dans lequel des poi sont entrain d'etre ajouté, 0 si quand il n'y en a pas
    const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
+   //Label on hover pour le mode nav
+   const[poiLabel,setPoiLabel] = useState("");
+   const[stepLabel,setStepLabel] = useState("");
   
 
   const [notificationTransition, setNotificationTransition] =
@@ -466,6 +469,14 @@ const Map = ({
                         }
                         onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
                         icon={selectedStep?.id === e.id && isStepModalOpen ? yellowStepPin : greenPin}
+                        onMouseOver={mode==1 ? 
+                          ()=>setStepLabel(e.title ? e.title : "no title")
+                          :
+                           ()=>setStepLabel("") }
+
+                        onMouseOut={()=> setStepLabel("")}
+                        label={mode==1 && e.title===stepLabel ? stepLabel : null}
+                        
                       />
                     );
                   })}
@@ -486,17 +497,24 @@ const Map = ({
                             i
                           )
                         }
+                        onMouseOver={mode==1 ? 
+                          ()=>setPoiLabel(e.title ? e.title : "no title")
+                          :
+                           ()=>setPoiLabel("") }
+
+                        onMouseOut={()=> setPoiLabel("")}
+                        
                         onClick={
-                          mode != 3
+                          mode != 3 && mode !=1
                             ? () => handleOpenPOI(e)
-                            : AddingPoiToDayId != 0 ? () => addPoiToDay(e) : null //même affichage que nav mode quand dispo
+                            : AddingPoiToDayId != 0 ? () => addPoiToDay(e) : null 
                         }
                         icon={
                           poisForDay.find((element) => element === e) && mode == 3
                             ? yellowPoiPin
                             : selectedPOI?.id === e.id && isPOIModalOpen ? yellowPoiPin : redPin}
                         
-                        label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : null}
+                        label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : mode==1 && e.title===poiLabel ? poiLabel : null}
 
                       >
                       </Marker>

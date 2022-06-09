@@ -36,6 +36,7 @@ const Day = ({
     POIs?.map(poi=>{
       addPoiToDay(poi)
     })
+    removePoiOfDay(0);
 
   }
 

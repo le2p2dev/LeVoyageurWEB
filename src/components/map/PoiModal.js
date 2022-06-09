@@ -37,34 +37,8 @@ const PoiModal = ({
     setPoiDescription(event.target.value);
   };
 
-  const categories = [
-    {
-      value: "Select Category",
-      label: "Select Category",
-    },
-    {
-      value: "Museum",
-      label: "Museum",
-    },
-    {
-      value: "Hotel",
-      label: "Hotel",
-    },
-    {
-      value: "Restaurant",
-      label: "Restaurant",
-    },
-    {
-      value: "Monument",
-      label: "Monument",
-    },
-  ];
 
-  const [category, setCategory] = useState("Select Category");
-
-  const handleCategory = (event) => {
-    setCategory(event.target.value);
-  };
+  
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -130,21 +104,7 @@ const PoiModal = ({
           value={poiDescription}
           onChange={handlepoiDescriptionChange}
         />
-        <TextField
-          className="PoiInput"
-          margin="dense"
-          variant="outlined"
-          id="select-currency"
-          select
-          value={category}
-          onChange={handleCategory}
-        >
-          {categories.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+       
       </div>
 
       <label htmlFor="contained-button-file">
