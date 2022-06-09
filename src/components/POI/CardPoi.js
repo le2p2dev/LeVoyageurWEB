@@ -13,4 +13,6 @@ const CardPoi = ({poi,openModal}) => {
   </Grid>
 }
 
+
+//test
 export default CardPoi
