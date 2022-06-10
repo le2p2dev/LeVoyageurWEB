@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
-import { Grid } from "@mui/material";
 import Day from "./Day";
 
 const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
@@ -11,7 +10,7 @@ const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiT
   if (isLoading) return "Loading ...";
   else
     return (
-      <Grid container spacing={1}>
+      <div style={{width:"100%"}}>
 
         {days.data.map((day) => {
           return (
@@ -31,7 +30,7 @@ const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiT
             />
           );
         })}
-      </Grid>
+      </div>
     );
 };
 

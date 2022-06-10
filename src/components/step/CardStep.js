@@ -5,7 +5,7 @@ import "./StepList.css"
 import DayList from "../day/DayList";
 import IconButton from '@mui/material/IconButton';
 import {Save, Cancel, Close} from '@mui/icons-material';
-import {Button, TextField} from "@mui/material";
+import {Button, TextField, Grid} from "@mui/material";
 
 const CardStep = ({idTrip,title,description,duration,idStep, poisForDay, removePoiOfDay, openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
 
@@ -90,26 +90,32 @@ const updateStep = useMutation(listAPI.UpdateStep, {
             placeholder={"Description"}
             value={newDescription}
             multiline/>
-            <div style={{flexDirection: "row"}}>
+        <Grid container spacing={2} style={{marginLeft:"2%"}}>
+            <Grid item xs={3}>
                 <p>Duration :</p>
+            </Grid>
+            <Grid item xs={5}>
                 <TextField 
-                    InputProps={{ style: {width: "60px"}, disableUnderline: true }}
-                    InputLabelProps={{ style: {width: "60px"}}}
-                    onFocus={() => setShowSave(true)}
-                    onBlur={() => setShowSave(false)}
-                    onChange={handleChangeDuration}
-                    id="standard-basic"
-                    variant="standard"
-                    placeholder={"Duration"}
-                    value={newDuration}/>
-            </div>
-        
-        {showSave || newTitle!==title || newDescription!==description || newDuration!==duration ? 
-        <div style={{flexDirection: "row"}}>
-            <IconButton id = "save" onClick={saveChanges} aria-label="save"> <Save /> </IconButton>
-            <IconButton id = "cancel" onClick={cancelChanges} aria-label="cancel"> <Cancel /> </IconButton>
-        </div>
-         :null}
+                style={{marginTop:"7%"}}
+                InputProps={{ style: {width: "60px"}, disableUnderline: true }}
+                InputLabelProps={{ style: {width: "60px"}}}
+                onFocus={() => setShowSave(true)}
+                onBlur={() => setShowSave(false)}
+                onChange={handleChangeDuration}
+                id="standard-basic"
+                variant="standard"
+                placeholder={"Duration"}
+                value={newDuration}/>
+            </Grid>
+            <Grid item xs={4}>
+                {showSave || newTitle!==title || newDescription!==description || newDuration!==duration ? 
+                <div style={{flexDirection: "row"}}>
+                    <IconButton style={{color:"darkgreen"}} id = "save" onClick={saveChanges} aria-label="save"> <Save /> </IconButton>
+                    <IconButton style={{color:"#e3b600"}} id = "cancel" onClick={cancelChanges} aria-label="cancel"> <Cancel /> </IconButton>
+                </div>
+                :null}
+            </Grid>
+        </Grid>
 
         <DayList key={idStep} AddingPoiToDayId={AddingPoiToDayId} setAddingPoiToDayId={setAddingPoiToDayId} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idStep={idStep} idTrip={idTrip} />  
 

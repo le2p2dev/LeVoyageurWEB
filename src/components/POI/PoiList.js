@@ -11,19 +11,17 @@ const PoiList = ({ idDay, idStep, idTrip,openModal }) => {
 
   if (!isLoading)
     return (
-      <Grid container spacing={1}>
+      <div style={{width:"100%"}}>
         {data.Pois?.map((poi) => {
           return (
-            
               <CardPoi
                 key={poi.id}
                 poi={poi}
                 openModal={openModal}
               />
-            
           );
         })}
-      </Grid>
+      </div>
     );
   else return "loading ...";
 };

@@ -4,13 +4,15 @@ import React from "react";
 
 const CardPoi = ({poi,openModal}) => {
 
-  return <Grid item xs={6} >
-    <p style={{
+  return <Grid container spacing={1}>
+    <Grid item xs={10} style={{
       textAlign: "left",
       paddingLeft: "5%",
       paddingRight: "3%",
-    }}>- {poi.title ? poi.title : "No title"}</p>
-    <IconButton id = "myLocationIcon" onClick = {()=>openModal(poi,"poi")} aria-label="locate"> <MyLocationIcon /> </IconButton>
+    }}>- {poi.title ? poi.title : "No title"}</Grid>
+    <Grid item xs={2}>
+      <IconButton style={{color:"darkgreen"}} id = "myLocationIcon" onClick = {()=>openModal(poi,"poi")} aria-label="locate"> <MyLocationIcon /> </IconButton>
+    </Grid>
   </Grid>
 }
 

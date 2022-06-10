@@ -29,22 +29,22 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
             queryClient.invalidateQueries(idTrip+ "steps")
             closeStep()
             
-         }  
+         }
       });
 
     return (
         
         <div className="StepModalBox">
-            <IconButton id = "closeIcon" onClick = {closeStep} aria-label="delete"> <Close /> </IconButton>
+            <IconButton style={{color:"darkred"}} id = "closeIcon" onClick = {closeStep} aria-label="delete"> <Close /> </IconButton>
             <CardStep key={id} AddingPoiToDayId={AddingPoiToDayId} setAddingPoiToDayId={setAddingPoiToDayId} addPoiToDay={addPoiToDay} openModal={openModal} removePoiOfDay={removePoiOfDay} poisForDay={poisForDay} idTrip={idTrip} idStep={id} title={title} description={description} duration={duration} />
 
             <div className = "BtnBox">
                 <label htmlFor="contained-button-file">
-                    <Input accept="image/*" id="contained-button-file" multiple type="file"  style = {{display:'none'}}/>
+                    <Input accept="image/*" id="contained-button-file" multiple type="file"  style={{display:'none'}}/>
                     <IconButton id = "uploadFile" aria-label="uploadFile"> <UploadFile /> </IconButton>
                 </label>
 
-                <IconButton id = "uploadFile" onClick={handleOpen} aria-label="uploadFile"> <DeleteForever /> </IconButton>
+                <IconButton style={{color:"darkred"}} id = "uploadFile" onClick={handleOpen} aria-label="uploadFile"> <DeleteForever /> </IconButton>
                 <Modal
                     open={open}
                     onClose={handleClose}

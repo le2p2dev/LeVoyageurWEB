@@ -80,7 +80,7 @@ const PoiModal = ({
 
   return (
     <div id="ModalBox" className="ModalBox">
-      <IconButton id="closeIcon" onClick={closePOI} aria-label="delete">
+      <IconButton style={{color:"darkred"}} id="closeIcon" onClick={closePOI} aria-label="delete">
         <Close />
       </IconButton>
       <div className="PoiInputs">
@@ -119,10 +119,10 @@ const PoiModal = ({
       </label>
 
       <div className="BtnBox">
-      <IconButton id="DeleteIcon" onClick={handleOpen} aria-label="delete">
+      <IconButton style={{color:"darkred"}} id="DeleteIcon" onClick={handleOpen} aria-label="delete">
         <DeleteForever />
       </IconButton>
-      <IconButton id="SaveIcon" onClick={updatePOIOnClick} aria-label="save">
+      <IconButton style={{color:"darkgreen"}} id="SaveIcon" onClick={updatePOIOnClick} aria-label="save">
         <Save />
       </IconButton>
         <Modal
