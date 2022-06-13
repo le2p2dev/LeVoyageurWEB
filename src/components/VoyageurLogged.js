@@ -20,29 +20,31 @@ const DiscoverVoyageur = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          backgroundImage: `url(https://i.pinimg.com/originals/1f/3e/e8/1f3ee8d02c84a3a08ceb973bf90895bc.gif)`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          height: "90vh",
-        }}
-      >
         <div
           style={{
             height: "90vh",
-            width: "40vw",
+            width: "100vw",
             backgroundColor: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            paddingLeft: "10px",
           }}
         >
-          <h1>Le Voyageur</h1>
+          <div style={{
+            backgroundImage:  `url(https://i.ibb.co/ZWcyMpt/backdrop.gif)`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            height:"35vh"
+          }}>
+            <h1 style={{
+              fontSize: 180,
+              mixBlendMode: "lighten",
+              background: "white"
+            }}>Le Voyageur</h1>
+          </div>
           <p>
             Utilisez Le Voyageur pour planifier votre voyage comme si vos y
             Étiez déjà ! CLickez sur "access trip" pour pouvoir accéder à vos
@@ -63,7 +65,6 @@ const DiscoverVoyageur = () => {
             </Button>
           )}
         </div>
-      </div>
     </>
   );
 };
