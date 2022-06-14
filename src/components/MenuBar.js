@@ -1,23 +1,7 @@
 import React, { useState } from "react";
-import LogoHeader from "./LogoHeader";
-
-
-//mui import
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  MenuItem,
-  IconButton,
-  Menu,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-
-//router import
+import { AppBar, Box, Toolbar, MenuItem, IconButton, Menu, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AccountCircle } from "@mui/icons-material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 
 const MenuBar = () => {
   const [anchor, setAnchor] = useState(null);
@@ -41,11 +25,8 @@ const MenuBar = () => {
 
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: "white", height: '10vh'}}>
-          <Toolbar sx={{justifyContent: "space-between"}}>
-            <MenuItem onClick={() => navigate("/home")}> <img style={{width:"5vh",height:"5vh" }} src={require("../assets/icon.png")} alt={"logo"}/> </MenuItem>
-            <Typography color="black">
-              le Voyageur
-            </Typography>
+          <Toolbar sx={{justifyContent: "space-between", marginLeft: "40px", marginRight: "40px"}}>
+            <MenuItem onClick={() => navigate("/home")}> <img style={{width:"22vh",height:"9vh" }} src={require("../assets/full.png")} alt={"logo"}/> </MenuItem>
             <IconButton
               size="large"
               edge="start"
@@ -65,9 +46,9 @@ const MenuBar = () => {
               anchorOrigin={{ vertical: "top", horizontal: "right" }}
             >
               <MenuItem onClick={() => navigate("/account")}>
-                Mon compte
+                My account
               </MenuItem>
-              <MenuItem onClick={Disconnect}>Déconnexion</MenuItem>
+              <MenuItem onClick={Disconnect}>Disconnect</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
@@ -76,10 +57,10 @@ const MenuBar = () => {
   ) : (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar variant="dense">
-            <MenuItem onClick={() => navigate("/home")}>LeVoyageur</MenuItem>
-            <MenuItem onClick={() => navigate("/signin")}>Connexion</MenuItem>
+        <AppBar position="static" sx={{ backgroundColor: "white", height: '10vh'}}>
+          <Toolbar sx={{justifyContent: "space-between", marginLeft: "40px", marginRight: "40px"}}>
+            <MenuItem onClick={() => navigate("/home")}> <img style={{width:"22vh",height:"9vh" }} src={require("../assets/full.png")} alt={"logo"}/> </MenuItem>
+              <MenuItem style={{color: "black"}} onClick={() => navigate("/signin")}>Sign In</MenuItem>
           </Toolbar>
         </AppBar>
       </Box>

@@ -4,7 +4,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 
 //import router
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 //import components*
 
@@ -42,7 +41,6 @@ const App = () => {
     <HashRouter>
       <QueryClientProvider client={queryClient}>
         <Main />
-        <ReactQueryDevtools />
       </QueryClientProvider>
     </HashRouter>
   );

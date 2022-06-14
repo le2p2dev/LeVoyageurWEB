@@ -1,29 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-
-//#region mui import
-import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  Link,
-} from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link, } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
-//#endregion
-
-//#region component import
-import JsonData from "../api/dataJSON/JsonData.js";
-import { useQueries } from "react-query";
 import listAPI from "../api/listApi.js";
-
-//#endregion
 
 const Signin = () => {
 
@@ -34,14 +14,12 @@ const Signin = () => {
 		margin: "20px auto",
   	};
 
-	const avatarStyle = { backgroundColor: "#1bbd7e" };
 	const btnstyle = { margin: "8px 0" };
 
 	const navigate = useNavigate();
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [token,setToken] = useState("");
 	const [error, setError] = useState(false);
 
 	const handleClick = () => {
@@ -62,11 +40,10 @@ const Signin = () => {
 	};
 
 	return (
-		<Grid>
-			<Paper elevation={10} style={paperStyle}>
+		<Paper elevation={5} style={paperStyle} sx={{minWidth:"20%"}}>
 			<Grid align="center">
 				<Avatar> <AccountCircle /> </Avatar>
-				<h2>Connectez vous</h2>
+				<h2>Sign In</h2>
 			</Grid>
 			<TextField
 				label="Username"
@@ -100,12 +77,10 @@ const Signin = () => {
 			</Button>
 
 			<Typography>
-				{" "}
-				Do you have an account ?
+				Don't have an account ? 
 				<Link onClick={() => navigate("/account/create")}>Sign Up</Link>
 			</Typography>
-			</Paper>
-		</Grid>
+		</Paper>
 	);
 };
 
