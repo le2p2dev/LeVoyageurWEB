@@ -2,7 +2,16 @@ import { useQuery } from "react-query";
 import listAPI from "../../api/listApi";
 import Day from "./Day";
 
-const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
+const DayList = ({
+  idStep,
+  poisForDay,
+  removePoiOfDay,
+  idTrip,
+  openModal,
+  addPoiToDay,
+  AddingPoiToDayId,
+  setAddingPoiToDayId,
+}) => {
   const { isLoading, data: days } = useQuery(idStep + "days", () =>
     listAPI.GetDaysfromStep({ idStep: idStep, tripId: idTrip })
   );
@@ -10,9 +19,8 @@ const DayList = ({ idStep, poisForDay, removePoiOfDay, idTrip, openModal,addPoiT
   if (isLoading) return "Loading ...";
   else
     return (
-      <div style={{width:"100%"}}>
-
-        {days.data.map((day) => {
+      <div style={{ width: "100%" }}>
+        {days.map((day) => {
           return (
             <Day
               removePoiOfDay={removePoiOfDay}
