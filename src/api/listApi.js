@@ -242,6 +242,19 @@
 		}).then((res) => res.json());
 	},
 
+	GetRidesFromTrip: (tripId) => {
+		const urlSuffix = `user/${
+		jwtDecode(localStorage.getItem("token")).id
+		}/trip/${tripId}/ride`;
+		return fetch(urlPrefix + urlSuffix, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + localStorage.getItem("token"),
+		}, 
+		}).then((res) => res.json());
+	},
+
 	Login: (username, password) => {
 		const urlSuffix = "login";
 		return fetch(urlPrefix + urlSuffix, {

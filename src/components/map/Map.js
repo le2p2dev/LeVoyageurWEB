@@ -82,6 +82,7 @@ const Map = ({
    //Label on hover pour le mode nav
    const[poiLabel,setPoiLabel] = useState("");
    const[stepLabel,setStepLabel] = useState("");
+   const [rideList, setRideList] = useState([]);
   
 
   const [notificationTransition, setNotificationTransition] =
@@ -108,6 +109,7 @@ const Map = ({
   const handleLocationSearch = () => {
     refetch();
   };
+
 
   //open modal POI
   const handleOpenPOI = (POI) => {
@@ -184,6 +186,18 @@ const Map = ({
     }
   );
 
+   // Get rides from trip
+   const { isLoading: isLoadingRides, data: RideListOriginal,refetch:refetchRides} = useQuery(
+    idTrip + "ride",
+    () => listAPI.GetRidesFromTrip(idTrip),
+    {
+      onSuccess: (data) => {
+        setRideList(data);
+      },
+    }
+  );
+
+
   useEffect(() => {
     if (firstStepLoading == true && stepListOriginal[0]) {
       setLat(stepListOriginal[0]?.latitude);
@@ -210,12 +224,18 @@ const Map = ({
 
   //create step in a trip
   const addStep = useMutation(listAPI.CreateStep, {
-    onSuccess: () => queryClient.invalidateQueries(idTrip + "steps"),
+    onSuccess: () => {
+      queryClient.invalidateQueries(idTrip + "steps");
+      refetchRides();
+    }
   });
 
   //update Step coords
   const updateStep = useMutation(listAPI.UpdateStep, {
-    onSuccess: () => queryClient.invalidateQueries(idTrip + "steps"),
+    onSuccess: () => {
+      queryClient.invalidateQueries(idTrip + "steps");
+      refetchRides();
+    }
   });
 
   //#endregion
@@ -273,6 +293,7 @@ const Map = ({
       longitude: lng,
       tripId: idTrip,
     });
+
   };
 
   //add step from map onclick
@@ -285,9 +306,7 @@ const Map = ({
       tripId: idTrip,
     });
 
-    //path.push({ lat: e.latitude, lng: e.longitude });
-
-    //path.push({ lat: ev.latLng.lat(), lng: ev.latLng.lng() });
+    
   };
 
   useEffect(() => {
@@ -388,6 +407,41 @@ const Map = ({
 	  setPath(stepPath)
 	  */
 
+
+    const setPathObject = (startStep,endStep) => {
+
+      var start = {};
+      var end = {};
+
+      if(startStep!=null){
+        start = {lat:startStep.latitude,lng:startStep.longitude};
+      }
+      else{
+        start = null;
+      }
+
+      if(endStep!=null){
+        end = { lat: endStep.latitude, lng: endStep.longitude };
+      }
+      else{
+        end = null;
+      }
+      console.log(start,end);
+      if(start && end){
+        return(
+          [
+            start,
+            end
+          ]
+        );
+      }
+      else return [];
+
+  
+
+    }
+
+
   return (
     mode == 4 ? 
     <ListView openModal={openModal}/>
@@ -435,7 +489,7 @@ const Map = ({
                   : null
               }
               options={{
-                mapId: "6e120bcd575d29f7",
+                
                 styles: poiTypes.map((e) => {
                   return {
                     elementType: "labels.icon",
@@ -450,7 +504,6 @@ const Map = ({
               {isLoadingSteps
                 ? null
                 : stepList?.map((e, i) => {
-                    path.push({ lat: e.latitude, lng: e.longitude });
                     return (
                       <Marker
                         key={i}
@@ -522,18 +575,25 @@ const Map = ({
                     );
                   })}
               //définition du polyline
-              {path.length !== stepList.length ? (
-                <Polyline
-                  onLoad={onLoad}
-                  path={path}
-                  onClick={() => clickLine()}
-                  options={{
-                    geodesic: true,
-                    strokeColor: "green",
-                    strokeWeight: "4",
-                  }}
-                />
-              ) : null}
+              {isLoadingRides? null: (
+                RideListOriginal.map((e,i)=>{
+                  return(
+                    <Polyline
+                      key={i}
+                      onLoad={onLoad}
+                      path={setPathObject(e.stepStart,e.stepEnd)}
+                      onClick={() => clickLine()}
+                      options={{
+                        geodesic: true,
+                        strokeColor: "green",
+                        strokeWeight: "4",
+                      }}
+                    />
+                  )
+                })
+                
+              )
+              }
 
 
             </GoogleMap>
