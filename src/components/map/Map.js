@@ -627,6 +627,7 @@ const Map = ({
               openModal={openModal}
               AddingPoiToDayId={AddingPoiToDayId}
               setAddingPoiToDayId={setAddingPoiToDayId}
+              refetchRides={refetchRides}
             />
           ) : null}
           {isOpenNavModeNotification ? (
