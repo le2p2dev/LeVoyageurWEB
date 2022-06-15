@@ -10,7 +10,7 @@ import {DeleteForever, UploadFile, Close} from '@mui/icons-material';
 import "./StepModal.css";
 import CardStep from "../step/CardStep";
 
-const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId}) => {
+const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,removePoiOfDay,openModal,addPoiToDay,AddingPoiToDayId,setAddingPoiToDayId,refetchRides}) => {
 
 
     const queryClient = useQueryClient();
@@ -28,6 +28,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
         onSuccess: () =>  {
             queryClient.invalidateQueries(idTrip+ "steps")
             closeStep()
+            refetchRides();
             
          }
       });
