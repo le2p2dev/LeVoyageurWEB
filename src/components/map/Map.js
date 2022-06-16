@@ -426,7 +426,6 @@ const Map = ({
       else{
         end = null;
       }
-      console.log(start,end);
       if(start && end){
         return(
           [
@@ -436,9 +435,6 @@ const Map = ({
         );
       }
       else return [];
-
-  
-
     }
 
 

@@ -90,13 +90,12 @@ const updateStep = useMutation(listAPI.UpdateStep, {
             placeholder={"Description"}
             value={newDescription}
             multiline/>
-        <Grid container spacing={2} style={{marginLeft:"2%"}}>
-            <Grid item xs={3}>
-                <p>Duration :</p>
+        <Grid container spacing={0} style={{marginLeft:"2%", marginRight:"2%", width:"90%"}}>
+            <Grid item xs={4} style={{marginLeft:"3%", marginTop:"2vh"}}>
+                <div>Duration :</div>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={3} style={{marginTop:"1.7vh"}}>
                 <TextField 
-                style={{marginTop:"7%"}}
                 InputProps={{ style: {width: "60px"}, disableUnderline: true }}
                 InputLabelProps={{ style: {width: "60px"}}}
                 onFocus={() => setShowSave(true)}
@@ -107,7 +106,7 @@ const updateStep = useMutation(listAPI.UpdateStep, {
                 placeholder={"Duration"}
                 value={newDuration}/>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4} style={{marginTop:"1vh"}}>
                 {showSave || newTitle!==title || newDescription!==description || newDuration!==duration ? 
                 <div style={{flexDirection: "row"}}>
                     <IconButton style={{color:"darkgreen"}} id = "save" onClick={saveChanges} aria-label="save"> <Save /> </IconButton>

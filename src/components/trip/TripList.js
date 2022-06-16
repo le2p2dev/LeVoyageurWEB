@@ -101,8 +101,7 @@ export default function TripList() {
         <div>
           <h1 style={{ paddingLeft: "2%" }}>Mes voyages</h1>
           <Grid
-            container
-            spacing={1}
+            container spacing={1}
             sx={{
               paddingLeft: "1%",
               paddingRight: "1%",
