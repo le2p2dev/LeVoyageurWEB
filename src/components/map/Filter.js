@@ -25,7 +25,7 @@ const Filter = ({checkBoxPOI,poiTypes}) => {
    
     const [value,setValue] = useState([]);
 
-    return(<div style={{ position: "absolute", bottom: "2%", left: "5.5%", zIndex: "3", }}>
+    return(<div style={{ position: "absolute", bottom: "2%", left: "5.5%", zIndex: 2}}>
         <FormControl size="small" sx={{ width: 200 }}>
             <InputLabel id="demo-multiple-checkbox-label">Filter</InputLabel>
 

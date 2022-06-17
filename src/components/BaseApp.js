@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MapIcon from "@mui/icons-material/Map";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -63,7 +64,7 @@ const BaseApp = () => {
           <BottomNavigation
             style={{
               width: navWidth,
-              height: "70vh",
+              height: "85vh",
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
@@ -98,22 +99,24 @@ const BaseApp = () => {
               label="List View"
               icon={<FormatListBulletedIcon />}
             />
+            <BottomNavigationAction
+              style={{ width: navWidth }}
+              value="5"
+              label="Files"
+              icon={<FileCopyIcon />}
+            />
           </BottomNavigation>
         </div>
-        <div style={{  height: "90vh" }}>
-        
-            <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
-            <Map
-              idTrip={id}
-              mode={value}
-              changeMode={setValue}
-              addPoiToDay={addPoiToDay}
-              poisForDay={poisForDay}
-              removePoiOfDay={removePoiOfDay}
-              poiTypes={poiTypes}
-              
-            />
-            </>
+        <div style={{ height: "90vh" }}>
+          <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
+          <Map
+            idTrip={id}
+            mode={value}
+            changeMode={setValue}
+            addPoiToDay={addPoiToDay}
+            poisForDay={poisForDay}
+            removePoiOfDay={removePoiOfDay}
+            poiTypes={poiTypes}/></>
           
         </div>
       </div>

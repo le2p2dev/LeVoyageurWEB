@@ -4,6 +4,23 @@
 
 	const listAPI = {
 	//Listes des voyages pour un utilisateurs
+
+	AddFileToTrip: (idTrip,file) => {
+		const urlSuffix = `user/${
+			jwtDecode(localStorage.getItem("token")).id
+			}/trip/${idTrip}/file`
+
+		const formData = new FormData()
+		formData.append("image",file)
+
+		return fetch(urlPrefix+urlSuffix, {
+			method: "POST",
+			headers: {
+				Authorization: "Bearer " + localStorage.getItem("token"),
+			},
+			body: formData
+		}).then( (res) => res.json())
+	},
 	GetTrips: () => {
 		const urlSuffix = `user/${
 		jwtDecode(localStorage.getItem("token")).id

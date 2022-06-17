@@ -20,8 +20,10 @@ const ListView = ({openModal}) => {
   return (
     <>
       <div style={{
+            zIndex: 5,
+            position: "fixed",
             width: "95vw",
-            height: "85vh",
+            height: "90vh",
             overflow: "hidden",
             overflowY: "scroll",}}>
         <h3 style={{paddingLeft: "1%"}}>List View</h3>
@@ -36,7 +38,7 @@ const ListView = ({openModal}) => {
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
             >
-              <Grid container spacing={1}>
+              <Grid container spacing={1} sx={{zIndex: 5}}>
                 <Grid item xs={11}>
                   {step.title ? (
                     <h3>
