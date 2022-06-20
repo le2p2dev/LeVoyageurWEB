@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 
 
-const CardTrip = ({ id, name, description }) => {
+const CardTrip = ({ id, name, description, background }) => {
   const navigate = useNavigate();
 
   const [shadow, setShadow] = useState("black");
@@ -23,6 +23,8 @@ const CardTrip = ({ id, name, description }) => {
   const queryClient = useQueryClient();
   const [newName, setTripName] = useState(name ? name : "");
   const [newDescription, setDescription] = useState(description ? description : "" );
+  const [newBackground, setBackground] = useState(background ? background : "" );
+
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
@@ -30,6 +32,10 @@ const CardTrip = ({ id, name, description }) => {
 
   const handleTripNameChange = (event) => {
     setTripName(event.target.value);
+  };
+
+  const handleBackgroundChange = (event) => {
+    setBackground(event.target.value);
   };
 
   const modifyTrip = useMutation(listAPI.UpdateTrip, {
@@ -42,7 +48,9 @@ const CardTrip = ({ id, name, description }) => {
   const saveTrip = () => {
     modifyTrip.mutate({id,
       tripName: newName,
-      description: newDescription})
+      description: newDescription,
+      background : newBackground
+    })
       setModify(false)
     
   }
@@ -72,7 +80,7 @@ const CardTrip = ({ id, name, description }) => {
       <CardMedia
         component="img"
         height="140"
-        image={require("../../assets/image.jpeg")}
+        image={!background ? require("../../assets/image.jpeg") : background }
         alt="dune"
       />
       {!modify ?
@@ -101,6 +109,16 @@ const CardTrip = ({ id, name, description }) => {
         value={newDescription}
         onChange={handleDescriptionChange}
       />
+
+      <TextField
+        id="standard-basic"
+        label="url de l'image de fond"
+        variant="standard"
+        value={newBackground}
+        onChange={handleBackgroundChange}
+      />
+
+      
       <Button onClick={saveTrip}>
         save
       </Button>
