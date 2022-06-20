@@ -14,6 +14,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
 
 import FileCard from './FileCard'
+import FileStep from './fileStep'
 
 const TripFiles = ({ idTrip }) => {
   const queryClient = useQueryClient();

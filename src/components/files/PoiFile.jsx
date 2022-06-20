@@ -30,7 +30,7 @@ const style = {
     p: 4,
   };
 
-const TripFiles = ({ idTrip,idFile, url }) => {
+const PoiFile = ({ idPoi,idTrip,idFile, url }) => {
 
   const queryClient = useQueryClient();
 
@@ -48,15 +48,15 @@ const closeDeleteModal = () => {
 }
 
 const deleteFile =
-    useMutation(() => listAPI.deleteTripFile(idTrip,idFile), {
+    useMutation(() => listAPI.deletePoiFile(idTrip,idPoi,idFile), {
       onSuccess: () => {
-        queryClient.invalidateQueries(idTrip+"files")
+        console.log("file delete");
+        queryClient.invalidateQueries(idPoi+"files")
       }
     })
 
 const deleteFilef = () => {
-    console.log('file delete');
-    deleteFile.mutate({idTrip:idTrip,idFile: idFile})
+    deleteFile.mutate({idTrip:idTrip,idPoi: idPoi,idFile: idFile})
     setDeleteModal(false)
 }
 
@@ -64,7 +64,7 @@ const fileName =  url.substring(url.lastIndexOf('/')+1).slice(13).split('.').sli
 
   return (
     <div style={{ marginLeft: "4%", width: "100%" }}>
-     <Button variant="text" href={url} >{fileName}</Button>
+     <Button variant="text" href={url} > {fileName}</Button>
      <IconButton onClick={openDeleteModal}> <DeleteForeverIcon /></IconButton>
     
 
@@ -89,4 +89,4 @@ const fileName =  url.substring(url.lastIndexOf('/')+1).slice(13).split('.').sli
   );
 };
 
-export default TripFiles;
+export default PoiFile;
