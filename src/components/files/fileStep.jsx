@@ -16,7 +16,6 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteModal from "../map/DeleteModal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Image, InsertDriveFile, PictureAsPdf } from "@mui/icons-material";
 
 
 const style = {
@@ -61,20 +60,14 @@ const deleteFilef = () => {
     setDeleteModal(false)
 }
 
-const fileName =  url.substring(url.lastIndexOf('/')+1).slice(13) //.split('.').slice(0, -1).join('.') pour remove .ext
-const extensionName = fileName.split(".").pop();
+const fileName =  url.substring(url.lastIndexOf('/')+1).slice(13).split('.').slice(0, -1).join('.')
 
   return (
     <div style={{ marginLeft: "4%", width: "100%" }}>
-
-     <Button variant="text" href={url} target="_blank">
-        {extensionName === "gif" || extensionName === "png" || extensionName === "jpg" || extensionName === "jpeg" ? <Image style={{color:"#77B3D4", marginRight:"5px"}}/> :
-        extensionName === "pdf" || extensionName === "doc" || extensionName === "docx" ? <PictureAsPdf style={{color:"#B30B00", marginRight:"5px"}}/> : <InsertDriveFile style={{color:"darkgray", marginRight:"5px"}}/>}
-        {fileName.replace(/\.[^\/.]+$/, '')}
-     </Button>
-
+     <Button variant="text" href={url} >{fileName}</Button>
      <IconButton onClick={openDeleteModal}> <DeleteForeverIcon /></IconButton>
-   
+    
+
      <Modal
         open={DeleteModal}
         onClose={closeDeleteModal}
