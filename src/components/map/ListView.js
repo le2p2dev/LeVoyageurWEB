@@ -20,6 +20,8 @@ const ListView = ({openModal}) => {
   return (
     <>
       <div style={{
+            zIndex: 5,
+            position: "fixed",
             width: "95vw",
             height: "90vh",
             overflow: "hidden",
@@ -36,16 +38,22 @@ const ListView = ({openModal}) => {
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
             >
-              {step.title ? (
-                <h3>
-                  Step {no} : {step.title}
-                </h3>
-              ) : (
-                <h3>{no}. no title</h3>
-              )}
+              <Grid container spacing={1} sx={{zIndex: 5}}>
+                <Grid item xs={11}>
+                  {step.title ? (
+                    <h3>
+                      Step {no} : {step.title}
+                    </h3>
+                  ) : (
+                    <h3>{no}. no title</h3>
+                  )}
+                </Grid>
+                <Grid item xs={1}>
+                  <IconButton style={{color:"darkgreen", marginTop:"1vh"}} id = "myLocationIcon" onClick = {()=>openModal(step,"step")} aria-label="locate"> <MyLocationIcon /> </IconButton>
+                </Grid>
+              </Grid>
               <div>
-                <p>{step.description}</p>{" "}
-                <IconButton id = "myLocationIcon" onClick = {()=>openModal(step,"step")} aria-label="locate"> <MyLocationIcon /> </IconButton>
+                <p>{step.description}</p>
               </div>
               <ListDay openModal ={openModal} idStep={step.id} idTrip={id} />
             </div>

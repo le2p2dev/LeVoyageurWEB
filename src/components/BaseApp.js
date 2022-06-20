@@ -4,22 +4,13 @@ import { useParams } from "react-router-dom";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MapIcon from "@mui/icons-material/Map";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { Grid } from "@mui/material";
-
-//import files*
-
-import TripInfo from "./trip/TripInfo";
 import listAPI from "../api/listApi";
-import TripList from "./trip/TripList";
-import LogoHeader from "./LogoHeader";
 import Map from "./map/Map";
-import NavigationMap from "./map/NavigationMap";
-import StepListItems from "./step/StepListItems";
 import Filter from "./map/Filter";
-import ListView from "./map/ListView";
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -33,7 +24,6 @@ const BaseApp = () => {
     { name: "Park", value: false, mapName: "poi.park" },
     { name: "Place of worship", value: false, mapName: "poi.place_of_worship" },
     { name: "Medical", value: false, mapName: "poi.medical" },
-    /*{name:"Restaurants and Bars",value:false,mapName:"poi.food_drink"}*/
   ]);
 
   const addPoiToDay = (poi) => {
@@ -46,7 +36,7 @@ const BaseApp = () => {
     setPoiTypes(poiTypesCopy);
   };
 
-  const [navWidth, setNavWidth] = useState("10vh");
+  const [navWidth, setNavWidth] = useState("5vw");
 
   const removePoiOfDay = (poiId) => {
     poiId == 0
@@ -62,17 +52,6 @@ const BaseApp = () => {
 
   return (
     <>
-      {/* <TripInfo
-		name={data.response[0]?.title}
-		desc={data.response[0]?.description}
-		id={data.response[0]?.id}
-		/> */}
-
-    
-      
-
-      
-
       <div
         style={{
           
@@ -85,7 +64,7 @@ const BaseApp = () => {
           <BottomNavigation
             style={{
               width: navWidth,
-              height: "70vh",
+              height: "85vh",
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
@@ -120,22 +99,24 @@ const BaseApp = () => {
               label="List View"
               icon={<FormatListBulletedIcon />}
             />
+            <BottomNavigationAction
+              style={{ width: navWidth }}
+              value="5"
+              label="Files"
+              icon={<FileCopyIcon />}
+            />
           </BottomNavigation>
         </div>
-        <div style={{  height: "90vh" }}>
-        
-            <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
-            <Map
-              idTrip={id}
-              mode={value}
-              changeMode={setValue}
-              addPoiToDay={addPoiToDay}
-              poisForDay={poisForDay}
-              removePoiOfDay={removePoiOfDay}
-              poiTypes={poiTypes}
-              
-            />
-            </>
+        <div style={{ height: "90vh" }}>
+          <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
+          <Map
+            idTrip={id}
+            mode={value}
+            changeMode={setValue}
+            addPoiToDay={addPoiToDay}
+            poisForDay={poisForDay}
+            removePoiOfDay={removePoiOfDay}
+            poiTypes={poiTypes}/></>
           
         </div>
       </div>

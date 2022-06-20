@@ -1,5 +1,4 @@
 import React, {useState } from "react";
-import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import DeleteModal from "./DeleteModal";
 import Modal from '@mui/material/Modal';
@@ -22,7 +21,6 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
     const handleClose = () => {
       setOpen(false);
     };
-
 
     const deleteStep = useMutation(listAPI.DeleteStep, {
         onSuccess: () =>  {
@@ -58,8 +56,7 @@ const StepModal = ({id,title,description,duration,closeStep,idTrip,poisForDay,re
                                         id : id,
                                         tripId : idTrip})
                                     handleClose()
-                                }
-                                }
+                                }}
                                     
                                 noBtnFunction = {handleClose} 
                                 type = "step"

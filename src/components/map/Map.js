@@ -24,7 +24,9 @@ import redPin from "../../assets/red_pin.png";
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
 import ListView from "./ListView";
-import RideModal from "./RideModal";
+
+import RideModal from "./RideModal"
+import TripFiles from "../files/TripFiles";
 
 const Map = ({
   idTrip,
@@ -426,7 +428,6 @@ const Map = ({
       else{
         end = 0;
       }
-      
       if(start && end){
         return(
           [
@@ -436,14 +437,13 @@ const Map = ({
         );
       }
       else return [];
-
-
-  
-
     }
 
 
   return (
+    mode == 5 ?
+    <TripFiles idTrip={idTrip}></TripFiles>
+    :
     mode == 4 ? 
     <ListView openModal={openModal}/>
     :

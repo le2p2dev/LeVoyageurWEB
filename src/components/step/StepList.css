@@ -14,10 +14,9 @@
     font-size: large;
 }
 .poiListBox{
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+    justify-content: start;
     height: 100%;
     overflow-y: auto;
 }
