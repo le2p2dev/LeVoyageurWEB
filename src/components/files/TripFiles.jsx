@@ -14,6 +14,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
 
 import FileCard from './FileCard'
+import { FileUpload, UploadFile } from "@mui/icons-material";
 
 const TripFiles = ({ idTrip }) => {
   const queryClient = useQueryClient();
@@ -58,28 +59,20 @@ const TripFiles = ({ idTrip }) => {
           onSubmit={(e) => e.preventDefault()}
         />
         <Button variant="contained" component="span">
-          Upload a file
+          {selectedFile ? selectedFile.name : "No file chosen"}
         </Button>
       </label>
 
-
-
-      <Button onClick={handleUpload}>Save uploaded files</Button>
-
-
-      {selectedFile ? selectedFile.name : "No file chosen"}
-    
+      
+      <IconButton onClick={handleUpload}>
+        <FileUpload />
+      </IconButton>
 
       <div>
         {data.Files.map( (file, i) => {
         return (<FileCard url={file.imageUrl}  idFile={file.id} idTrip={idTrip} />)
       })}
       </div>
-
-      
-
-      {/* <Input accept="image/*" id="contained-button-file" multiple type="file"  />
-                <Button variant="contained" component="span"> Upload Files </Button> */}
     </div>
   );
 };
