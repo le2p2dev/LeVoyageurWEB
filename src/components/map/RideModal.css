@@ -1,0 +1,86 @@
+#rideModal{
+
+    background-color: white;
+    height: 500px;
+    width: 350px;
+    border-style: solid;
+    border-radius:5px;
+}
+
+.transportModeBox{
+
+    width: 350px;
+    height: 50px;
+
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnHeaderRide{
+
+    margin:2%;
+    background-color:#e6e6e6;
+    border: none;
+    border-radius: 5px;
+
+    width: 80px;
+    height: 60px;
+}
+
+.btnHeaderRide:hover{
+
+    background-color: #f2f2f2;
+}
+.btnHeaderRide:focus{
+    background-color: #a6a6a6;
+}
+
+
+.rideInfoBox{
+
+    width: 350px;
+    height: 100px;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+
+}
+
+.rideInfoBox > p{
+
+    font-size: x-large;
+    background-color: #e6e6e6;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+#location{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    width: 350px;
+    height: 50px;
+
+    padding-top: 5%;
+    margin:0;
+
+    
+
+}
+
+#location>p{
+
+    background-color: #e6e6e6;
+    border-radius: 25px;
+    padding: 10px;
+
+}

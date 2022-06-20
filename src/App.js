@@ -15,6 +15,7 @@ import TripList from "./components/trip/TripList";
 import { CssBaseline } from "@mui/material";
 import CreateAccount from "./components/CreateAccount";
 import Profile from "./Profile";
+import RideModal from "./components/map/RideModal";
 
 const Main = () => {
   return (

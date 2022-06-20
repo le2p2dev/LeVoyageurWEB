@@ -1,6 +1,7 @@
 
 const mapBoxToken = "&access_token=pk.eyJ1IjoiNTczZiIsImEiOiJja3l5Z2JoMWQwcnlsMnJzM2pxN29md2RnIn0.YnpLDRmULNCqnV2XLcmgCQ";
-const urlPreFix = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+const urlPrefixGeocoding = "https://api.mapbox.com/geocoding/v5/mapbox/";
+const urlPrefixDirections = "https://api.mapbox.com/directions/v5/mapbox/";
 
 const MapBox = {
 
@@ -9,13 +10,37 @@ const MapBox = {
         const userInputLocation = input.queryKey[1];
         const urlSettings = "limit=1&types=place";
 
-        const url = urlPreFix + userInputLocation + ".json?" + urlSettings + mapBoxToken;
-
+        const url = urlPrefixGeocoding + ".places/" + userInputLocation + ".json?" + urlSettings + mapBoxToken;
         return fetch(url, {
             method: "GET",
         })
             .then((res) => res.json())
             .then((data) => {
+                return data;
+        })
+            .catch((error) => {
+                return error;
+        });
+    },
+
+    getRidesInfo : (A) => {
+
+        const directionType = A.queryKey[1][0];
+        const coords = A.queryKey[1][1];
+
+        console.log("x=",A);
+
+        console.log("coords in fetch=",coords);
+        const coordsUrl = "/" + coords.coords[0] + "%2C" + coords.coords[1] + "%3B" + coords.coords[2] + "%2C" + coords.coords[3] ;
+        const urlSuffix = "?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&";
+        const url = urlPrefixDirections + directionType + coordsUrl + urlSuffix + mapBoxToken;
+        console.log(url);
+        return fetch(url, {
+            method: "GET",
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("in fetch",data);
                 return data;
         })
             .catch((error) => {
