@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import { Save, Cancel, Close } from "@mui/icons-material";
 import { Button, TextField, Grid } from "@mui/material";
 import FileStep from "../files/FileStep";
+import { maxHeight } from "@mui/system";
 
 const CardStep = ({
   idTrip,
@@ -83,7 +84,7 @@ const CardStep = ({
   }
 
   return (
-    <div key={idStep} className="poiListBox">
+    <div key={idStep} className="poiListBox" style={{ margin: "5px" }}>
       <TextField
         style={{ width: "90%", marginLeft: "5%", overflow: "hidden" }}
         InputProps={{ style: { fontSize: 30 } }}
@@ -158,18 +159,30 @@ const CardStep = ({
         </Grid>
       </Grid>
 
-      {data.Files
-        ? data.Files.map((file) => {
-            return (
-              <FileStep
-                idTrip={idTrip}
-                idStep={idStep}
-                idFile={file.id}
-                url={file.imageUrl}
-              />
-            );
-          })
-        : "no file"}
+      <div
+        style={{
+          border: "1px solid lightgrey",
+          borderRadius: "5px",
+          height: "15vh",
+          margin: "5px",
+          minHeight: "15vh",
+          maxHeight: "15vh",
+          overflow: "auto",
+        }}
+      >
+        {data.Files
+          ? data.Files.map((file) => {
+              return (
+                <FileStep
+                  idTrip={idTrip}
+                  idStep={idStep}
+                  idFile={file.id}
+                  url={file.imageUrl}
+                />
+              );
+            })
+          : "no file"}
+      </div>
 
       <DayList
         key={idStep}

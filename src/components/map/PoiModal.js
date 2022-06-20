@@ -142,24 +142,34 @@ const PoiModal = ({
           id="textarea"
           placeholder="Set a description"
           multiline
-          rows={5}
+          rows={4}
           value={poiDescription}
           onChange={handlepoiDescriptionChange}
         />
 
-        {data.Files
-          ? data.Files.map((file, i) => {
-              return (
-                <PoiFile
-                  key={i}
-                  idFile={file.id}
-                  idPoi={idPOI}
-                  idTrip={idTrip}
-                  url={file.imageUrl}
-                />
-              );
-            })
-          : ""}
+        <div
+          style={{
+            border: "1px solid lightgrey",
+            borderRadius: "5px",
+            overflow: "auto",
+            minHeight: "15vh",
+            maxHeight: "15vh",
+          }}
+        >
+          {data.Files
+            ? data.Files.map((file, i) => {
+                return (
+                  <PoiFile
+                    key={i}
+                    idFile={file.id}
+                    idPoi={idPOI}
+                    idTrip={idTrip}
+                    url={file.imageUrl}
+                  />
+                );
+              })
+            : ""}
+        </div>
       </div>
 
       <label htmlFor="contained-button-file">
@@ -173,23 +183,22 @@ const PoiModal = ({
         {/* <Button variant="contained" component="span"> Upload Files </Button> */}
       </label>
 
-      <label>
-        <Input
-          sx={{ display: "none" }}
-          accept="image/*"
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          onSubmit={(e) => e.preventDefault()}
-        />
-        <Button variant="plain" component="span">
-          <UploadFile />
-          {file ? file.name : "no file given"}
-        </Button>
-      </label>
-
       <div className="BtnBox">
+        <label>
+          <Input
+            sx={{ display: "none" }}
+            accept="image/*"
+            id="contained-button-file"
+            multiple
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            onSubmit={(e) => e.preventDefault()}
+          />
+          <Button variant="plain" component="span" style={{ marginTop: "1%" }}>
+            <UploadFile />
+            {file ? file.name : "no file given"}
+          </Button>
+        </label>
         <IconButton
           style={{ color: "darkred" }}
           id="DeleteIcon"

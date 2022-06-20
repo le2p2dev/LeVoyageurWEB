@@ -65,13 +65,14 @@ const fileName = url.substring(url.lastIndexOf('/')+1).slice(13)
 const extensionName = fileName.split(".").pop();
 
   return (
-    <div style={{ marginLeft: "4%", width: "100%" }}>
+    <div style={{ marginLeft: "4%", width: "100%", }}>
      <Button variant="text" href={url} target="_blank">
         {extensionName === "gif" || extensionName === "png" || extensionName === "jpg" || extensionName === "jpeg" ? <Image style={{color:"#77B3D4", marginRight:"5px"}}/> :
         extensionName === "pdf" || extensionName === "doc" || extensionName === "docx" ? <PictureAsPdf style={{color:"#B30B00", marginRight:"5px"}}/> : <InsertDriveFile style={{color:"darkgray", marginRight:"5px"}}/>}
         {fileName.replace(/\.[^\/.]+$/, '')}
      </Button>
      <IconButton onClick={openDeleteModal}> <DeleteForeverIcon /></IconButton>
+     
     
 
      <Modal
