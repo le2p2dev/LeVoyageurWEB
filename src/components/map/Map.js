@@ -24,6 +24,7 @@ import redPin from "../../assets/red_pin.png";
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
 import ListView from "./ListView";
+import Members from "../Members"
 
 import RideModal from "./RideModal"
 import TripFiles from "../files/TripFiles";
@@ -441,6 +442,9 @@ const Map = ({
 
 
   return (
+    mode == 6 ?
+    <Members></Members>
+    :
     mode == 5 ?
     <TripFiles idTrip={idTrip}></TripFiles>
     :

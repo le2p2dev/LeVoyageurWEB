@@ -11,6 +11,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import listAPI from "../api/listApi";
 import Map from "./map/Map";
 import Filter from "./map/Filter";
+import { People } from "@mui/icons-material";
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -104,6 +105,12 @@ const BaseApp = () => {
               value="5"
               label="Files"
               icon={<FileCopyIcon />}
+            />
+            <BottomNavigationAction
+              style={{ width: navWidth }}
+              value="6"
+              label="Members"
+              icon={<People />}
             />
           </BottomNavigation>
         </div>

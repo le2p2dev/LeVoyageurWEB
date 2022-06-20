@@ -9,6 +9,7 @@ import {
   TextField,
   IconButton,
   Modal,
+  Grid,
 } from "@mui/material";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
@@ -46,32 +47,39 @@ const TripFiles = ({ idTrip }) => {
   }
 
   return (
-    <div style={{ marginLeft: "4%", width: "100%" }}>
+    <div style={{ marginLeft: "10%", width: "100%" }}>
       <h2>My files</h2>
 
-      <label>
-        <Input
-          sx={{ display: "none" }}
-          accept="image/*"
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={(e) => setSelectedFile(e.target.files[0])}
-          onSubmit={(e) => e.preventDefault()}
-        />
-        <Button variant="contained" component="span">
-          {selectedFile ? selectedFile.name : "No file chosen"}
-        </Button>
-      </label>
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <label>
+            <Input
+              sx={{ display: "none" }}
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+              onSubmit={(e) => e.preventDefault()}
+            />
+            <Button variant="contained" component="span">
+              {selectedFile ? selectedFile.name : "No file chosen"}
+            </Button>
+          </label>
+
+        
+        <IconButton onClick={handleUpload}>
+          <FileUpload />
+        </IconButton>
+        </Grid>
+
+      </Grid>
 
       
-      <IconButton onClick={handleUpload}>
-        <FileUpload />
-      </IconButton>
 
-      <div>
+      <div style={{marginLeft:"-6%", marginTop:"8%"}}>
         {data.Files.map( (file, i) => {
-        return (<FileCard url={file.imageUrl}  idFile={file.id} idTrip={idTrip} />)
+        return (<FileCard url={file.imageUrl} idFile={file.id} idTrip={idTrip} />)
       })}
       </div>
     </div>
