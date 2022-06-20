@@ -24,6 +24,8 @@ import redPin from "../../assets/red_pin.png";
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
 import ListView from "./ListView";
+
+import RideModal from "./RideModal"
 import TripFiles from "../files/TripFiles";
 
 const Map = ({
@@ -96,6 +98,9 @@ const Map = ({
     useState(false);
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
+
+  const [isRideModalOpen,setIsRideModalOpen] = useState(false);
+  const [coordsRideModal,setCoordsRideModal] = useState([]);
 
 
   //#endregion
@@ -253,7 +258,6 @@ const Map = ({
       longitude: ev.latLng.lng(),
       tripId: idTrip,
     });
-    console.log("poiList=",PoiList);
   };
 
   //update coords of poi
@@ -325,7 +329,6 @@ const Map = ({
 
   //to open the modal of data, type is poi or step
   const openModal = (data,type) => {
-    console.log(data)
     if(type=="poi"){
       changeMode("2");
       setSelectedPOI(data);
@@ -392,22 +395,20 @@ const Map = ({
 
   };
 
-  const clickLine = () => {
+  const clickLine = (coords) => {
+
+ 
+    setCoordsRideModal([coords[0].lng,coords[0].lat,coords[1].lng,coords[1].lat]);
+    console.log("here ride modal=",coordsRideModal);
+    setIsRideModalOpen(true);
 
   };
 
-  if (!stepList) {
-    return <>loading</>;
-  }
+  
 
-  /*
-	  const stepPath = []
-	  stepList.map( (step) => {
-		stepPath.push({lat: step.latitude,lng: step.longitude})
-	  })
-	  setPath(stepPath)
-	  */
-
+    if (!stepList) {
+      return <>loading</>;
+    }
 
     const setPathObject = (startStep,endStep) => {
 
@@ -418,14 +419,14 @@ const Map = ({
         start = {lat:startStep.latitude,lng:startStep.longitude};
       }
       else{
-        start = null;
+        start = 0;
       }
 
       if(endStep!=null){
         end = { lat: endStep.latitude, lng: endStep.longitude };
       }
       else{
-        end = null;
+        end = 0;
       }
       if(start && end){
         return(
@@ -582,11 +583,11 @@ const Map = ({
                       key={i}
                       onLoad={onLoad}
                       path={setPathObject(e.stepStart,e.stepEnd)}
-                      onClick={() => clickLine()}
+                      onClick={() => clickLine(setPathObject(e.stepStart,e.stepEnd))}
                       options={{
                         geodesic: true,
                         strokeColor: "green",
-                        strokeWeight: "4",
+                        strokeWeight: "5",
                       }}
                     />
                   )
@@ -657,7 +658,17 @@ const Map = ({
               transition={notificationTransition}
             />
           ) : null}
+
+          {isRideModalOpen ? (
+            <RideModal
+            coords ={coordsRideModal}
+            />
+          ) : null}
+          
+
         </div>
+
+
       </>
   );
 };
