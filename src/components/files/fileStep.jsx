@@ -30,7 +30,7 @@ const style = {
     p: 4,
   };
 
-const TripFiles = ({ idTrip,idFile, url }) => {
+const FileStep = ({ idTrip,idStep,idFile, url }) => {
 
   const queryClient = useQueryClient();
 
@@ -48,15 +48,16 @@ const closeDeleteModal = () => {
 }
 
 const deleteFile =
-    useMutation(() => listAPI.deleteTripFile(idTrip,idFile), {
+    useMutation(() => listAPI.DeleteStepFile(idTrip,idStep,idFile), {
       onSuccess: () => {
-        queryClient.invalidateQueries(idTrip+"files")
+        console.log('file delete');
+        queryClient.invalidateQueries(idStep+"files")
       }
     })
 
 const deleteFilef = () => {
-    console.log('file delete');
-    deleteFile.mutate({idTrip:idTrip,idFile: idFile})
+    
+    deleteFile.mutate({idTrip:idTrip,idStep:idStep,idFile: idFile})
     setDeleteModal(false)
 }
 
@@ -89,4 +90,4 @@ const fileName =  url.substring(url.lastIndexOf('/')+1).slice(13).split('.').sli
   );
 };
 
-export default TripFiles;
+export default FileStep;

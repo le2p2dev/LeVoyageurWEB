@@ -6,7 +6,7 @@ import DayList from "../day/DayList";
 import IconButton from "@mui/material/IconButton";
 import { Save, Cancel, Close } from "@mui/icons-material";
 import { Button, TextField, Grid } from "@mui/material";
-import FileStep from "../files/fileStep";
+import FileStep from "../files/FileStep";
 
 const CardStep = ({
   idTrip,
@@ -74,7 +74,13 @@ const CardStep = ({
     },
   });
 
-  //const { isLoading, data } = useQuery(listAPI.getStep(idTrip, idStep));
+  const { isLoading, data } = useQuery(idStep + "files", () =>
+    listAPI.getStep(idTrip, idStep)
+  );
+
+  if (isLoading) {
+    return "loading...";
+  }
 
   return (
     <div key={idStep} className="poiListBox">
@@ -152,11 +158,18 @@ const CardStep = ({
         </Grid>
       </Grid>
 
-      {/*data.Files
+      {data.Files
         ? data.Files.map((file) => {
-            return <FileStep />;
+            return (
+              <FileStep
+                idTrip={idTrip}
+                idStep={idStep}
+                idFile={file.id}
+                url={file.imageUrl}
+              />
+            );
           })
-        : "no file"*/}
+        : "no file"}
 
       <DayList
         key={idStep}
