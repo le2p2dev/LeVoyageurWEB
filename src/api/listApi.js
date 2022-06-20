@@ -140,6 +140,7 @@ const listAPI = {
       body: JSON.stringify({
         title: data.tripName,
         description: data.description,
+        backgroundUrl: data.url,
       }),
     }).then((res) => res.json());
   },
