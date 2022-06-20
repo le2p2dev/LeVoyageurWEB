@@ -7,7 +7,7 @@ import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 
 //import components*
 
-import Home from "./components/Home";
+import VoyageurLogged from "./components/VoyageurLogged";
 import BaseApp from "./components/BaseApp";
 import SignIn from "./components/SignIn";
 import MenuBar from "./components/MenuBar";
@@ -23,7 +23,7 @@ const Main = () => {
       <CssBaseline />
       <MenuBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<VoyageurLogged />} />
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/account" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" />} />
