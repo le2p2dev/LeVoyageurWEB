@@ -9,6 +9,7 @@ import { DeleteForever, UploadFile, Close } from "@mui/icons-material";
 import "./StepModal.css";
 import CardStep from "../step/CardStep";
 import { Button } from "@mui/material";
+import { Save } from "@mui/icons-material";
 
 const StepModal = ({
   id,
@@ -44,6 +45,24 @@ const StepModal = ({
   });
 
   const [file, setFile] = useState();
+
+  const createStepFile = useMutation(
+    () => listAPI.CreateStepFile(idTrip, id, file),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(id + "files");
+        refetchRides();
+      },
+    }
+  );
+
+  const handleFileUpload = () => {
+    createStepFile.mutate({
+      idTrip: idTrip,
+      id: id,
+      file: file,
+    });
+  };
 
   return (
     <div className="StepModalBox">
@@ -85,7 +104,11 @@ const StepModal = ({
           />
           <Button variant="plain" component="span">
             <UploadFile />
+
             {file ? file.name : "no file given"}
+          </Button>
+          <Button variant="plain" onClick={handleFileUpload}>
+            <Save />
           </Button>
         </label>
 

@@ -5,6 +5,37 @@ const urlPrefix = "http://levoyageur.mathieuv.pro:3630/api/";
 const listAPI = {
   //Listes des voyages pour un utilisateurs
 
+  DeleteStepFile: (idTrip, idStep, idFile) => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${idTrip}/step/${idStep}/file/${idFile}`;
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+  },
+
+  CreateStepFile: (idTrip, idStep, file) => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${idTrip}/step/${idStep}/file`;
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: formData,
+    }).then((res) => res.json());
+  },
+
   getStep: (idTrip, idStep) => {
     const urlSuffix = `user/${
       jwtDecode(localStorage.getItem("token")).id
