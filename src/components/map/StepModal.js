@@ -69,6 +69,7 @@ const StepModal = ({
         title={title}
         description={description}
         duration={duration}
+        file={file ? file : "no file given"}
       />
 
       <div className="BtnBox">
@@ -79,15 +80,13 @@ const StepModal = ({
             multiple
             type="file"
             style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+            onSubmit={(e) => e.preventDefault()}
           />
-          <IconButton
-            component={"span"}
-            id="uploadFile"
-            onClick={console.log("otto")}
-            aria-label="uploadFile"
-          >
+          <Button variant="plain" component="span">
             <UploadFile />
-          </IconButton>
+            {file ? file.name : "no file given"}
+          </Button>
         </label>
 
         <IconButton

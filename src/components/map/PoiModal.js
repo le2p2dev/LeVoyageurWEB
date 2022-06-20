@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 import { DeleteForever, Close, Save } from "@mui/icons-material";
 import DeleteModal from "./DeleteModal";
-import { useMutation, useQueryClient } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
 import Slide from "@mui/material/Slide";
 import "./PoiModal.css";
 import { UploadFile } from "@mui/icons-material";
+import PoiFile from "../files/PoiFile";
 
 const PoiModal = ({
   id,
@@ -65,6 +66,10 @@ const PoiModal = ({
     return <Slide {...props} direction="up" />;
   }
 
+  const { isLoading, data } = useQuery(idPOI + "files", () =>
+    listAPI.GetPoi(idTrip, idPOI)
+  );
+
   const updatePOI = useMutation(listAPI.UpdatePOI, {
     onSuccess: () => {
       queryClient.invalidateQueries(idTrip + "POIs");
@@ -82,7 +87,21 @@ const PoiModal = ({
     },
   });
 
+  // => send file
+  const createFile = useMutation(
+    () => listAPI.AddFileToPoi(idTrip, idPOI, file),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(idPOI + "files");
+      },
+    }
+  );
   const updatePOIOnClick = () => {
+    createFile.mutate({
+      idTrip: idTrip,
+      idPoi: idPOI,
+      file: file,
+    });
     updatePOI.mutate({
       id: id,
       title: poiTitle,
@@ -91,8 +110,11 @@ const PoiModal = ({
     });
   };
 
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(0);
 
+  if (isLoading) {
+    return "...";
+  }
   return (
     <div id="ModalBox" className="ModalBox">
       <IconButton
@@ -124,9 +146,21 @@ const PoiModal = ({
           value={poiDescription}
           onChange={handlepoiDescriptionChange}
         />
-      </div>
 
-      {file ? file.name : "no file given"}
+        {data.Files
+          ? data.Files.map((file, i) => {
+              return (
+                <PoiFile
+                  key={i}
+                  idFile={file.id}
+                  idPoi={idPOI}
+                  idTrip={idTrip}
+                  url={file.imageUrl}
+                />
+              );
+            })
+          : ""}
+      </div>
 
       <label htmlFor="contained-button-file">
         <Input
@@ -139,20 +173,20 @@ const PoiModal = ({
         {/* <Button variant="contained" component="span"> Upload Files </Button> */}
       </label>
 
-      <label htmlFor="contained-button-file">
+      <label>
         <Input
+          sx={{ display: "none" }}
           accept="image/*"
           id="contained-button-file"
           multiple
           type="file"
-          style={{ display: "none" }}
           onChange={(e) => setFile(e.target.files[0])}
           onSubmit={(e) => e.preventDefault()}
         />
-        <IconButton component={"span"} id="uploadFile" aria-label="uploadFile">
-          {" "}
-          <UploadFile />{" "}
-        </IconButton>
+        <Button variant="plain" component="span">
+          <UploadFile />
+          {file ? file.name : "no file given"}
+        </Button>
       </label>
 
       <div className="BtnBox">
