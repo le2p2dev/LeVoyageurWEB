@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid,Paper,Avatar,TextField,Button,Typography,Link } from "@mui/material";
+
 import { AccountCircle } from "@mui/icons-material";
 
 import FlagFR from "../assets/fr.png"
@@ -54,6 +55,7 @@ const Signin = () => {
       <TextField
         label={lang === 1 ? "Username" : "Nom d'utilisateur"}
         placeholder={lang === 1 ? "enter username" : "Nom d'utilisateur"}
+
         fullWidth
         required
         error={error ? true : false}
