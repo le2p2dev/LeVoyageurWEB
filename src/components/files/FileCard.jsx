@@ -66,18 +66,15 @@ const extensionName = fileName.split(".").pop();
 
   return (
     <div style={{ marginLeft: "4%", width: "100%" }}>
-<<<<<<< HEAD
-     <Button variant="text" href={url} >{fileName}</Button>
-=======
+
      <Button variant="text" href={url} target="_blank">
         {extensionName === "gif" || extensionName === "png" || extensionName === "jpg" || extensionName === "jpeg" ? <Image style={{color:"#77B3D4", marginRight:"5px"}}/> :
         extensionName === "pdf" || extensionName === "doc" || extensionName === "docx" ? <PictureAsPdf style={{color:"#B30B00", marginRight:"5px"}}/> : <InsertDriveFile style={{color:"darkgray", marginRight:"5px"}}/>}
         {fileName.replace(/\.[^\/.]+$/, '')}
      </Button>
->>>>>>> 182a1df93af18766fb0031934cd065788611cbc4
-     <IconButton onClick={openDeleteModal}> <DeleteForeverIcon /></IconButton>
-    
 
+     <IconButton onClick={openDeleteModal}> <DeleteForeverIcon /></IconButton>
+   
      <Modal
         open={DeleteModal}
         onClose={closeDeleteModal}

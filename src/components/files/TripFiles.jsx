@@ -14,11 +14,8 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
 
 import FileCard from './FileCard'
-<<<<<<< HEAD
-import FileStep from './fileStep'
-=======
+
 import { FileUpload, UploadFile } from "@mui/icons-material";
->>>>>>> 182a1df93af18766fb0031934cd065788611cbc4
 
 const TripFiles = ({ idTrip }) => {
   const queryClient = useQueryClient();
