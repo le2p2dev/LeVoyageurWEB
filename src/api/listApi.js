@@ -258,6 +258,28 @@ const listAPI = {
     }).then((res) => res.json());
   },
 
+   //list des steps d'un voyage
+   GetStepByID: (data) => {
+
+    console.log(data);
+    var tripId = data.queryKey[1][1];
+    var stepId = data.queryKey[1][0];
+  
+    console.log(stepId);
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${tripId}/step/${stepId}`;
+    console.log("urlSuffix",urlSuffix);
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }, //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
+
+
   GetDaysfromStep: (data) => {
     const urlSuffix = `user/${
       jwtDecode(localStorage.getItem("token")).id
@@ -283,7 +305,7 @@ const listAPI = {
       },
     }).then((res) => res.json());
   },
-
+  
   Login: (username, password) => {
     const urlSuffix = "login";
     return fetch(urlPrefix + urlSuffix, {

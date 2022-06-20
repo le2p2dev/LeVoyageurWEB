@@ -27,20 +27,15 @@ const MapBox = {
 
         const directionType = A.queryKey[1][0];
         const coords = A.queryKey[1][1];
-
-        console.log("x=",A);
-
-        console.log("coords in fetch=",coords);
-        const coordsUrl = "/" + coords.coords[0] + "%2C" + coords.coords[1] + "%3B" + coords.coords[2] + "%2C" + coords.coords[3] ;
+        const coordsUrl = "/" + coords[0] + "%2C" + coords[1] + "%3B" + coords[2] + "%2C" + coords[3] ;
         const urlSuffix = "?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&";
         const url = urlPrefixDirections + directionType + coordsUrl + urlSuffix + mapBoxToken;
-        console.log(url);
         return fetch(url, {
             method: "GET",
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("in fetch",data);
+                console.log("data=",data);
                 return data;
         })
             .catch((error) => {

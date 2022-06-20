@@ -86,8 +86,6 @@ const Map = ({
    const[poiLabel,setPoiLabel] = useState("");
    const[stepLabel,setStepLabel] = useState("");
    const [rideList, setRideList] = useState([]);
-  
-
   const [notificationTransition, setNotificationTransition] =
     useState(undefined);
   const [isOpenNavModeNotification, setIsOpenNavModeNotification] =
@@ -101,6 +99,8 @@ const Map = ({
 
   const [isRideModalOpen,setIsRideModalOpen] = useState(false);
   const [coordsRideModal,setCoordsRideModal] = useState([]);
+
+  const [rideID,setRideID] = useState(0);
 
 
   //#endregion
@@ -138,6 +138,10 @@ const Map = ({
   const handleCloseStep = () => {
     setIsStepModalOpen(false);
     setSelectedStep(null)
+  };
+
+  const handleCloseRide = () => {
+    setIsRideModalOpen(false);
   };
 
   const center = () => {
@@ -399,7 +403,6 @@ const Map = ({
 
  
     setCoordsRideModal([coords[0].lng,coords[0].lat,coords[1].lng,coords[1].lat]);
-    console.log("here ride modal=",coordsRideModal);
     setIsRideModalOpen(true);
 
   };
@@ -410,8 +413,14 @@ const Map = ({
       return <>loading</>;
     }
 
+    var stepEndID = 0;
+    var stepStartID=0;
+
     const setPathObject = (startStep,endStep) => {
 
+      // stepEndID = endStep.id;
+      // stepStartID = startStep.id;
+      
       var start = {};
       var end = {};
 
@@ -438,6 +447,7 @@ const Map = ({
       }
       else return [];
     }
+
 
 
   return (
@@ -658,11 +668,16 @@ const Map = ({
               transition={notificationTransition}
             />
           ) : null}
-
+        
           {isRideModalOpen ? (
-            <RideModal
-            coords ={coordsRideModal}
-            />
+              <RideModal
+                coords ={coordsRideModal}
+                closeRide={handleCloseRide}
+                tripId={idTrip}
+                startStep={stepStartID}
+                endStep={stepEndID}
+                rideId={rideID}
+              />
           ) : null}
           
 
