@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
 import Slide from "@mui/material/Slide";
 import "./PoiModal.css";
+import { UploadFile } from "@mui/icons-material";
 
 const PoiModal = ({
   id,
@@ -40,6 +41,8 @@ const PoiModal = ({
     setPoiTitle(title ? title : "");
     setPoiDescription(description ? description : "");
   }
+
+  //file for poi
 
   const handlePoiTitleChange = (event) => {
     setPoiTitle(event.target.value);
@@ -88,6 +91,8 @@ const PoiModal = ({
     });
   };
 
+  const [file, setFile] = useState();
+
   return (
     <div id="ModalBox" className="ModalBox">
       <IconButton
@@ -121,6 +126,8 @@ const PoiModal = ({
         />
       </div>
 
+      {file ? file.name : "no file given"}
+
       <label htmlFor="contained-button-file">
         <Input
           accept="image/*"
@@ -130,6 +137,22 @@ const PoiModal = ({
           style={{ display: "none" }}
         />
         {/* <Button variant="contained" component="span"> Upload Files </Button> */}
+      </label>
+
+      <label htmlFor="contained-button-file">
+        <Input
+          accept="image/*"
+          id="contained-button-file"
+          multiple
+          type="file"
+          style={{ display: "none" }}
+          onChange={(e) => setFile(e.target.files[0])}
+          onSubmit={(e) => e.preventDefault()}
+        />
+        <IconButton component={"span"} id="uploadFile" aria-label="uploadFile">
+          {" "}
+          <UploadFile />{" "}
+        </IconButton>
       </label>
 
       <div className="BtnBox">
