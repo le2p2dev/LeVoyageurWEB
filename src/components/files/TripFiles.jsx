@@ -16,15 +16,22 @@ import listAPI from "../../api/listApi";
 import FileCard from './FileCard'
 
 const TripFiles = ({ idTrip }) => {
+  const queryClient = useQueryClient();
   const [selectedFile, setSelectedFile] = useState();
 
-  const { isLoading, data } = useQuery(idTrip + "trip", () => listAPI.GetTrip(idTrip));
+  const { isLoading, data } = useQuery(idTrip + "files", () => listAPI.GetTrip(idTrip));
+
+  const createFile =
+    useMutation(() => listAPI.AddFileToTrip(idTrip,selectedFile), {
+      onSuccess: () => {
+        queryClient.invalidateQueries(idTrip+"files")
+      }
+    })
+  
 
   const handleUpload = (e) => {
     console.log(selectedFile);
-    listAPI
-      .AddFileToTrip(idTrip, selectedFile)
-      .then((data) => console.log(data));
+    createFile.mutate({idTrip: idTrip, selectedFile: selectedFile})
     e.preventDefault();
   };
 
@@ -55,12 +62,17 @@ const TripFiles = ({ idTrip }) => {
         </Button>
       </label>
 
+
+
       <Button onClick={handleUpload}>Save uploaded files</Button>
+
+
+      {selectedFile ? selectedFile.name : "No file chosen"}
     
 
       <div>
         {data.Files.map( (file, i) => {
-        return (<FileCard url={file.imageUrl} idFile={file.id} idTrip={idTrip} />)
+        return (<FileCard url={file.imageUrl}  idFile={file.id} idTrip={idTrip} />)
       })}
       </div>
 

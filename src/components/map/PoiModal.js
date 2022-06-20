@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { InputAdornment, FormControl, InputLabel, Input, Button, MenuItem, TextField, IconButton, Modal } from "@mui/material";
+import {
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  Input,
+  Button,
+  MenuItem,
+  TextField,
+  IconButton,
+  Modal,
+} from "@mui/material";
 import { DeleteForever, Close, Save } from "@mui/icons-material";
 import DeleteModal from "./DeleteModal";
 import { useMutation, useQueryClient } from "react-query";
@@ -15,12 +25,14 @@ const PoiModal = ({
   idTrip,
   openUpdatePOINotification,
   openDeletePOINotification,
-  openPoiFromDay
+  openPoiFromDay,
 }) => {
   const queryClient = useQueryClient();
 
   const [poiTitle, setPoiTitle] = useState(title ? title : "");
-  const [poiDescription, setPoiDescription] = useState(description ? description : "");
+  const [poiDescription, setPoiDescription] = useState(
+    description ? description : ""
+  );
   const [idPOI, setIdPOI] = useState(id);
 
   if (id != idPOI) {
@@ -37,8 +49,6 @@ const PoiModal = ({
     setPoiDescription(event.target.value);
   };
 
-
-  
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -80,7 +90,12 @@ const PoiModal = ({
 
   return (
     <div id="ModalBox" className="ModalBox">
-      <IconButton style={{color:"darkred"}} id="closeIcon" onClick={closePOI} aria-label="delete">
+      <IconButton
+        style={{ color: "darkred" }}
+        id="closeIcon"
+        onClick={closePOI}
+        aria-label="delete"
+      >
         <Close />
       </IconButton>
       <div className="PoiInputs">
@@ -104,7 +119,6 @@ const PoiModal = ({
           value={poiDescription}
           onChange={handlepoiDescriptionChange}
         />
-       
       </div>
 
       <label htmlFor="contained-button-file">
@@ -119,12 +133,22 @@ const PoiModal = ({
       </label>
 
       <div className="BtnBox">
-      <IconButton style={{color:"darkred"}} id="DeleteIcon" onClick={handleOpen} aria-label="delete">
-        <DeleteForever />
-      </IconButton>
-      <IconButton style={{color:"darkgreen"}} id="SaveIcon" onClick={updatePOIOnClick} aria-label="save">
-        <Save />
-      </IconButton>
+        <IconButton
+          style={{ color: "darkred" }}
+          id="DeleteIcon"
+          onClick={handleOpen}
+          aria-label="delete"
+        >
+          <DeleteForever />
+        </IconButton>
+        <IconButton
+          style={{ color: "darkgreen" }}
+          id="SaveIcon"
+          onClick={updatePOIOnClick}
+          aria-label="save"
+        >
+          <Save />
+        </IconButton>
         <Modal
           open={open}
           onClose={handleClose}
