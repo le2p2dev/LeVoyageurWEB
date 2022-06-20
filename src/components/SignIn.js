@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  Link,
-} from "@mui/material";
+import { Grid,Paper,Avatar,TextField,Button,Typography,Link } from "@mui/material";
+
 import { AccountCircle } from "@mui/icons-material";
+
+import FlagFR from "../assets/fr.png"
+import FlagEN from "../assets/en.png"
 
 import listAPI from "../api/listApi.js";
 
@@ -47,8 +43,6 @@ const Signin = () => {
       .catch((error) => setError(true));
   };
 
-  console.log(lang);
-
   return (
     <Paper elevation={5} style={paperStyle} sx={{ minWidth: "20%" }}>
       <Grid align="center">
@@ -56,11 +50,12 @@ const Signin = () => {
           {" "}
           <AccountCircle />{" "}
         </Avatar>
-        <h2>Sign In</h2>
+        <h2>{lang === 1 ? "Sign in" : "Connexion"}</h2>
       </Grid>
       <TextField
-        label="Username"
-        placeholder="Enter username"
+        label={lang === 1 ? "Username" : "Nom d'utilisateur"}
+        placeholder={lang === 1 ? "enter username" : "Nom d'utilisateur"}
+
         fullWidth
         required
         error={error ? true : false}
@@ -72,8 +67,8 @@ const Signin = () => {
         onChange={(e) => {
           setPassword(e.target.value);
         }}
-        label="Password"
-        placeholder="Enter password"
+        label={lang === 1 ? "Password" : "Mot de passe"}
+        placeholder={lang === 1 ? "enter password" : "entrez votre mot de passe"}
         type="password"
         helperText={error ? "incorrect password" : ""}
         error={error ? true : false}
@@ -88,23 +83,21 @@ const Signin = () => {
         fullWidth
         onClick={handleClick}
       >
-        Sign in
-      </Button>
-
-      <Button
-        color="primary"
-        variant="contained"
-        style={btnstyle}
-        fullWidth
-        onClick={setLang(2)}
-      >
-        Change lang
+        {lang === 1 ? "Sign In" : "Connexion"}
       </Button>
 
       <Typography>
-        Don't have an account ?
-        <Link onClick={() => navigate("/account/create")}>Sign Up</Link>
+        {lang === 1 ? "Don't have an account yet ? " : "Vous n'avez pas encore de compte ? "}
+        <Link onClick={() => navigate("/account/create")}>{lang === 1 ? "Sign Up" : "Créer un compte"}</Link>
       </Typography>
+
+      <Button
+        style={{marginTop:"5%", marginLeft:"75%"}}
+        onClick={() => lang === 1 ? setLang(2) : setLang(1)}
+      >
+        {lang === 1 ? <img src={FlagFR}/> : <img src={FlagEN}/>}
+        
+      </Button>
     </Paper>
   );
 };
