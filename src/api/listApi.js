@@ -4,6 +4,36 @@ const urlPrefix = "http://levoyageur.mathieuv.pro:3630/api/";
 
 const listAPI = {
   //Listes des voyages pour un utilisateurs
+  getJournalEntries: (idTrip) => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${idTrip}/journal`;
+
+    return fetch(urlPrefix + urlSuffix, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }, //body: JSON.stringify({"idTrip" : data.idTrip})
+    }).then((res) => res.json());
+  },
+  postMessage: (idTrip, content, title) => {
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${idTrip}/journal`;
+    return fetch(urlPrefix + urlSuffix, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+
+      body: JSON.stringify({
+        title: title,
+        description: content,
+      }),
+    }).then((res) => res.json());
+  },
 
   DeleteStepFile: (idTrip, idStep, idFile) => {
     const urlSuffix = `user/${

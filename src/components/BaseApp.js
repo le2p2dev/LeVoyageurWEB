@@ -11,7 +11,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import listAPI from "../api/listApi";
 import Map from "./map/Map";
 import Filter from "./map/Filter";
-import { People } from "@mui/icons-material";
+import { Message, People } from "@mui/icons-material";
 
 const BaseApp = () => {
   const { id } = useParams();
@@ -55,10 +55,8 @@ const BaseApp = () => {
     <>
       <div
         style={{
-          
           display: "flex",
           flexDirection: "row",
-     
         }}
       >
         <div>
@@ -112,19 +110,31 @@ const BaseApp = () => {
               label="Members"
               icon={<People />}
             />
+
+            <BottomNavigationAction
+              style={{ width: navWidth }}
+              value="7"
+              label="Journal"
+              icon={<Message />}
+            />
           </BottomNavigation>
         </div>
         <div style={{ height: "90vh" }}>
-          <><Filter checkBoxPOI={handleCheckBoxPoi} poiTypes={poiTypes}></Filter>
-          <Map
-            idTrip={id}
-            mode={value}
-            changeMode={setValue}
-            addPoiToDay={addPoiToDay}
-            poisForDay={poisForDay}
-            removePoiOfDay={removePoiOfDay}
-            poiTypes={poiTypes}/></>
-          
+          <>
+            <Filter
+              checkBoxPOI={handleCheckBoxPoi}
+              poiTypes={poiTypes}
+            ></Filter>
+            <Map
+              idTrip={id}
+              mode={value}
+              changeMode={setValue}
+              addPoiToDay={addPoiToDay}
+              poisForDay={poisForDay}
+              removePoiOfDay={removePoiOfDay}
+              poiTypes={poiTypes}
+            />
+          </>
         </div>
       </div>
 

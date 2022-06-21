@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import {GoogleMap,
+import {
+  GoogleMap,
   InfoBox,
   LoadScript,
   Marker,
@@ -24,9 +25,10 @@ import redPin from "../../assets/red_pin.png";
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
 import ListView from "./ListView";
-import Members from "../Members"
+import Members from "../Members";
 
 import TripFiles from "../files/TripFiles";
+import Journal from "../journal/Journal";
 
 const Map = ({
   idTrip,
@@ -35,7 +37,7 @@ const Map = ({
   poisForDay,
   removePoiOfDay,
   poiTypes,
-  changeMode
+  changeMode,
 }) => {
   //#region Get browser geolocalisation
   // if ("geolocation" in navigator) {
@@ -57,9 +59,8 @@ const Map = ({
 
   const defaultCenter = {
     lat: lat,
-    lng: lng
+    lng: lng,
   };
-
 
   //#endregion
 
@@ -79,14 +80,13 @@ const Map = ({
   const [selectedStep, setSelectedStep] = useState();
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
   const [isStepModalOpen, setIsStepModalOpen] = useState(false);
-  const [zoom,setZoom] = useState(7);
-   //id du day dans lequel des poi sont entrain d'etre ajouté, 0 si quand il n'y en a pas
-   const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
-   //Label on hover pour le mode nav
-   const[poiLabel,setPoiLabel] = useState("");
-   const[stepLabel,setStepLabel] = useState("");
-   const [rideList, setRideList] = useState([]);
-  
+  const [zoom, setZoom] = useState(7);
+  //id du day dans lequel des poi sont entrain d'etre ajouté, 0 si quand il n'y en a pas
+  const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
+  //Label on hover pour le mode nav
+  const [poiLabel, setPoiLabel] = useState("");
+  const [stepLabel, setStepLabel] = useState("");
+  const [rideList, setRideList] = useState([]);
 
   const [notificationTransition, setNotificationTransition] =
     useState(undefined);
@@ -98,8 +98,6 @@ const Map = ({
     useState(false);
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
-
-
 
   //#endregion
 
@@ -114,7 +112,6 @@ const Map = ({
     refetch();
   };
 
-
   //open modal POI
   const handleOpenPOI = (POI) => {
     setIsPOIModalOpen(true);
@@ -124,29 +121,28 @@ const Map = ({
   //close modal POI
   const handleClosePOI = () => {
     setIsPOIModalOpen(false);
-    setSelectedPOI(null)
+    setSelectedPOI(null);
   };
 
   const handleOpenStep = (Step) => {
     setIsStepModalOpen(true);
     setSelectedStep(Step);
-
   };
 
   const handleCloseStep = () => {
     setIsStepModalOpen(false);
-    setSelectedStep(null)
+    setSelectedStep(null);
   };
 
   const center = () => {
-    if(isPOIModalOpen && mode==2 ){
-   return selectedPOI.latitude, selectedPOI.longitude
-  }
-     
-        if(isStepModalOpen && mode==3){
-          return selectedStep.latitude,selectedStep.longitude }
-          
-      else return defaultCenter}
+    if (isPOIModalOpen && mode == 2) {
+      return selectedPOI.latitude, selectedPOI.longitude;
+    }
+
+    if (isStepModalOpen && mode == 3) {
+      return selectedStep.latitude, selectedStep.longitude;
+    } else return defaultCenter;
+  };
   //#endregion
 
   //#region useQuerries
@@ -190,24 +186,22 @@ const Map = ({
     }
   );
 
-   // Get rides from trip
-   const { isLoading: isLoadingRides, data: RideListOriginal,refetch:refetchRides} = useQuery(
-    idTrip + "ride",
-    () => listAPI.GetRidesFromTrip(idTrip),
-    {
-      onSuccess: (data) => {
-        setRideList(data);
-      },
-    }
-  );
-
+  // Get rides from trip
+  const {
+    isLoading: isLoadingRides,
+    data: RideListOriginal,
+    refetch: refetchRides,
+  } = useQuery(idTrip + "ride", () => listAPI.GetRidesFromTrip(idTrip), {
+    onSuccess: (data) => {
+      setRideList(data);
+    },
+  });
 
   useEffect(() => {
     if (firstStepLoading == true && stepListOriginal[0]) {
       setLat(stepListOriginal[0]?.latitude);
       setLng(stepListOriginal[0]?.longitude);
     }
-
   }, [firstStepLoading]);
 
   //#endregion
@@ -231,7 +225,7 @@ const Map = ({
     onSuccess: () => {
       queryClient.invalidateQueries(idTrip + "steps");
       refetchRides();
-    }
+    },
   });
 
   //update Step coords
@@ -239,7 +233,7 @@ const Map = ({
     onSuccess: () => {
       queryClient.invalidateQueries(idTrip + "steps");
       refetchRides();
-    }
+    },
   });
 
   //#endregion
@@ -248,7 +242,6 @@ const Map = ({
 
   //add to POI from map onclick
   const showPOI = (ev) => {
-    
     addPOI.mutate({
       title: "test",
       description: "from web app",
@@ -296,7 +289,6 @@ const Map = ({
       longitude: lng,
       tripId: idTrip,
     });
-
   };
 
   //add step from map onclick
@@ -308,13 +300,11 @@ const Map = ({
       longitude: ev.latLng.lng(),
       tripId: idTrip,
     });
-
-    
   };
 
   useEffect(() => {
-    if(mode==2) handleCloseStep()
-    if(mode==3) handleClosePOI()
+    if (mode == 2) handleCloseStep();
+    if (mode == 3) handleClosePOI();
   }, [mode]);
 
   const setNewCenter = () => {
@@ -326,8 +316,8 @@ const Map = ({
   };
 
   //to open the modal of data, type is poi or step
-  const openModal = (data,type) => {
-    if(type=="poi"){
+  const openModal = (data, type) => {
+    if (type == "poi") {
       changeMode("2");
       setSelectedPOI(data);
       setIsPOIModalOpen(true);
@@ -335,7 +325,7 @@ const Map = ({
       setLat(data.latitude);
       setLng(data.longitude);
     }
-    if(type=="step"){
+    if (type == "step") {
       changeMode("3");
       setSelectedStep(data);
       setIsStepModalOpen(true);
@@ -343,8 +333,7 @@ const Map = ({
       setLat(data.latitude);
       setLng(data.longitude);
     }
-    
-  }
+  };
 
   //#endregion
 
@@ -388,59 +377,45 @@ const Map = ({
 
   //définition polyline
   const [path, setPath] = useState([]);
-  const onLoad = (polyline) => {
+  const onLoad = (polyline) => {};
 
+  if (!stepList) {
+    return <>loading</>;
+  }
 
+  const setPathObject = (startStep, endStep) => {
+    var start = {};
+    var end = {};
+
+    if (startStep != null) {
+      start = { lat: startStep.latitude, lng: startStep.longitude };
+    } else {
+      start = 0;
+    }
+
+    if (endStep != null) {
+      end = { lat: endStep.latitude, lng: endStep.longitude };
+    } else {
+      end = 0;
+    }
+    if (start && end) {
+      return [start, end];
+    } else return [];
   };
 
-    if (!stepList) {
-      return <>loading</>;
-    }
-
-    const setPathObject = (startStep,endStep) => {
-
-      var start = {};
-      var end = {};
-
-      if(startStep!=null){
-        start = {lat:startStep.latitude,lng:startStep.longitude};
-      }
-      else{
-        start = 0;
-      }
-
-      if(endStep!=null){
-        end = { lat: endStep.latitude, lng: endStep.longitude };
-      }
-      else{
-        end = 0;
-      }
-      if(start && end){
-        return(
-          [
-            start,
-            end
-          ]
-        );
-      }
-      else return [];
-    }
-
-
-  return (
-    mode == 6 ?
+  return mode == 7 ? (
+    <Journal idTrip={idTrip} />
+  ) : mode == 6 ? (
     <Members></Members>
-    :
-    mode == 5 ?
+  ) : mode == 5 ? (
     <TripFiles idTrip={idTrip}></TripFiles>
-    :
-    mode == 4 ? 
-    <ListView openModal={openModal}/>
-    :
-      <>
+  ) : mode == 4 ? (
+    <ListView openModal={openModal} />
+  ) : (
+    <>
       <div className="searchBar">
         <TextField
-        className="searchText"
+          className="searchText"
           id="outlined-search"
           label="Search"
           type="search"
@@ -449,24 +424,35 @@ const Map = ({
           variant="outlined"
           onChange={handleSearchLocationChange}
           value={searchLocation}
-          onKeyPress={(ev) => { if (ev.key === 'Enter') { handleLocationSearch(); } }}
+          onKeyPress={(ev) => {
+            if (ev.key === "Enter") {
+              handleLocationSearch();
+            }
+          }}
         />
-        <IconButton color="secondary" aria-label="Search location"
-          id="seatchBtnMap" type="submit" onClick={() => handleLocationSearch()}>
-          <SearchRounded className="searchIcon"/>
+        <IconButton
+          color="secondary"
+          aria-label="Search location"
+          id="seatchBtnMap"
+          type="submit"
+          onClick={() => handleLocationSearch()}
+        >
+          <SearchRounded className="searchIcon" />
         </IconButton>
       </div>
-        <div className="mapDiv">
-          <LoadScript googleMapsApiKey="AIzaSyAYdTsYL1j24J-9yh82wyY8K088VoYT69M">
-            <GoogleMap
-              clickableIcons={mode == 1 ? true : false}
-              mapContainerStyle={mapStyles}
-              zoom={zoom}
-              center={defaultCenter}
-              onCenterChanged={isPOIModalOpen || isStepModalOpen ? null : setNewCenter}
-              yesIWantToUseGoogleMapApiInternals={true}
-              onLoad={(ev) => setMapRef(ev)}
-              onClick={
+      <div className="mapDiv">
+        <LoadScript googleMapsApiKey="AIzaSyAYdTsYL1j24J-9yh82wyY8K088VoYT69M">
+          <GoogleMap
+            clickableIcons={mode == 1 ? true : false}
+            mapContainerStyle={mapStyles}
+            zoom={zoom}
+            center={defaultCenter}
+            onCenterChanged={
+              isPOIModalOpen || isStepModalOpen ? null : setNewCenter
+            }
+            yesIWantToUseGoogleMapApiInternals={true}
+            onLoad={(ev) => setMapRef(ev)}
+            onClick={
               mode == 1
                 ? () => openNavModeNotification(TransitionUp)
                 : mode == 2
@@ -478,177 +464,182 @@ const Map = ({
                     showStep(ev);
                   }
                 : null
-              }
-              options={{
-                
-                styles: poiTypes.map((e) => {
-                  return {
-                    elementType: "labels.icon",
-                    featureType: e.mapName,
-                    stylers: [{ visibility: e.value ? "on" : "off" }],
-                  };
-                }),
-              }}
-            >
-
-
-              {isLoadingSteps
-                ? null
-                : stepList?.map((e, i) => {
-                    return (
-                      <Marker
-                        key={i}
-                        position={{
-                          lat: e.latitude ? e.latitude : 0.0,
-                          lng: e.longitude ? e.longitude : 0.0,
-                        }}
-                        draggable={mode == 3 ? true : false}
-                        onDragEnd={(ev) =>
-                          updateStepOnClick(
-                            e.id,
-                            ev.latLng.lat(),
-                            ev.latLng.lng(),
-                            i
-                          )
-                        }
-                        onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
-                        icon={selectedStep?.id === e.id && isStepModalOpen ? yellowStepPin : greenPin}
-                        onMouseOver={mode==1 ? 
-                          ()=>setStepLabel(e.title ? e.title : "no title")
-                          :
-                           ()=>setStepLabel("") }
-
-                        onMouseOut={()=> setStepLabel("")}
-                        label={mode==1 && e.title===stepLabel ? stepLabel : null}
-                        
-                      />
-                    );
-                  })}
-              //shows markers on map from DB
-              {isLoading
-                ? null
-                : POIList?.map((e, i) => {
-                    return (
-                      <Marker
-                        key={i}
-                        position={{ lat: e.latitude, lng: e.longitude }}
-                        draggable={mode == 2 ? true : false}
-                        onDragEnd={(ev) =>
-                          updatePOIOnClick(
-                            e.id,
-                            ev.latLng.lat(),
-                            ev.latLng.lng(),
-                            i
-                          )
-                        }
-                        onMouseOver={mode==1 ? 
-                          ()=>setPoiLabel(e.title ? e.title : "no title")
-                          :
-                           ()=>setPoiLabel("") }
-
-                        onMouseOut={()=> setPoiLabel("")}
-                        
-                        onClick={
-                          mode != 3 && mode !=1
-                            ? () => handleOpenPOI(e)
-                            : AddingPoiToDayId != 0 ? () => addPoiToDay(e) : null 
-                        }
-                        icon={
-                          poisForDay.find((element) => element === e) && mode == 3
-                            ? yellowPoiPin
-                            : selectedPOI?.id === e.id && isPOIModalOpen ? yellowPoiPin : redPin}
-                        
-                        label={ (mode == 3 && e.StepId == selectedStep?.id && isStepModalOpen) ? e.title : mode==1 && e.title===poiLabel ? poiLabel : null}
-
-                      >
-                      </Marker>
-
-                    );
-                  })}
-              //définition du polyline
-              {isLoadingRides? null: (
-                RideListOriginal.map((e,i)=>{
-                  return(
+            }
+            options={{
+              styles: poiTypes.map((e) => {
+                return {
+                  elementType: "labels.icon",
+                  featureType: e.mapName,
+                  stylers: [{ visibility: e.value ? "on" : "off" }],
+                };
+              }),
+            }}
+          >
+            {isLoadingSteps
+              ? null
+              : stepList?.map((e, i) => {
+                  return (
+                    <Marker
+                      key={i}
+                      position={{
+                        lat: e.latitude ? e.latitude : 0.0,
+                        lng: e.longitude ? e.longitude : 0.0,
+                      }}
+                      draggable={mode == 3 ? true : false}
+                      onDragEnd={(ev) =>
+                        updateStepOnClick(
+                          e.id,
+                          ev.latLng.lat(),
+                          ev.latLng.lng(),
+                          i
+                        )
+                      }
+                      onClick={() => (mode == 3 ? handleOpenStep(e) : null)}
+                      icon={
+                        selectedStep?.id === e.id && isStepModalOpen
+                          ? yellowStepPin
+                          : greenPin
+                      }
+                      onMouseOver={
+                        mode == 1
+                          ? () => setStepLabel(e.title ? e.title : "no title")
+                          : () => setStepLabel("")
+                      }
+                      onMouseOut={() => setStepLabel("")}
+                      label={
+                        mode == 1 && e.title === stepLabel ? stepLabel : null
+                      }
+                    />
+                  );
+                })}
+            //shows markers on map from DB
+            {isLoading
+              ? null
+              : POIList?.map((e, i) => {
+                  return (
+                    <Marker
+                      key={i}
+                      position={{ lat: e.latitude, lng: e.longitude }}
+                      draggable={mode == 2 ? true : false}
+                      onDragEnd={(ev) =>
+                        updatePOIOnClick(
+                          e.id,
+                          ev.latLng.lat(),
+                          ev.latLng.lng(),
+                          i
+                        )
+                      }
+                      onMouseOver={
+                        mode == 1
+                          ? () => setPoiLabel(e.title ? e.title : "no title")
+                          : () => setPoiLabel("")
+                      }
+                      onMouseOut={() => setPoiLabel("")}
+                      onClick={
+                        mode != 3 && mode != 1
+                          ? () => handleOpenPOI(e)
+                          : AddingPoiToDayId != 0
+                          ? () => addPoiToDay(e)
+                          : null
+                      }
+                      icon={
+                        poisForDay.find((element) => element === e) && mode == 3
+                          ? yellowPoiPin
+                          : selectedPOI?.id === e.id && isPOIModalOpen
+                          ? yellowPoiPin
+                          : redPin
+                      }
+                      label={
+                        mode == 3 &&
+                        e.StepId == selectedStep?.id &&
+                        isStepModalOpen
+                          ? e.title
+                          : mode == 1 && e.title === poiLabel
+                          ? poiLabel
+                          : null
+                      }
+                    ></Marker>
+                  );
+                })}
+            //définition du polyline
+            {isLoadingRides
+              ? null
+              : RideListOriginal.map((e, i) => {
+                  return (
                     <Polyline
                       key={i}
                       onLoad={onLoad}
-                      path={setPathObject(e.stepStart,e.stepEnd)}
+                      path={setPathObject(e.stepStart, e.stepEnd)}
                       options={{
                         geodesic: true,
                         strokeColor: "green",
                         strokeWeight: "5",
                       }}
                     />
-                  )
-                })
-                
-              )
-              }
+                  );
+                })}
+          </GoogleMap>
+        </LoadScript>
+      </div>
 
-
-            </GoogleMap>
-          </LoadScript>
-        </div>
-
-        <div id="">
-
-          {isPOIModalOpen && selectedPOI ? (
-            <PoiModal
-              title={selectedPOI.title}
-              description={selectedPOI.description}
-              id={selectedPOI.id}
-              idTrip={idTrip}
-              closePOI={handleClosePOI}
-              openUpdatePOINotification={openUpdatePOINotification}
-              openDeletePOINotification={openDeletePOINotification}
-            />
-          ) : null}
-          {isStepModalOpen && selectedStep ? (
-            <StepModal
-              title={selectedStep.title}
-              description={selectedStep.description}
-              id={selectedStep.id}
-              duration={selectedStep.duration}
-              idTrip={idTrip}
-              addPoiToDay={addPoiToDay}
-              poisForDay={poisForDay}
-              closeStep={handleCloseStep}
-              removePoiOfDay={removePoiOfDay}
-              openModal={openModal}
-              AddingPoiToDayId={AddingPoiToDayId}
-              setAddingPoiToDayId={setAddingPoiToDayId}
-              refetchRides={refetchRides}
-            />
-          ) : null}
-          {isOpenNavModeNotification ? (
-            <Notification
-              severity={"info"}
-              message="You are in Navigation Mode"
-              open={isOpenNavModeNotification}
-              close={closeNavModeNotification}
-              transition={notificationTransition}
-            />
-          ) : null}
-          {isOpenUpdatePOINotification ? (
-            <Notification
-              severity={"info"}
-              message="Poi succesfully updated"
-              open={isOpenUpdatePOINotification}
-              close={closeUpdatePOINotification}
-              transition={notificationTransition}
-            />
-          ) : null}
-          {isOpenDeletePoiNotification ? (
-            <Notification
-              severity={"info"}
-              message="Poi succesfully deleted"
-              open={isOpenDeletePoiNotification}
-              close={closeDeletePOINotification}
-              transition={notificationTransition}
-            />
-          ) : null}
-        </div>
-      </>
+      <div id="">
+        {isPOIModalOpen && selectedPOI ? (
+          <PoiModal
+            title={selectedPOI.title}
+            description={selectedPOI.description}
+            id={selectedPOI.id}
+            idTrip={idTrip}
+            closePOI={handleClosePOI}
+            openUpdatePOINotification={openUpdatePOINotification}
+            openDeletePOINotification={openDeletePOINotification}
+          />
+        ) : null}
+        {isStepModalOpen && selectedStep ? (
+          <StepModal
+            title={selectedStep.title}
+            description={selectedStep.description}
+            id={selectedStep.id}
+            duration={selectedStep.duration}
+            idTrip={idTrip}
+            addPoiToDay={addPoiToDay}
+            poisForDay={poisForDay}
+            closeStep={handleCloseStep}
+            removePoiOfDay={removePoiOfDay}
+            openModal={openModal}
+            AddingPoiToDayId={AddingPoiToDayId}
+            setAddingPoiToDayId={setAddingPoiToDayId}
+            refetchRides={refetchRides}
+          />
+        ) : null}
+        {isOpenNavModeNotification ? (
+          <Notification
+            severity={"info"}
+            message="You are in Navigation Mode"
+            open={isOpenNavModeNotification}
+            close={closeNavModeNotification}
+            transition={notificationTransition}
+          />
+        ) : null}
+        {isOpenUpdatePOINotification ? (
+          <Notification
+            severity={"info"}
+            message="Poi succesfully updated"
+            open={isOpenUpdatePOINotification}
+            close={closeUpdatePOINotification}
+            transition={notificationTransition}
+          />
+        ) : null}
+        {isOpenDeletePoiNotification ? (
+          <Notification
+            severity={"info"}
+            message="Poi succesfully deleted"
+            open={isOpenDeletePoiNotification}
+            close={closeDeletePOINotification}
+            transition={notificationTransition}
+          />
+        ) : null}
+      </div>
+    </>
   );
 };
 
