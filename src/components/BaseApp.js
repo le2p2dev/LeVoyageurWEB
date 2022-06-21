@@ -17,24 +17,9 @@ const BaseApp = () => {
   const { id } = useParams();
 
   const [poisForDay, setPoisForDay] = useState([]);
-  const [poiTypes, setPoiTypes] = useState([
-    { name: "Shopping", value: false, mapName: "poi.business.Shopping" },
-    { name: "Attractions", value: false, mapName: "poi.attraction" },
-    { name: "All Businesses", value: false, mapName: "poi.business" },
-    { name: "Lodging", value: false, mapName: "poi.business.Lodging" },
-    { name: "Park", value: false, mapName: "poi.park" },
-    { name: "Place of worship", value: false, mapName: "poi.place_of_worship" },
-    { name: "Medical", value: false, mapName: "poi.medical" },
-  ]);
 
   const addPoiToDay = (poi) => {
     setPoisForDay((oldList) => [...oldList, poi]);
-  };
-
-  const handleCheckBoxPoi = (event, i) => {
-    let poiTypesCopy = [...poiTypes];
-    poiTypesCopy[i].value = poiTypesCopy[i].value === true ? false : true;
-    setPoiTypes(poiTypesCopy);
   };
 
   const [navWidth, setNavWidth] = useState("5vw");
@@ -61,7 +46,7 @@ const BaseApp = () => {
       >
         <div>
           <BottomNavigation
-            style={{
+            sx={{
               width: navWidth,
               height: "85vh",
               display: "flex",
@@ -75,42 +60,41 @@ const BaseApp = () => {
             }}
           >
             <BottomNavigationAction
-              style={{ width: navWidth }}
+              sx={{ width: navWidth, color: "grey" }}
               value="1"
               label="Navigation"
               icon={<MapIcon />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth }}
+              sx={{ width: navWidth, color: "red" }}
               value="2"
               label="POI"
               icon={<LocationOnIcon />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth }}
+              sx={{ width: navWidth, color: "green" }}
               value="3"
               label="Step"
               icon={<DirectionsIcon />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth }}
+              sx={{ width: navWidth }}
               value="4"
               label="List View"
               icon={<FormatListBulletedIcon />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth }}
+              sx={{ width: navWidth}}
               value="5"
               label="Files"
               icon={<FileCopyIcon />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth }}
+              style={{ width: navWidth}}
               value="6"
               label="Members"
               icon={<People />}
             />
-
             <BottomNavigationAction
               style={{ width: navWidth }}
               value="7"
@@ -121,10 +105,6 @@ const BaseApp = () => {
         </div>
         <div style={{ height: "90vh" }}>
           <>
-            <Filter
-              checkBoxPOI={handleCheckBoxPoi}
-              poiTypes={poiTypes}
-            ></Filter>
             <Map
               idTrip={id}
               mode={value}
@@ -132,7 +112,6 @@ const BaseApp = () => {
               addPoiToDay={addPoiToDay}
               poisForDay={poisForDay}
               removePoiOfDay={removePoiOfDay}
-              poiTypes={poiTypes}
             />
           </>
         </div>

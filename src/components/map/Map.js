@@ -21,6 +21,7 @@ import greenPin from "../../assets/green_pin.png";
 import yellowStepPin from "../../assets/yellowStep_pin.png";
 import yellowPoiPin from "../../assets/yellowPoi_pin.png";
 import redPin from "../../assets/red_pin.png";
+import Filter from "./Filter";
 
 import Notification from "./Notification";
 import ListView from "./ListView";
@@ -34,7 +35,6 @@ const Map = ({
   addPoiToDay,
   poisForDay,
   removePoiOfDay,
-  poiTypes,
   changeMode,
 }) => {
   //#region Get browser geolocalisation
@@ -60,18 +60,27 @@ const Map = ({
     lng: lng,
   };
 
+  const [poiTypes, setPoiTypes] = useState([
+    { name: "Shopping", value: false, mapName: "poi.business.Shopping" },
+    { name: "Attractions", value: false, mapName: "poi.attraction" },
+    { name: "All Businesses", value: false, mapName: "poi.business" },
+    { name: "Lodging", value: false, mapName: "poi.business.Lodging" },
+    { name: "Park", value: false, mapName: "poi.park" },
+    { name: "Place of worship", value: false, mapName: "poi.place_of_worship" },
+    { name: "Medical", value: false, mapName: "poi.medical" },
+  ]);
+
+  const handleCheckBoxPoi = (event, i) => {
+    let poiTypesCopy = [...poiTypes];
+    poiTypesCopy[i].value = poiTypesCopy[i].value === true ? false : true;
+    setPoiTypes(poiTypesCopy);
+  };
+
   //#endregion
 
   //#region useState Variables
 
   const [searchLocation, setSearchLocation] = useState("");
-  const [POICategory, setPOICategory] = useState([
-    "Hotels",
-    "Restaurants",
-    "Museums",
-    "Bars",
-    "Landmarks",
-  ]);
   const [POIList, setPOIList] = useState([]);
   const [stepList, setStepList] = useState([]);
   const [selectedPOI, setSelectedPOI] = useState();
@@ -410,6 +419,10 @@ const Map = ({
     <ListView openModal={openModal} />
   ) : (
     <>
+      <Filter
+        checkBoxPOI={handleCheckBoxPoi}
+        poiTypes={poiTypes}
+      ></Filter>
       <div className="searchBar">
         <TextField
           className="searchText"
@@ -555,6 +568,7 @@ const Map = ({
                           ? poiLabel
                           : null
                       }
+                      labelStyle={{color: "white"}}
                     ></Marker>
                   );
                 })}
