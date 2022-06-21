@@ -29,6 +29,8 @@ import Members from "../Members";
 
 import TripFiles from "../files/TripFiles";
 import Journal from "../journal/Journal";
+import RideModal from "./RideModal";
+
 
 const Map = ({
   idTrip,
@@ -80,14 +82,14 @@ const Map = ({
   const [selectedStep, setSelectedStep] = useState();
   const [isPOIModalOpen, setIsPOIModalOpen] = useState(false);
   const [isStepModalOpen, setIsStepModalOpen] = useState(false);
-  const [zoom, setZoom] = useState(7);
-  //id du day dans lequel des poi sont entrain d'etre ajouté, 0 si quand il n'y en a pas
-  const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
-  //Label on hover pour le mode nav
-  const [poiLabel, setPoiLabel] = useState("");
-  const [stepLabel, setStepLabel] = useState("");
-  const [rideList, setRideList] = useState([]);
 
+  const [zoom,setZoom] = useState(7);
+   //id du day dans lequel des poi sont entrain d'etre ajouté, 0 si quand il n'y en a pas
+   const [AddingPoiToDayId, setAddingPoiToDayId] = useState(0);
+   //Label on hover pour le mode nav
+   const[poiLabel,setPoiLabel] = useState("");
+   const[stepLabel,setStepLabel] = useState("");
+   const [rideList, setRideList] = useState([]);
   const [notificationTransition, setNotificationTransition] =
     useState(undefined);
   const [isOpenNavModeNotification, setIsOpenNavModeNotification] =
@@ -98,6 +100,11 @@ const Map = ({
     useState(false);
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
+  const [isRideModalOpen,setIsRideModalOpen] = useState(false);
+
+  const [rideID,setRideID] = useState(0);
+  const [stepStartID,setStepStartID] = useState(0);
+  const [stepEndID,setStepEndID] = useState(0);
 
   //#endregion
 
@@ -132,6 +139,10 @@ const Map = ({
   const handleCloseStep = () => {
     setIsStepModalOpen(false);
     setSelectedStep(null);
+  };
+
+  const handleCloseRide = () => {
+    setIsRideModalOpen(false);
   };
 
   const center = () => {
@@ -383,6 +394,7 @@ const Map = ({
     return <>loading</>;
   }
 
+
   const setPathObject = (startStep, endStep) => {
     var start = {};
     var end = {};
@@ -392,11 +404,34 @@ const Map = ({
     } else {
       start = 0;
     }
+  
+    const setPathObject = (startStep,endStep) => {
+  
+      var start = {};
+      var end = {};
 
-    if (endStep != null) {
-      end = { lat: endStep.latitude, lng: endStep.longitude };
-    } else {
-      end = 0;
+      if(startStep!=null){
+        start = {lat:startStep.latitude,lng:startStep.longitude};
+      }
+      else{
+        start = 0;
+      }
+
+      if(endStep!=null){
+        end = { lat: endStep.latitude, lng: endStep.longitude };
+      }
+      else{
+        end = 0;
+      }
+      if(start && end){
+        return(
+          [
+            start,
+            end
+          ]
+        );
+      }
+      else return [];
     }
     if (start && end) {
       return [start, end];
@@ -569,6 +604,7 @@ const Map = ({
                     <Polyline
                       key={i}
                       onLoad={onLoad}
+
                       path={setPathObject(e.stepStart, e.stepEnd)}
                       options={{
                         geodesic: true,
