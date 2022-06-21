@@ -261,15 +261,12 @@ const listAPI = {
    //list des steps d'un voyage
    GetStepByID: (data) => {
 
-    console.log(data);
     var tripId = data.queryKey[1][1];
     var stepId = data.queryKey[1][0];
   
-    console.log(stepId);
     const urlSuffix = `user/${
       jwtDecode(localStorage.getItem("token")).id
     }/trip/${tripId}/step/${stepId}`;
-    console.log("urlSuffix",urlSuffix);
     return fetch(urlPrefix + urlSuffix, {
       method: "GET",
       headers: {
@@ -305,6 +302,24 @@ const listAPI = {
       },
     }).then((res) => res.json());
   },
+
+  UpdateRide: (data) => {
+    console.log("data in update ride=",data);
+    const urlSuffix = `user/${
+      jwtDecode(localStorage.getItem("token")).id
+    }/trip/${data.tripId}/ride/${data.id}`; 
+    return fetch(urlPrefix + urlSuffix, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        estimation:data.time,
+        travelType:data.directionType
+      }),
+    }).then((res) => res.json());
+  },
   
   Login: (username, password) => {
     const urlSuffix = "login";
@@ -319,7 +334,6 @@ const listAPI = {
   },
   Register: (username, password) => {
     const urlSuffix = "signup";
-    console.log(urlPrefix + urlSuffix);
     return fetch(urlPrefix + urlSuffix, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -342,7 +356,12 @@ const listAPI = {
   },
 
   UpdateUser: (data) => {
-    console.log(data);
+    // let formData = new FormData();
+    // formData.append('username', data.username);
+    // formData.append('password', data.password);
+    // formData.append('avatar', data.avatar);
+    // formData.append('image', data.image);
+
     const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}`;
     return fetch(urlPrefix + urlSuffix, {
       method: "PUT",
@@ -355,13 +374,18 @@ const listAPI = {
         password: data.password,
         avatar: data.avatar,
       }),
+      // formData
+      // {
+      //   username: data.username,
+      //   password: data.password,
+      //   avatar: data.avatar,
+      // }
+      
     }).then((res) => res.json());
   },
 
   DeleteUser: () => {
-    console.log("delete user");
     const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}`;
-    console.log(urlPrefix + urlSuffix);
     return fetch(urlPrefix + urlSuffix, {
       method: "DELETE",
       headers: {
