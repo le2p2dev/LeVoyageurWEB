@@ -33,7 +33,7 @@ const RideModal = ({coords,closeRide,tripId,startStep,endStep,rideId}) => {
                 if(data.code =="Ok" && data.routes[0]!=null){
                     setDistance(data.routes[0].distance);
                     setTime(data.routes[0].duration);
-                    updateRide();
+                    isLoading ? null : updateRide();
                 }
                 if(data.code != "Ok"){
                     setErrorMsg("Error finding a route");

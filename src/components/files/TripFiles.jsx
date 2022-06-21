@@ -76,7 +76,7 @@ const TripFiles = ({ idTrip }) => {
 
       <div style={{marginLeft:"-6%", marginTop:"8%"}}>
         {data.Files.map( (file, i) => {
-        return (<FileCard url={file.imageUrl} idFile={file.id} idTrip={idTrip} />)
+        return (<FileCard key = {i} url={file.imageUrl} idFile={file.id} idTrip={idTrip} />)
       })}
       </div>
     </div>
