@@ -14,7 +14,6 @@ const NavigationMap = ({tabChange}) => {
     let setTabChange = (x) => {
         console.log("tabChange", tabChange);
         tabChange(x);
-        console.log("here");
     }
 
     return(

@@ -16,7 +16,7 @@ import listAPI from "../../api/listApi";
 
 import FileCard from './FileCard'
 
-import { FileUpload, UploadFile } from "@mui/icons-material";
+import { FileUpload, InsertDriveFile } from "@mui/icons-material";
 
 const TripFiles = ({ idTrip }) => {
   const queryClient = useQueryClient();
@@ -48,7 +48,7 @@ const TripFiles = ({ idTrip }) => {
 
   return (
     <div style={{ marginLeft: "10%", width: "100%" }}>
-      <h2>My files</h2>
+      <h2 style={{  }}><InsertDriveFile/> My Trip Passeport</h2>
 
       
           <label>

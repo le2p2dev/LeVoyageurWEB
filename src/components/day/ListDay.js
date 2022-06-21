@@ -30,8 +30,8 @@ const ListDay = ({ idStep, idTrip, openModal }) => {
                 borderRadius: "5px",
                 textAlign: "center",
                 minHeight: "150px",
-                minWidth: "150px",
-                maxWidth: "300px",
+                minWidth: "230px",
+                maxWidth: "230px",
               }}
             >
               <p style={{ fontSize: 20 }}>Day {day.number}</p>

@@ -10,15 +10,15 @@ const Journal = ({content,user,title,date,file}) => {
    
   return (
    <div style={{
-    width:"100vh",
+    width:"60vw",
     height:"50vh",
-    marginBottom: "5px",
+    marginTop: "5px",
     marginLeft: "5px",
-    backgroundColor:"white",
-    border:"2px black solid",
-    borderRadius: "10px 10px 10px 0px"
+    backgroundColor:"#FFFFFF80",
+    borderRadius: "0px 30px 30px 30px",
+
    }} >
-        {content}    
+        {content}
    </div>
   );
 };

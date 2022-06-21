@@ -13,10 +13,8 @@ const Journal = ({idTrip}) => {
     const style = {
         width: "100vw",
         height: "90vh",
-        zIndex :5 ,
         overflow: 'auto',
-        background: "rgb(32,29,103)",
-        background: "linear-gradient(90deg, rgba(32,29,103,1) 0%, rgba(24,24,176,1) 48%, rgba(24,118,209,1) 84%)"
+        background: "linear-gradient(to right top, #1976d2, #0096dc, #00adbe, #00bd89, #81c654)"
     }
 
     if(isLoading){
@@ -26,8 +24,8 @@ const Journal = ({idTrip}) => {
    <div style={style}>
     {
         messages.map( (message) => {
-            return ( <div style={{display: "flex", flexDirection: "row"}}>
-                <IconButton>{message.User.avatar  ? <img style={{border: "2px solid white", borderRadius:"50%"}} height={"50vh"} width={"50vh"} src={message.User.avatar} /> : <People />}</IconButton>
+            return ( <div style={{display: "flex", flexDirection: "row", overflow: 'hidden'}}>
+                {message.User.avatar  ? <img style={{border: "2px solid white", borderRadius:"50%"}} height={"60px"} width={"60px"} src={message.User.avatar} /> : <People />}
             <MessageCard content={message.content} user={message.user} title={message.title} date={message.creationDate} file={message.File}/>
             </div>)
         })

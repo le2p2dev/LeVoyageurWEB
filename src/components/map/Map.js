@@ -10,6 +10,9 @@ import {
 import TextField from "@mui/material/TextField";
 import { IconButton } from "@mui/material";
 import { SearchRounded } from "@mui/icons-material";
+import MapIcon from "@mui/icons-material/Map";
+import DirectionsIcon from "@mui/icons-material/Directions";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Slide from "@mui/material/Slide";
 import listAPI from "../../api/listApi";
 import PoiModal from "./PoiModal";
@@ -446,9 +449,11 @@ const Map = ({
           id="seatchBtnMap"
           type="submit"
           onClick={() => handleLocationSearch()}
-        >
-          <SearchRounded className="searchIcon" />
-        </IconButton>
+        />
+        {mode == 1 ? <IconButton style={{color:"#1976D2", backgroundColor:"#fff", marginTop:"3%", marginLeft:"3%"}} id="NavigationMode" type="submit" onClick={() => changeMode("1")} > <MapIcon sx={{ fontSize: "40px" }}/> </IconButton > : <IconButton style={{color:"gray", backgroundColor:"#fff", marginTop:"3%", marginLeft:"3%"}} id="NavigationMode" type="submit" onClick={() => changeMode("1")} > <MapIcon/> </IconButton>}
+        {mode == 3 ? <IconButton style={{color:"#008000", backgroundColor:"#fff", marginTop:"3%", marginLeft:"3%"}} id="StepMode" type="submit" onClick={() => changeMode("3")} > <DirectionsIcon sx={{ fontSize: "40px" }}/> </IconButton> : <IconButton style={{color:"gray", backgroundColor:"#fff", marginTop:"3%", marginLeft:"3%"}} id="StepMode" type="submit" onClick={() => changeMode("3")} > <DirectionsIcon/> </IconButton>}
+        {mode == 2 ? <IconButton style={{color:"#EA4335", backgroundColor:"#fff", marginTop:"3%", marginLeft:"3%"}} id="POIMode" type="submit" onClick={() => changeMode("2")} > <LocationOnIcon sx={{ fontSize: "40px" }}/> </IconButton> : <IconButton style={{color:"gray", backgroundColor:"#fff", marginTop:"3%", marginLeft:"3%"}} id="POIMode" type="submit" onClick={() => changeMode("2")} > <LocationOnIcon/> </IconButton>}
+        
       </div>
       <div className="mapDiv">
         <LoadScript googleMapsApiKey="AIzaSyAYdTsYL1j24J-9yh82wyY8K088VoYT69M">

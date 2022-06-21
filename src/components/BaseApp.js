@@ -3,14 +3,11 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
+import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import MapIcon from "@mui/icons-material/Map";
-import DirectionsIcon from "@mui/icons-material/Directions";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import listAPI from "../api/listApi";
 import Map from "./map/Map";
-import Filter from "./map/Filter";
 import { Message, People } from "@mui/icons-material";
 
 const BaseApp = () => {
@@ -60,46 +57,34 @@ const BaseApp = () => {
             }}
           >
             <BottomNavigationAction
-              sx={{ width: navWidth, color: "grey" }}
+              sx={{ width: navWidth, color: "#81C654" }}
               value="1"
-              label="Navigation"
+              label="Map"
               icon={<MapIcon />}
             />
             <BottomNavigationAction
-              sx={{ width: navWidth, color: "red" }}
-              value="2"
-              label="POI"
-              icon={<LocationOnIcon />}
-            />
-            <BottomNavigationAction
-              sx={{ width: navWidth, color: "green" }}
-              value="3"
-              label="Step"
-              icon={<DirectionsIcon />}
-            />
-            <BottomNavigationAction
-              sx={{ width: navWidth }}
+              sx={{ width: navWidth, color:"#1978CF" }}
               value="4"
-              label="List View"
+              label="List"
               icon={<FormatListBulletedIcon />}
             />
             <BottomNavigationAction
-              sx={{ width: navWidth}}
-              value="5"
-              label="Files"
-              icon={<FileCopyIcon />}
+              style={{ width: navWidth, color:"#1978CF" }}
+              value="7"
+              label="Journal"
+              icon={<Message />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth}}
+              style={{ width: navWidth, color:"#FF8C00"}}
               value="6"
               label="Members"
               icon={<People />}
             />
             <BottomNavigationAction
-              style={{ width: navWidth }}
-              value="7"
-              label="Journal"
-              icon={<Message />}
+              sx={{ width: navWidth}}
+              value="5"
+              label="Files"
+              icon={<InsertDriveFile />}
             />
           </BottomNavigation>
         </div>

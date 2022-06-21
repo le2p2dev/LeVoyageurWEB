@@ -131,7 +131,7 @@ const PoiModal = ({
           margin="dense"
           variant="standard"
           id="basic"
-          placeholder="Title"
+          label="Title"
           value={poiTitle}
           onChange={handlePoiTitleChange}
         />
@@ -140,7 +140,7 @@ const PoiModal = ({
           margin="dense"
           variant="outlined"
           id="textarea"
-          placeholder="Set a description"
+          label="Description"
           multiline
           rows={4}
           value={poiDescription}

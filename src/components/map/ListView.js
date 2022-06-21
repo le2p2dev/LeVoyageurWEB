@@ -35,7 +35,6 @@ const ListView = ({openModal}) => {
   return (
     <>
       <div style={{
-            zIndex: 5,
             position: "fixed",
             width: "95vw",
             height: "90vh",
@@ -48,10 +47,10 @@ const ListView = ({openModal}) => {
             <div
               key={step.id}
               style={{
-                zIndex: 5,
                 margin: "1%",
                 padding: "1%",
                 borderRadius: "5px",
+                background:"#F2FFF2",
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
             >
@@ -85,7 +84,6 @@ const ListView = ({openModal}) => {
                     margin: "1%",
                     padding: "1%",
                     borderRadius: "5px",
-                    background:"#F2FFF2",
                     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                   }}>
                   {ride.estimation ? ride.estimation : "0h"}
