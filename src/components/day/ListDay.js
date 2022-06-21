@@ -20,7 +20,7 @@ const ListDay = ({ idStep, idTrip, openModal }) => {
           overflow: "auto",
         }}
       >
-        {days.map((day) => {
+        {days?.map((day) => {
           return (
             <div
               key={day.id}

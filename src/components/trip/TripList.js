@@ -28,6 +28,7 @@ export const CreateTrip = () => {
   const handleTripNameChange = (event) => {
     setTripName(event.target.value);
   };
+ 
 
   const addTrip = useMutation(listAPI.CreateTrip, {
     onSuccess: () => queryClient.invalidateQueries(idUser + "trips"),
@@ -58,6 +59,7 @@ export const CreateTrip = () => {
             variant="standard"
             onChange={handleDescriptionChange}
           />
+         
         </CardContent>
         <CardActions>
           <Button
@@ -65,6 +67,7 @@ export const CreateTrip = () => {
               addTrip.mutate({
                 tripName: tripName,
                 description: description,
+               
               });
               setCreating(false);
             }
@@ -116,6 +119,7 @@ export default function TripList() {
                     id={trip.id}
                     name={trip.title}
                     description={trip.description}
+                    background={trip.backgroundUrl}
                   />
                 </Grid>
               );

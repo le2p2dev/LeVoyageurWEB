@@ -24,8 +24,8 @@ import redPin from "../../assets/red_pin.png";
 import Notification from "./Notification";
 import PoiList from "../POI/PoiList";
 import ListView from "./ListView";
+import Members from "../Members"
 
-import RideModal from "./RideModal"
 import TripFiles from "../files/TripFiles";
 
 const Map = ({
@@ -97,8 +97,6 @@ const Map = ({
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
 
-  const [isRideModalOpen,setIsRideModalOpen] = useState(false);
-  const [coordsRideModal,setCoordsRideModal] = useState([]);
 
   const [rideID,setRideID] = useState(0);
   const [stepStartID,setStepStartID] = useState(0);
@@ -400,7 +398,6 @@ const Map = ({
 
 
   };
-
   const clickLine = (coords,currentRideId,currentStepStart,currentStepEnd,) => {
 
  
@@ -410,16 +407,12 @@ const Map = ({
     setStepStartID(currentStepStart);
     setStepEndID(currentStepEnd);
 
-
   };
-
-  
 
     if (!stepList) {
       return <>loading</>;
     }
-
-
+  
     const setPathObject = (startStep,endStep) => {
   
       var start = {};
@@ -452,6 +445,9 @@ const Map = ({
 
 
   return (
+    mode == 6 ?
+    <Members></Members>
+    :
     mode == 5 ?
     <TripFiles idTrip={idTrip}></TripFiles>
     :
@@ -488,17 +484,17 @@ const Map = ({
               yesIWantToUseGoogleMapApiInternals={true}
               onLoad={(ev) => setMapRef(ev)}
               onClick={
-                mode == 1
-                  ? () => openNavModeNotification(TransitionUp)
-                  : mode == 2
-                  ? (ev) => {
-                      showPOI(ev);
-                    }
-                  : mode == 3
-                  ? (ev) => {
-                      showStep(ev);
-                    }
-                  : null
+              mode == 1
+                ? () => openNavModeNotification(TransitionUp)
+                : mode == 2
+                ? (ev) => {
+                    showPOI(ev);
+                  }
+                : mode == 3
+                ? (ev) => {
+                    showStep(ev);
+                  }
+                : null
               }
               options={{
                 
@@ -668,8 +664,7 @@ const Map = ({
               close={closeDeletePOINotification}
               transition={notificationTransition}
             />
-          ) : null}
-        
+          ) : null}    
           {isRideModalOpen ? (
               <RideModal
                 coords ={coordsRideModal}
@@ -680,11 +675,7 @@ const Map = ({
                 rideId={rideID}
               />
           ) : null}
-          
-
         </div>
-
-
       </>
   );
 };
