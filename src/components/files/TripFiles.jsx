@@ -50,8 +50,7 @@ const TripFiles = ({ idTrip }) => {
     <div style={{ marginLeft: "10%", width: "100%" }}>
       <h2>My files</h2>
 
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
+      
           <label>
             <Input
               sx={{ display: "none" }}
@@ -71,30 +70,7 @@ const TripFiles = ({ idTrip }) => {
         <IconButton onClick={handleUpload}>
           <FileUpload />
         </IconButton>
-        </Grid>
-        <Grid item xs={6}>
-        <label>
-            <Input
-              sx={{ display: "none" }}
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-              onChange={(e) => setSelectedFile(e.target.files[0])}
-              onSubmit={(e) => e.preventDefault()}
-            />
-            <Button variant="contained" component="span">
-              {selectedFile ? selectedFile.name : "No file chosen"}
-            </Button>
-          </label>
-
-        
-        <IconButton onClick={handleUpload}>
-          <FileUpload />
-        </IconButton>
-        </Grid>
-
-      </Grid>
+    
 
       
 
