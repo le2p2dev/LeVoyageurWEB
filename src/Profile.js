@@ -130,8 +130,10 @@ const Profile = () => {
         const file = event.target.files[0];
         const url = await(readURL(file));
         setSrcPath(url);
-
-        event.target.value = '';
+        updateUser.mutate({
+            image:file
+        })
+        //event.target.value = '';
 
     }
 
@@ -295,7 +297,7 @@ const Profile = () => {
                         />  
                         <label id = "addImgBtn" htmlFor="contained-button-file">
                             <input onChange = {handleUploadBtnClick}  accept="image/*" id="contained-button-file" multiple type="file" style={{display:"none"}} />
-                            <Button variant="contained"> <AddPhotoAlternateOutlinedIcon/> </Button>
+                            <Button onClick = {() => document.getElementById("contained-button-file").click()} variant="contained"> <AddPhotoAlternateOutlinedIcon/> </Button>
                         </label>      
                     </div>     
                 </div>

@@ -86,8 +86,6 @@ const Map = ({
    const[poiLabel,setPoiLabel] = useState("");
    const[stepLabel,setStepLabel] = useState("");
    const [rideList, setRideList] = useState([]);
-  
-
   const [notificationTransition, setNotificationTransition] =
     useState(undefined);
   const [isOpenNavModeNotification, setIsOpenNavModeNotification] =
@@ -99,6 +97,10 @@ const Map = ({
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
 
+
+  const [rideID,setRideID] = useState(0);
+  const [stepStartID,setStepStartID] = useState(0);
+  const [stepEndID,setStepEndID] = useState(0);
 
 
   //#endregion
@@ -136,6 +138,10 @@ const Map = ({
   const handleCloseStep = () => {
     setIsStepModalOpen(false);
     setSelectedStep(null)
+  };
+
+  const handleCloseRide = () => {
+    setIsRideModalOpen(false);
   };
 
   const center = () => {
@@ -392,13 +398,23 @@ const Map = ({
 
 
   };
+  const clickLine = (coords,currentRideId,currentStepStart,currentStepEnd,) => {
+
+ 
+    setCoordsRideModal([coords[0].lng,coords[0].lat,coords[1].lng,coords[1].lat]);
+    setIsRideModalOpen(true);
+    setRideID(currentRideId);
+    setStepStartID(currentStepStart);
+    setStepEndID(currentStepEnd);
+
+  };
 
     if (!stepList) {
       return <>loading</>;
     }
-
+  
     const setPathObject = (startStep,endStep) => {
-
+  
       var start = {};
       var end = {};
 
@@ -425,6 +441,7 @@ const Map = ({
       }
       else return [];
     }
+
 
 
   return (
@@ -573,6 +590,7 @@ const Map = ({
                       key={i}
                       onLoad={onLoad}
                       path={setPathObject(e.stepStart,e.stepEnd)}
+                      onClick={() => clickLine(setPathObject(e.stepStart,e.stepEnd),e.id,e.startStep,e.endStep,)}
                       options={{
                         geodesic: true,
                         strokeColor: "green",
@@ -646,6 +664,16 @@ const Map = ({
               close={closeDeletePOINotification}
               transition={notificationTransition}
             />
+          ) : null}    
+          {isRideModalOpen ? (
+              <RideModal
+                coords ={coordsRideModal}
+                closeRide={handleCloseRide}
+                tripId={idTrip}
+                startStep={stepStartID}
+                endStep={stepEndID}
+                rideId={rideID}
+              />
           ) : null}
         </div>
       </>
