@@ -382,6 +382,10 @@ const Map = ({
     setNotificationTransition(() => NotificationTransition);
   };
 
+  const defaultMapOptions = {
+	fullscreenControl: false,
+  };
+
   //#endregion
 
   //définition polyline
@@ -415,7 +419,7 @@ const Map = ({
   return mode == 7 ? (
     <Journal idTrip={idTrip} />
   ) : mode == 6 ? (
-    <Members></Members>
+    <Members idTrip={idTrip}></Members>
   ) : mode == 5 ? (
     <TripFiles idTrip={idTrip}></TripFiles>
   ) : mode == 4 ? (
@@ -488,6 +492,7 @@ const Map = ({
                   stylers: [{ visibility: e.value ? "on" : "off" }],
                 };
               }),
+			  disableDefaultUI: true,
             }}
           >
             {isLoadingSteps
