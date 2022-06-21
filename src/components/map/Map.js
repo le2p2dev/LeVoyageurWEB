@@ -27,6 +27,7 @@ import ListView from "./ListView";
 import Members from "../Members"
 
 import TripFiles from "../files/TripFiles";
+import RideModal from "./RideModal";
 
 const Map = ({
   idTrip,
@@ -96,6 +97,7 @@ const Map = ({
     useState(false);
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
+  const [isRideModalOpen,setIsRideModalOpen] = useState(false);
 
 
   const [rideID,setRideID] = useState(0);
