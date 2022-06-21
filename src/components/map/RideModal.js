@@ -4,9 +4,7 @@ import "./RideModal.css"
 
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import DirectionsBikeOutlinedIcon from '@mui/icons-material/DirectionsBikeOutlined';
-import DirectionsWalkOutlinedIcon from '@mui/icons-material/DirectionsWalkOutlined';
 import CircleIcon from '@mui/icons-material/Circle';
-import Mapbox from "react-map-gl/src/mapbox/mapbox";
 import MapBox from "../../api/MapBox";
 
 const RideModal = (coords) => {

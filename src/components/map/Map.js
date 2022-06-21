@@ -26,7 +26,6 @@ import PoiList from "../POI/PoiList";
 import ListView from "./ListView";
 import Members from "../Members"
 
-import RideModal from "./RideModal"
 import TripFiles from "../files/TripFiles";
 
 const Map = ({
@@ -100,8 +99,6 @@ const Map = ({
   const [firstStepLoading, setFirstStepLoading] = useState(false);
   const [mapRef, setMapRef] = useState();
 
-  const [isRideModalOpen,setIsRideModalOpen] = useState(false);
-  const [coordsRideModal,setCoordsRideModal] = useState([]);
 
 
   //#endregion
@@ -396,17 +393,6 @@ const Map = ({
 
   };
 
-  const clickLine = (coords) => {
-
- 
-    setCoordsRideModal([coords[0].lng,coords[0].lat,coords[1].lng,coords[1].lat]);
-    console.log("here ride modal=",coordsRideModal);
-    setIsRideModalOpen(true);
-
-  };
-
-  
-
     if (!stepList) {
       return <>loading</>;
     }
@@ -481,17 +467,17 @@ const Map = ({
               yesIWantToUseGoogleMapApiInternals={true}
               onLoad={(ev) => setMapRef(ev)}
               onClick={
-                mode == 1
-                  ? () => openNavModeNotification(TransitionUp)
-                  : mode == 2
-                  ? (ev) => {
-                      showPOI(ev);
-                    }
-                  : mode == 3
-                  ? (ev) => {
-                      showStep(ev);
-                    }
-                  : null
+              mode == 1
+                ? () => openNavModeNotification(TransitionUp)
+                : mode == 2
+                ? (ev) => {
+                    showPOI(ev);
+                  }
+                : mode == 3
+                ? (ev) => {
+                    showStep(ev);
+                  }
+                : null
               }
               options={{
                 
@@ -587,7 +573,6 @@ const Map = ({
                       key={i}
                       onLoad={onLoad}
                       path={setPathObject(e.stepStart,e.stepEnd)}
-                      onClick={() => clickLine(setPathObject(e.stepStart,e.stepEnd))}
                       options={{
                         geodesic: true,
                         strokeColor: "green",
@@ -662,17 +647,7 @@ const Map = ({
               transition={notificationTransition}
             />
           ) : null}
-
-          {isRideModalOpen ? (
-            <RideModal
-            coords ={coordsRideModal}
-            />
-          ) : null}
-          
-
         </div>
-
-
       </>
   );
 };
