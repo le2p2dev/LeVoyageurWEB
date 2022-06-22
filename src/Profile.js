@@ -309,6 +309,9 @@ const Profile = () => {
             <div id="infoPannel">
                 <header id="headerProfilePage">
                     <h1> Your personal information</h1>
+                    <Button onClick={() => navigate("/trip/list")}>
+                        My Trips
+                    </Button>
                 </header>
                 <div className="infoBoxes">
                     <div>

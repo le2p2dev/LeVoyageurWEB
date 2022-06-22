@@ -493,13 +493,23 @@ const listAPI = {
     },
 
     UpdateUser: (data) => {
-        console.log("data=", data);
         const formData = new FormData();
-        formData.append("username", data.username);
-        formData.append("password", data.password);
-        formData.append("currentPassword", data.currentPassword);
-        formData.append("image", data.image);
+        if (data.username != null) {
+            console.log("here");
+            formData.append("username", data.username);
+        }
+        if (data.password != null) {
+            console.log("here2");
 
+            formData.append("password", data.password);
+            formData.append("currentPassword", data.currentPassword);
+        } else {
+            console.log("here3");
+
+            formData.append("image", data.image);
+        }
+
+        console.log(formData);
         const urlSuffix = `user/${jwtDecode(localStorage.getItem("token")).id}`;
         console.log(formData);
         fetch(urlPrefix + urlSuffix, {
