@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
@@ -22,25 +22,17 @@ const DiscoverVoyageur = () => {
           }}
         >
           <div style={{
-            backgroundImage:  `url(https://i.ibb.co/ZWcyMpt/backdrop.gif)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            height:"190px"
           }}>
-            <h1 style={{
-              fontSize: 140,
-              mixBlendMode: "lighten",
-              background: "white"
-            }}>Le Voyageur</h1>
+            <img alt="Logo full" src="https://i.ibb.co/S79TwfP/full.png"></img>
           </div>
-          <p style={{marginLeft:"10%", marginRight:"10%"}}>
-            Utilisez Le Voyageur pour planifier votre voyage comme si vos y
-            Étiez déjà ! CLickez sur "access trip" pour pouvoir accéder à vos
-            voyages et/ou en crée un nouveau. Notre outil vous permet d'élaborer
-            votre séjour et de le suivre sur notre application mobile. Un outil
-            d'organisation, d'économie et de gestion !
+          <p style={{textAlign:"center"}}>
+            LeVoyageur App lets you plan your next trip as if you were already there !
+            <br/>Create an account then click My Trips below to create your next trip.
+            <br/>You will then be able to share, plan, add files and follow the trip on your smartphone ! 
           </p>
 
           {isLogged ? (

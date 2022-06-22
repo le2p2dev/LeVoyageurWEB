@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import {
-  InputAdornment,
-  FormControl,
-  InputLabel,
   Input,
   Button,
-  MenuItem,
-  TextField,
   IconButton,
-  Modal,
-  Grid,
 } from "@mui/material";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import listAPI from "../../api/listApi";
 
 import FileCard from './FileCard'
 
-import { FileUpload, InsertDriveFile } from "@mui/icons-material";
+import { FileUpload } from "@mui/icons-material";
 
 const TripFiles = ({ idTrip }) => {
   const queryClient = useQueryClient();
@@ -48,9 +41,7 @@ const TripFiles = ({ idTrip }) => {
 
   return (
     <div style={{ marginLeft: "10%", width: "100%" }}>
-      <h2 style={{  }}><InsertDriveFile/> My Trip Passeport</h2>
-
-      
+      <h2 style={{  }}>My files</h2>
           <label>
             <Input
               sx={{ display: "none" }}
