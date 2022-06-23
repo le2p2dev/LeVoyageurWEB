@@ -8,18 +8,23 @@ const Journal = ({content,user,title,date,file}) => {
    
 
    
-  return (
+  return (<>
    <div style={{
-    width:"60vw",
-    height:"50vh",
-    marginTop: "5px",
-    marginLeft: "5px",
+    boxShadow:"3px 3px 3px 3px #00000030",
+    width:"75vw",
+    minHeight:"20vh",
+    marginLeft: "3vw",
+    marginTop:"1vh",
+    padding:"10px",
     backgroundColor:"#FFFFFF80",
     borderRadius: "0px 30px 30px 30px",
 
    }} >
-        {content}
+    <span style={{fontSize:20}}>{title}</span>
+    <p>{content}</p>
+    
    </div>
+ </>
   );
 };
 

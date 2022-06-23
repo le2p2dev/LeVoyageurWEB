@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useMutation, queryClient, useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import listAPI from "../api/listApi";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import { TextField } from "@mui/material";
+import { TextField, IconButton } from "@mui/material";
+import { People } from "@mui/icons-material";
 
 const Members = ({ idTrip }) => {
     const [member, setMember] = useState("");
-    const [memberList, setMemberList] = useState([]);
     const [error, setError] = useState("");
 
     const updateTrip = useMutation(listAPI.UpdateTrip, {
         onSuccess: (data) => {
             if (data == "404") {
-                setError("user not found");
+                setError("User not found");
             } else {
                 setError("");
                 refetch();
@@ -52,16 +52,18 @@ const Members = ({ idTrip }) => {
                 onChange={handleMemberChange}
                 value={member}
             />
-            <button onClick={() => addMember(member)}>
-                {" "}
-                <PersonAddAltIcon />{" "}
-            </button>
-            {error == "" ? null : <p> {error} </p>}
+            <IconButton onClick={() => addMember(member)}>
+                <PersonAddAltIcon sx={{fontSize:36}} />
+            </IconButton>
+            {error == "" ? null : <p style={{color:"red"}}> {error} </p>}
             <div>
                 {isLoadingMembers
                     ? null
                     : membersFromTrip?.map((e, i) => {
-                          return <li key={i}> {e.username} </li>;
+                          return (<div style={{display: "flex",flexDirection:"row"}}>
+                            {e.avatar ? <img alt="user Avatar" style={{border:"2px solid white",boxShadow:"2px 2px 2px black", borderRadius:"50%", marginTop:"1vh"}} height={"60px"} width={"60px"} src={e.avatar} /> : <People style={{fontSize:"60",boxShadow:"2px 2px 2px black", color:"black", border: "2px solid white", borderRadius:"50%", marginTop:"1vh"}}/>}
+                            <p style={{marginLeft:"2vw", paddingTop:"7px"}}>{e.username} </p>
+                          </div>);
                       })}
             </div>
         </div>

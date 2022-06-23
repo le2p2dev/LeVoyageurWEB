@@ -88,7 +88,7 @@ const BaseApp = () => {
             />
           </BottomNavigation>
         </div>
-        <div style={{ height: "90vh" }}>
+        <div style={{ height: "88vh" }}>
           <>
             <Map
               idTrip={id}
@@ -101,8 +101,6 @@ const BaseApp = () => {
           </>
         </div>
       </div>
-
-      {/* <StepList idTrip={id} titleTrip={data.response[0]?.title} /> */}
     </>
   );
 };
