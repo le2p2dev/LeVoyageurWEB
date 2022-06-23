@@ -3,6 +3,8 @@
 
 # Documents
 
+- [document d'intégration](./documents/Integration.md)
+
 ### Membres du projet :
 
 - <a href="https://github.com/mathieu900v">Mathieu Voyer </a>
