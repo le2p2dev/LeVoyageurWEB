@@ -49,6 +49,8 @@ const DiscoverVoyageur = () => {
             <Button onClick={() => { navigate("/signin") }} >Sign in</Button>
           )}
         </div>
+        <a style={{justifyContent : "center", display : 'flex', height : 150, marginTop: 60}} href="https://docs.google.com/uc?export=download&id=18A_prhcafbZVPStQ0MzDv4qzupmJxtRg"><img alt="appli mobile" target="_blank" src="https://guide-images.cdn.ifixit.com/igi/hAgr2LwD6AECIwsh.large"></img></a>
+
     </>
   );
 };
