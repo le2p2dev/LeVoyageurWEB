@@ -3,7 +3,7 @@
 
 # Documents
 
-- [document d'intégration](./document/Integration.md)
+- [document d'intégration](./documents/Integration.md)
 
 ### Membres du projet :
 
