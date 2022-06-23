@@ -43,7 +43,7 @@ const ListView = ({ openModal }) => {
                     overflowY: "scroll",
                 }}
             >
-                <h3 style={{ paddingLeft: "1%" }}>List View</h3>
+                <h2 style={{ paddingLeft: "1%" }}>List</h2>
                 {Steps.map((step, no) => {
                     return (
                         <div key={step.id}>

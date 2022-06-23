@@ -1,31 +1,11 @@
-import {
-  Grid,
-  Select,
-  MenuItem,
-  Checkbox,
-  ListItemText,
-  IconButton,
-  Button,
-} from "@mui/material";
+import {Grid,IconButton} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PoiList from "../POI/PoiList";
 import { useQueryClient, useMutation } from "react-query";
 import listAPI from "../../api/listApi";
 import {Save, Cancel, AddLocationAlt} from '@mui/icons-material';
 
-const Day = ({
-  id,
-  idStep,
-  idTrip,
-  number,
-  POIs,
-  poisForDay,
-  removePoiOfDay,
-  openModal,
-  addPoiToDay,
-  AddingPoiToDayId,
-  setAddingPoiToDayId
-}) => {
+const Day = ({ id, idStep, idTrip, number, POIs, poisForDay, removePoiOfDay, openModal, addPoiToDay, AddingPoiToDayId, setAddingPoiToDayId }) => {
   const [poisSelected, setPoisSelected] = useState(poisForDay);
   const handleCancel = () => {
     setAddingPoiToDayId(0);
@@ -79,7 +59,7 @@ const Day = ({
         poisSelected?.map((poi) => (
           <Grid container spacing={1} key={poi.id}>
             <Grid item xs={10}>
-            <div style={{marginLeft:"5%"}}>- {poi.title ? poi.title : poi.id}{" "}</div>
+              <div style={{marginLeft:"5%"}}>- {poi.title ? poi.title : poi.id}{" "}</div>
             </Grid>
             <Grid item xs={2}>
               <IconButton style={{color:"#e3b600"}} id = "cancel" onClick={() => removePoiOfDay(poi.id)} aria-label="cancel"> <Cancel /> </IconButton>

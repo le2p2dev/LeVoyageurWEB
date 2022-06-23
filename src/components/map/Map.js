@@ -589,7 +589,7 @@ const Map = ({
                                     ],
                                 };
                             }),
-                            disableDefaultUI: true,
+                            disableDefaultUI: false,
                         }}
                     >
                         {isLoadingSteps

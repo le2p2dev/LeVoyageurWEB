@@ -1,6 +1,6 @@
 
 const mapBoxToken = "&access_token=pk.eyJ1IjoiNTczZiIsImEiOiJja3l5Z2JoMWQwcnlsMnJzM2pxN29md2RnIn0.YnpLDRmULNCqnV2XLcmgCQ";
-const urlPrefixGeocoding = "https://api.mapbox.com/geocoding/v5/mapbox/";
+const urlPrefixGeocoding = "https://api.mapbox.com/geocoding/v5/mapbox";
 const urlPrefixDirections = "https://api.mapbox.com/directions/v5/mapbox/";
 
 const MapBox = {
