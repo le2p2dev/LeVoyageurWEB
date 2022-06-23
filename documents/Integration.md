@@ -15,3 +15,18 @@ Sous la racine du projet, il faut [installer les package npm](https://docs.npmjs
 [Vidéo de lancement du script](./assets/Enregistrement%20de%20l%E2%80%99%C3%A9cran%202022-06-23%20%C3%A0%2012.57.00.mov)
 
 l'application est disponible en local à l'adresse [suivante](http://localhost:3000/)
+
+## Déploiement sur un serveur distant
+
+l'application dispose d'une [github action](../.github/workflows/Zdeploy.yml) qui s'occupe d'envoyer sur le serveur de votre [runner](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners), vous trouverez alors sur votre serveur une hiérarchie suivante :
+
+![imageLS](./assets/Capture%20d%E2%80%99%C3%A9cran%202022-06-23%20%C3%A0%2013.58.45.png)
+
+installer un serveur nginx et configurez le
+site-available/default avec le entrypoint root comme suis :
+
+![imageRoot](./assets/Capture%20d%E2%80%99%C3%A9cran%202022-06-23%20%C3%A0%2014.02.46.png)
+
+une fois cette configuration effectuée, à chaque push sur la branche main le runner s'ocupera du déploiement sur le serveur distant
+
+![imageRunner](./assets/Capture%20d%E2%80%99%C3%A9cran%202022-06-23%20%C3%A0%2014.48.13.png)
